@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://ai100-2.cupoy.com/mission/D30 -->
+<html lang="zh-Hant-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,shrink-to-fit=no"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Language" content="zh-tw"><meta property="og:title" content="分類型特徵優化 - 葉編碼 - 機器學習百日馬拉松"><meta property="og:description" content="葉編碼 : 適用於分類問題的樹狀預估模型改良"><meta property="og:image" content="https://ai100-2.cupoy.com/images/landing.png"><meta property="og:url" content="https://ai100-2.cupoy.com/introduction"><meta property="og:type" content="website"><meta name="description" content="葉編碼 : 適用於分類問題的樹狀預估模型改良"><meta property="keywords" content=""><link rel="manifest" href="https://ai100-2.cupoy.com/manifest.json"><link rel="shortcut icon" href="https://ai100-2.cupoy.com/favicon.ico"><link rel="stylesheet" href="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/material-design-iconic-font.css" media="all" as="style" onload="this.media=&quot;all&quot;"><link rel="stylesheet" href="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/style.css" media="all" as="style" onload="this.media=&quot;all&quot;"><link rel="stylesheet" href="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/css" onload="this.media=&quot;all&quot;" media="all"><link rel="stylesheet" href="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/prism.min.css"><script id="facebook-jssdk" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/xfbml.customerchat.js.下載"></script><script async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/analytics.js.下載"></script><script src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/marked.min.js.下載"></script><script src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/prism.min.js.下載" data-manual=""></script><script src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/prism-python.min.js.下載" data-manual=""></script><script src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/pdfjs-dist"></script><script src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/pdf.js.下載"></script><script src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/nbv.js.下載" data-manual=""></script><!--<base href="/">--><base href="."><title>D30 - 分類型特徵優化 - 葉編碼 - 任務內容 | 百日馬拉松</title><link href="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/main.c21fe22b.css" rel="stylesheet"><style type="text/css" data-styled-components="gjEMDO gZycLD hipIMd iPxgxU kOkLwy gGZfMk PMTJK hpfjNF jPgOPT zxsQC fSyrvQ jWWzYW bLUSgo jTPnhv eNXXhq gZvlrn hOmGVH dtzZcb eghRAA htvfZS hkxsQx bqFhyw NPZQO" data-styled-components-is-local="true">
+/* sc-component-id: sc-keyframes-gjEMDO */
+@-webkit-keyframes gjEMDO{from{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}to{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}@keyframes gjEMDO{from{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}to{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}
+/* sc-component-id: sc-bwzfXH */
+
+.hOmGVH{position:relative;width:100%;height:100%;}
+/* sc-component-id: sc-jzJRlG */
+
+.gZycLD{position:fixed;top:0;left:0;right:0;height:80px;background-color:transparent;z-index:950;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0);padding:0 12px;background-color:#3930B4;-webkit-transition:.2s;transition:.2s;}
+/* sc-component-id: sc-cSHVUG */
+
+.hipIMd{position:relative;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;width:1014;max-width:1260px;height:100%;margin:0 auto;box-sizing:border-box;}
+/* sc-component-id: sc-kAzzGY */
+
+@media screen and (min-width:769px){.hpfjNF{display:none;}}
+/* sc-component-id: sc-chPdSV */
+
+.jPgOPT{position:fixed;z-index:999;width:20px;height:17px;display:block;top:30px;right:15px;}
+/* sc-component-id: sc-kgoBCf */
+
+.zxsQC{position:absolute;width:20px;height:3px;border-radius:2px;background-color:#fff;top:0;left:0;-webkit-transition:.2s;transition:.2s;-webkit-transform:none;-ms-transform:none;transform:none;}
+/* sc-component-id: sc-kGXeez */
+
+.fSyrvQ{position:absolute;width:20px;height:3px;border-radius:2px;background-color:#fff;top:7px;left:0;opacity:1;-webkit-transition:.2s;transition:.2s;}
+/* sc-component-id: sc-kpOJdX */
+
+.jWWzYW{position:absolute;width:20px;height:3px;border-radius:2px;background-color:#fff;top:14px;left:0;-webkit-transition:.2s;transition:.2s;-webkit-transform:none;-ms-transform:none;transform:none;}
+/* sc-component-id: sc-dxgOiQ */
+
+.gZvlrn{position:fixed;width:100vw;height:100vh;left:0;top:0;display:none;background-color:transparent;z-index:8;-webkit-transition:.2s;transition:.2s;}
+/* sc-component-id: sc-ckVGcZ */
+
+.bLUSgo{position:fixed;width:100%;padding:30px;height:100vh;background-color:#3930B4;top:0;z-index:10;padding-top:73px;left:100%;-webkit-transition:.2s;transition:.2s;}
+/* sc-component-id: sc-eNQAEJ */
+
+.jTPnhv{display:block;margin:0;margin-top:16px;}
+/* sc-component-id: sc-hMqMXs */
+
+.eNXXhq{display:block;text-align:center;width:100%;padding:20px 0;font-size:24px;font-weight:300;color:#fff;}
+/* sc-component-id: sc-kEYyzF */
+
+.iPxgxU{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}@media screen and (max-width:768px){.iPxgxU{display:none;}}.iPxgxU > *{margin-right:16px;height:100%;line-height:79px;}
+/* sc-component-id: sc-iAyFgw */
+
+.kOkLwy{width:100%;height:80px;line-height:80px;padding:0 16px;position:relative;color:#F5F5F5;font-weight:normal;font-size:18px;-webkit-transition:.2s;transition:.2s;box-shadow:inset 0 -3px 0 transparent;opacity:60;}.kOkLwy:last-child{margin:0;}.kOkLwy:hover{color:#fff;}
+/* sc-component-id: sc-hSdWYo */
+
+.gGZfMk{position:relative;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#E2DFDE;}
+/* sc-component-id: sc-eHgmQL */
+
+.PMTJK{height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#8A807F;position:relative;cursor:pointer;}.PMTJK > span{-webkit-transition:.2s;transition:.2s;}
+/* sc-component-id: sc-cvbbAY */
+
+.eghRAA{min-width:160px;position:absolute;right:0;bottom:-60px;visibility:hidden;opacity:0;-webkit-transition:.2s;transition:.2s;}@media screen and (max-width:480px){.eghRAA{display:none;}}
+/* sc-component-id: sc-jWBwVP */
+
+.htvfZS{width:100%;height:100%;text-align:center;background-color:#fff;border:1px solid #ccc;}
+/* sc-component-id: sc-brqgnP */
+
+.hkxsQx{width:100%;padding:10px;line-height:30px;font-size:16px;color:#333;-webkit-transition:.2s;transition:.2s;}@media screen and (max-width:480px){.hkxsQx{display:none;}}
+/* sc-component-id: sc-cMljjf */
+
+.bqFhyw{width:100%;padding:10px;line-height:30px;font-size:16px;color:#fff;-webkit-transition:.2s;transition:.2s;}@media screen and (max-width:480px){.bqFhyw{display:none;}}
+/* sc-component-id: sc-jAaTju */
+
+.dtzZcb{display:block;width:118px;height:40px;line-height:40px;border-radius:20px;background-color:#fff;text-align:center;color:#3031B4;font-size:14px;margin-right:20px;cursor:pointer;}@media screen and (max-width:480px){.dtzZcb{display:none;}}
+/* sc-component-id: sc-jDwBTQ */
+
+.NPZQO{width:249px;height:52px;border-radius:26px;background-color:#fff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#3930B4;font-size:20px;font-weight:normal;margin:0 auto;}</style><style type="text/css" data-styled-components="cYxTds eiPhbT fJUimU UCvJS djkPgX cWSlbe duBwWq" data-styled-components-is-local="true">
+/* sc-component-id: sc-gPEVay */
+
+.duBwWq{width:40px;height:40px;border-radius:50%;margin-right:10px;background-size:cover;background-repeat:no-repeat;background-position:center center;}@media screen and (max-width:480px){.duBwWq{display:none;border-radius:17px;}}.duBwWq:hover ~ div{visibility:visible;opacity:1;}
+/* sc-component-id: sc-iRbamj */
+
+.UCvJS{width:90px;height:40px;line-height:40px;border-radius:20px;background-color:#FFF;text-align:center;color:#3031B4;font-size:14px;}
+/* sc-component-id: sc-jlyJG */
+
+.fJUimU{display:block;width:40px;height:40px;border-radius:50%;background-image:url(./images/fbIcon.png);background-repeat:no-repeat;background-position:center center;background-size:cover;margin-right:20px;}@media screen and (max-width:480px){.fJUimU{display:none;}}
+/* sc-component-id: sc-kvZOFW */
+
+
+/* sc-component-id: sc-hqyNC */
+
+.cYxTds{display:block;height:81px;width:60px;margin-right:40px;background-image:url(./images/logo.png);background-repeat:no-repeat;background-position:center center;}
+/* sc-component-id: sc-jbKcbu */
+
+
+/* sc-component-id: sc-dNLxif */
+
+.djkPgX{display:block;width:100%;padding-bottom:30px;border-bottom:1px solid #E9E9E9;font-size:24px;color:#FFFFFF;font-weight:bold;}</style><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/0.419d2a1e.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/13.0fc7a45f.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/5.25fac560.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/9.ce668765.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/6.a0c33bb0.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/7.ebf1b9d5.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/4.3e971124.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/3.06fdac02.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/15.e21957ec.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/10.179d3c11.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/14.c22db639.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/11.03bb289a.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/8.3e94b5b3.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/12.3039fa24.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/17.80ee724d.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/2.f49fcc5d.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/1.9089805d.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/18.b1c667cd.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/16.4d2b63f0.chunk.js.下載"></script><script type="text/javascript" charset="utf-8" async="" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/19.500fbf61.chunk.js.下載"></script><link rel="stylesheet" href="blob:https://ai100-2.cupoy.com/c40683ad-e389-474d-82b3-805815004169"><link rel="stylesheet" href="blob:https://ai100-2.cupoy.com/c8423ecc-0920-49ea-a766-ff6c433a8804"><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="bcCCNc ggXszE kamjOr BqNw" data-styled-components-is-local="true">
+/* sc-component-id: sc-keyframes-bcCCNc */
+@-webkit-keyframes bcCCNc{0%{opacity:0;}100%{opacity:1;}}@keyframes bcCCNc{0%{opacity:0;}100%{opacity:1;}}
+/* sc-component-id: sc-keyframes-ggXszE */
+@-webkit-keyframes ggXszE{0%{opacity:1;}100%{opacity:0;}}@keyframes ggXszE{0%{opacity:1;}100%{opacity:0;}}
+/* sc-component-id: sc-dTdPqK */
+
+.kamjOr{position:relative;}.kamjOr .cupoydraft-video-block{width:0px !important;height:0px !important;}
+.BqNw{position:relative;}.BqNw .cupoydraft-video-block{width:960px !important;height:540px !important;}</style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><link type="text/css" rel="stylesheet" href="blob:https://ai100-2.cupoy.com/d4824642-a99f-41fe-b33b-9d5d689b4d35"><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="lauEar hRwjXX dmrHCv hwKzVy cUFGJF gCoezC iGDqXI cZcMXv" data-styled-components-is-local="true">
+/* sc-component-id: sc-iKpIOp */
+
+.lauEar{background-color:#f5f5f5;width:100%;padding-top:79px;min-height:100vh;}.lauEar > div:nth-child(2n){background-color:#fff;}.lauEar > div:nth-child(2n + 1){background-color:#f5f5f5;}.lauEar:-webkit-full-screen,.lauEar:fullscreen,.lauEar:-ms-fullscreen,.lauEar:-moz-full-screen{background-color:#fff;}
+/* sc-component-id: sc-AqAhp */
+
+.hRwjXX{max-width:1260px;margin:0 auto;}@media screen and (max-width:1260px){.hRwjXX{padding:0 12px;}}
+/* sc-component-id: sc-cClmTo */
+
+.dmrHCv{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:start;-webkit-justify-content:flex-start;-ms-flex-pack:start;justify-content:flex-start;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:30px;background-color:#f5f5f5;}.dmrHCv > i{margin:0 12px;}
+/* sc-component-id: sc-cZLAbK */
+
+.hwKzVy{color:#737373;font-size:14px;}
+/* sc-component-id: sc-iVOTot */
+
+.cUFGJF{max-width:1080px;margin:0 auto;padding-bottom:60px;}@media screen and (max-width:480px){.cUFGJF{padding-bottom:30px;}}
+/* sc-component-id: sc-kOCNXg */
+
+.gCoezC{margin:30px 0 0 0;font-size:30px;color:#3930B4;font-weight:normal;text-align:center;position:relative;}
+/* sc-component-id: sc-hZhUor */
+
+.cZcMXv{width:196px;margin-left:20px;height:58px;border-radius:29px;background-color:#3930B4;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#fff;font-size:20px;cursor:pointer;line-height:40px;}.cZcMXv > i{font-size:24px;color:#fff;margin-right:12px;}
+/* sc-component-id: sc-jMvuUo */
+
+.iGDqXI{width:100%;margin-top:30px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}@media screen and (max-width:768px){.iGDqXI{margin-top:60px;}}</style><link type="text/css" rel="stylesheet" href="blob:https://ai100-2.cupoy.com/1cc5f359-f5b3-4282-b185-293a3ae367eb"><style type="text/css" data-styled-components="dBZuXJ fTWPAr iNXtfY dpxHvr TBhui glFRdY fcBkas dZGqGG dQKuge fkfXJW kmBrlz kFQeTY ledZIq eXXZBp gopjTP ejrjBP jUfuzg iSqrNO csRwuq fiFquN kDMgIQ fchKzH ftKNIC fSBDkP exZzro cqWFST dIlJZT iibSqt gCgLCG sBsBf dvQhmD hDlGHb gfzfQT FMzqC" data-styled-components-is-local="true">
+/* sc-component-id: sc-iysEgW */
+
+.gfzfQT{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;border:1px solid #3930B4;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;font-size:20px;color:#313131;width:196px;height:58px;border-radius:29px;}.gfzfQT > i{color:#3930B4;margin-right:12px;}@media screen and (max-width:480px){.gfzfQT{position:static;}}
+/* sc-component-id: sc-gtXRHa */
+
+.dvQhmD{width:100%;padding-bottom:56.25%;position:relative;margin-top:30px;}
+/* sc-component-id: sc-fyjYeE */
+
+.hDlGHb{width:100%;height:100%;position:absolute;left:0;top:0;border:none;}
+/* sc-component-id: sc-ixltIz */
+
+.kFQeTY{width:100%;padding:80px 0;}@media screen and (max-width:480px){.kFQeTY{padding:0;}}
+/* sc-component-id: sc-bWjmDF */
+
+.ledZIq{max-width:960px;margin:0 auto;}@media screen and (max-width:480px){.ledZIq{padding:30px 30px;}}
+/* sc-component-id: sc-kvkilB */
+
+.eXXZBp{margin:0;font-size:30px;color:#3930B4;text-align:center;font-weight:bold;}
+/* sc-component-id: sc-jGkVzM */
+
+.gopjTP{max-width:960px;margin:0 auto;}@media screen and (max-width:480px){.gopjTP{padding:30px 30px;}}
+/* sc-component-id: sc-fYAFcb */
+
+.ejrjBP{width:100%;}
+/* sc-component-id: sc-kAKrxA */
+
+.FMzqC{color:#313131;font-size:20px;margin:30px auto 0 auto;height:58px;width:196px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-radius:29px;border:1px solid #3930B4;cursor:pointer;}@media screen and (max-width:480px){.FMzqC{width:100%;}}.FMzqC i{color:#3930B4;margin-right:12px;font-size:20px;}
+/* sc-component-id: sc-lhLRcH */
+
+.iSqrNO{max-width:960px;margin:0 auto;}@media screen and (max-width:480px){.iSqrNO{padding:30px 30px;}}
+/* sc-component-id: sc-jMtzgO */
+
+.csRwuq{margin:0;font-size:30px;color:#3930B4;text-align:center;font-weight:bold;}
+/* sc-component-id: sc-ccvjgv */
+
+.jUfuzg{width:100%;padding:80px 0;}@media screen and (max-width:480px){.jUfuzg{padding:0;}}
+/* sc-component-id: sc-ccbnFN */
+
+.fiFquN{width:100%;padding:80px 0;}@media screen and (max-width:480px){.fiFquN{padding:0;}}
+/* sc-component-id: sc-fNHLbd */
+
+.kDMgIQ{max-width:960px;margin:0 auto;}@media screen and (max-width:480px){.kDMgIQ{padding:30px 30px;}}
+/* sc-component-id: sc-hSmEHG */
+
+.fchKzH{margin:0;font-size:30px;color:#3930B4;text-align:center;font-weight:bold;}
+/* sc-component-id: sc-ePDpFu */
+
+.ftKNIC{width:100%;margin:30px 0 0 0;color:#313131;font-size:18px;font-weight:300;line-height:30px;text-align:center;}@media screen and (max-width:480px){.ftKNIC{font-size:14px;line-height:23px;}}
+/* sc-component-id: sc-ijhsb */
+
+.fSBDkP{max-width:866px;margin:30px auto 0 auto;position:relative;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}@media screen and (max-width:480px){.fSBDkP{display:block;}}
+/* sc-component-id: sc-gohEOc */
+
+.exZzro{width:100%;height:46px;padding-left:26px;border:1px solid #3930B4;border-radius:26px;display:block;}.exZzro::-webkit-input-placeholder{color:#8E8E8E;}.exZzro::-moz-placeholder{color:#8E8E8E;}.exZzro:-ms-input-placeholder{color:#8E8E8E;}.exZzro::placeholder{color:#8E8E8E;}@media screen and (max-width:480px){.exZzro{width:100%;}}
+/* sc-component-id: sc-gKLXLV */
+
+.dIlJZT{position:absolute;color:#E74D3D;font-size:14px;right:136px;top:12px;display:none;}@media screen and (max-width:480px){.dIlJZT{top:13px;right:20px;}}
+/* sc-component-id: sc-bvCTgw */
+
+.cqWFST{color:#313131;font-size:20px;margin:30px auto 0 auto;height:58px;width:196px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-radius:29px;border:1px solid #3930B4;cursor:pointer;position:absolute;right:0;top:0;height:46px;width:116px;font-size:14px;margin-top:0;background-color:#3930B4;color:#fff;}@media screen and (max-width:480px){.cqWFST{width:100%;}}.cqWFST i{color:#3930B4;margin-right:12px;font-size:20px;}@media screen and (max-width:480px){.cqWFST{position:static;width:100%;margin-top:25px;}}
+/* sc-component-id: sc-gCKARq */
+
+.dBZuXJ{width:100%;padding:80px 0;}@media screen and (max-width:480px){.dBZuXJ{padding:0;}}
+/* sc-component-id: sc-fjdPjP */
+
+.fTWPAr{max-width:960px;margin:0 auto;}@media screen and (max-width:480px){.fTWPAr{padding:30px 30px;}}
+/* sc-component-id: sc-ePAWwb */
+
+.iNXtfY{margin:0;font-size:30px;color:#3930B4;text-align:center;font-weight:bold;}
+/* sc-component-id: sc-ldcLGC */
+
+.dpxHvr{display:block;background-color:#3930B4;text-align:center;color:#fff;font-size:18px;margin:30px auto 0 auto;height:57px;width:196px;line-height:57px;border-radius:30px;cursor:pointer;}@media screen and (max-width:480px){.dpxHvr{width:100%;}}
+/* sc-component-id: sc-hTQSVH */
+
+.TBhui{max-width:866px;margin:0 auto;max-height:0;overflow:hidden;-webkit-transition:.2s;transition:.2s;}
+/* sc-component-id: sc-dWcDbm */
+
+.glFRdY{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:start;-webkit-justify-content:flex-start;-ms-flex-pack:start;justify-content:flex-start;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#2B2B2B;font-size:14px;margin:20px 0;width:100%;}
+/* sc-component-id: sc-esExBO */
+
+.fcBkas{width:100px;height:60px;background-repeat:no-repeat;background-position:center center;background-size:cover;cursor:pointer;}
+/* sc-component-id: sc-ctwKVn */
+
+.dZGqGG{margin-left:16px;width:calc(100% - 116px);}
+/* sc-component-id: sc-csZoYU */
+
+.iibSqt{color:#658EDF;-webkit-text-decoration:none;text-decoration:none;font-weight:normal;}
+/* sc-component-id: sc-dpiBDp */
+
+.dQKuge{color:#000000;font-size:14px;margin:0;font-weight:normal;}
+/* sc-component-id: sc-hENMEE */
+
+.fkfXJW{color:#000;font-size:14px;font-weight:300;margin:0;margin-top:0px;max-width:750px;}
+/* sc-component-id: sc-dCaJBF */
+
+.kmBrlz{display:block;margin:0 auto;width:145px;color:#3930B4;font-size:16px;text-align:center;-webkit-text-decoration:underline;text-decoration:underline;cursor:pointer;}
+/* sc-component-id: sc-cXHFlN */
+
+.gCgLCG{position:fixed;z-index:999;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,.5);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:space-around;-webkit-justify-content:space-around;-ms-flex-pack:space-around;justify-content:space-around;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-transition:.2s;transition:.2s;opacity:0;visibility:hidden;}
+/* sc-component-id: sc-ihiiSJ */
+
+.sBsBf{width:60vw;position:relative;}.sBsBf > img{width:100%;}</style><style type="text/css" data-styled-components="iJgRay fHyRDh lcZapj kexkOa cuqoBR gXZEWo jEgvIU bgpuQv dVxuNS hpRqjP bCAHGG eXFTvo jMkQrt cqASJp fJWWwC bPfxob fDheFl eyQTfR" data-styled-components-is-local="true">
+/* sc-component-id: sc-gJTSre */
+
+.cuqoBR{position:absolute;width:30px;height:30px;text-align:center;top:-20px;right:-20px;border-radius:15px;background-color:#fff;cursor:pointer;}.cuqoBR > i{font-size:26px;margin-top:2px;}
+/* sc-component-id: sc-fdqjUm */
+
+.lcZapj{max-width:95px;-webkit-transition:.2s;transition:.2s;margin:30px auto 0 auto;padding-bottom:5px;border-bottom:1px solid #2B2B2B;}
+/* sc-component-id: sc-cLmFfZ */
+
+.kexkOa{color:#2B2B2B;font-size:18px;width:95px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 auto;cursor:pointer;}
+/* sc-component-id: sc-iNovjJ */
+
+.gXZEWo{width:100%;padding:80px 0;}@media screen and (max-width:480px){.gXZEWo{padding:0;}}
+/* sc-component-id: sc-kyCyAI */
+
+.jEgvIU{max-width:750px;margin:0 auto;}@media screen and (max-width:480px){.jEgvIU{padding:30px 30px;}}
+/* sc-component-id: sc-fEVUGC */
+
+.bgpuQv{margin:0;font-size:30px;color:#3930B4;text-align:center;font-weight:bold;}
+/* sc-component-id: sc-dchYKM */
+
+.dVxuNS{width:100%;margin-top:40px;}
+/* sc-component-id: sc-jLrYHE */
+
+.hpRqjP{width:100%;display:block;padding-bottom:20px;border-bottom:1px solid #D9D9D9;margin-top:20px;}.hpRqjP:last-child{border-bottom:0;}.hpRqjP:first-child{margin-top:0;}
+/* sc-component-id: sc-dhVevo */
+
+.bCAHGG{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}
+/* sc-component-id: sc-fqCOlO */
+
+.eXFTvo{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}
+/* sc-component-id: sc-BOulX */
+
+.jMkQrt{height:20px;width:20px;border-radius:10px;margin-right:9px;background-color:#ccc;}
+/* sc-component-id: sc-hAcydR */
+
+.cqASJp{font-size:13px;color:#2A2A2A;}
+/* sc-component-id: sc-eomEcv */
+
+.fJWWwC{font-size:13px;color:#737373;}
+/* sc-component-id: sc-gcJTYu */
+
+.bPfxob{margin-top:16px;}
+/* sc-component-id: sc-iBfVdv */
+
+.fDheFl{color:#2A2A2A;font-size:20px;font-weight:bold;line-height:27px;}
+/* sc-component-id: sc-cCbPEh */
+
+.eyQTfR{color:#333030;font-size:16px;line-height:22px;margin-top:8px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
+/* sc-component-id: sc-eklfrZ */
+
+
+/* sc-component-id: sc-csSMhA */
+
+.iJgRay{color:#737373;font-size:14px;}</style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="" data-styled-components-is-local="true"></style><style type="text/css" data-styled-components="vXEjv bAFIeD" data-styled-components-is-local="true">
+/* sc-component-id: sc-dAWfgX */
+
+
+/* sc-component-id: sc-FAiZp */
+
+.vXEjv{color:#313131;font-size:20px;margin:30px auto 0 auto;height:58px;width:196px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-radius:29px;border:1px solid #3930B4;cursor:pointer;}@media screen and (max-width:480px){.vXEjv{width:100%;}}.vXEjv i{color:#3930B4;margin-right:12px;font-size:20px;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:15px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:19px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:13px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:13px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:17px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_in_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_out_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bubble_pop_in{animation-duration:250ms;animation-name:fb_customer_chat_bubble_bounce_in_animation}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_mobile_overlay_active{background-color:#fff;height:100%;overflow:hidden;position:fixed;visibility:hidden;width:100%}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_v2_mobile_chat_started{0%{opacity:0;top:20px}100%{opacity:1;top:0}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><span><div><div class="sc-jzJRlG gZycLD"><div class="sc-cSHVUG hipIMd"><nav class="sc-kEYyzF iPxgxU"><a class="sc-hqyNC cYxTds sc-kvZOFW eiPhbT active" aria-current="page" href="https://ai100-2.cupoy.com/"></a><a class="active" aria-current="page" href="https://ai100-2.cupoy.com/"><div class="sc-iAyFgw kOkLwy">首頁</div></a><a href="https://ai100-2.cupoy.com/participator/ED312192/questions"><div class="sc-iAyFgw kOkLwy">個人主頁</div></a><a href="https://ai100-2.cupoy.com/introduction"><div class="sc-iAyFgw kOkLwy">活動資訊</div></a><a href="https://ai100-2.cupoy.com/ranking/homeworkrank"><div class="sc-iAyFgw kOkLwy">排名</div></a><a href="https://ai100-2.cupoy.com/posts"><div class="sc-iAyFgw kOkLwy">公告</div></a><a href="https://ai100-2.cupoy.com/helps"><div class="sc-iAyFgw kOkLwy">常見問題</div></a></nav><div class="sc-hSdWYo gGZfMk"><a class="sc-jAaTju dtzZcb">我要提問</a><a class="sc-jlyJG fJUimU" href="https://www.facebook.com/groups/2032749180362722/" rel="noopener noreferrer" target="_blank"></a><span class="sc-eHgmQL PMTJK"><a href="https://ai100-2.cupoy.com/participator/ED312192/questions"><div class="sc-gPEVay duBwWq" style="font-size: 24px; font-weight: bold; background-color: rgb(86, 119, 252); justify-content: center; align-items: center; text-align: center; color: rgb(255, 255, 255); display: flex;">謝</div><div class="sc-cvbbAY eghRAA"><div class="sc-jWBwVP htvfZS"><div class="sc-brqgnP hkxsQx">謝瑞軒的個人主頁</div></div></div></a><div class="sc-cMljjf bqFhyw">登出</div></span></div><div class="sc-kAzzGY hpfjNF"><div class="sc-chPdSV jPgOPT"><div class="sc-kgoBCf zxsQC"></div><div class="sc-kGXeez fSyrvQ"></div><div class="sc-kpOJdX jWWzYW"></div></div><div class="sc-ckVGcZ bLUSgo"><a class="sc-dNLxif djkPgX sc-jbKcbu cWSlbe active" aria-current="page" href="https://ai100-2.cupoy.com/">百日馬拉松</a><ul class="sc-eNQAEJ jTPnhv"><a class="active" aria-current="page" href="https://ai100-2.cupoy.com/"><li class="sc-hMqMXs eNXXhq">首頁</li></a><a href="https://ai100-2.cupoy.com/participator/ED312192/questions"><li class="sc-hMqMXs eNXXhq">個人主頁</li></a><a href="https://ai100-2.cupoy.com/introduction"><li class="sc-hMqMXs eNXXhq">活動資訊</li></a><a href="https://ai100-2.cupoy.com/ranking/homeworkrank"><li class="sc-hMqMXs eNXXhq">排名賽</li></a><a href="https://ai100-2.cupoy.com/posts"><li class="sc-hMqMXs eNXXhq">最新公告</li></a><a href="https://ai100-2.cupoy.com/helps"><li class="sc-hMqMXs eNXXhq">常見問題</li></a><li class="sc-hMqMXs eNXXhq"><div class="sc-jDwBTQ NPZQO">我要提問</div></li></ul></div><div class="sc-dxgOiQ gZvlrn"></div></div></div></div><div class="sc-bwzfXH hOmGVH" id="container"><div><div class="sc-iKpIOp lauEar"><div class="sc-AqAhp hRwjXX"><div class="sc-cClmTo dmrHCv"><a class="sc-csSMhA iJgRay sc-eklfrZ fHyRDh" href="https://ai100-2.cupoy.com/participator/ED312192/questions">100 道題目</a><i class="zmdi zmdi-chevron-right"></i><span class="sc-cZLAbK hwKzVy">D30：分類型特徵優化 - 葉編碼</span></div><div class="sc-iVOTot cUFGJF"><h2 class="sc-kOCNXg gCoezC">D30：分類型特徵優化 - 葉編碼</h2><div><div class="sc-gtXRHa dvQhmD"><iframe class="sc-fyjYeE hDlGHb" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/viewer.html"></iframe></div></div><div class="sc-jMvuUo iGDqXI"><a class="sc-iysEgW gfzfQT" href="https://ai100-fileentity.cupoy.com/2nd/dailytask/D30/__PDF__?t=1558604473866" target="_blank"><i class="zmdi zmdi-download"></i>PDF 下載</a><div class="sc-hZhUor cZcMXv"><i class="zmdi zmdi-fullscreen"></i>全螢幕</div></div></div></div><div class="sc-ixltIz kFQeTY"><div class="sc-bWjmDF ledZIq"><h3 class="sc-kvkilB eXXZBp">Sample Code &amp; 作業內容</h3><div class="sc-jGkVzM gopjTP"><div class="sc-fYAFcb ejrjBP"><div class="cupoydraft-content-style sc-dTdPqK BqNw" width="960"><div><div id="cupoynote-15664030542344464">
+            <style type="text/css">
+                #cupoynote-15664030542344464 {
+                    line-height: 1.6;
+                    color: #333;
+                    font-size: 18px;
+                }
+
+                #cupoynote-15664030542344464 a {
+                    color: #333;
+                }
+
+                #cupoynote-15664030542344464 h1, #cupoynote-15664030542344464 h2, #cupoynote-15664030542344464 h3, #cupoynote-15664030542344464 h4, #cupoynote-15664030542344464 h5, #cupoynote-15664030542344464 h6 {
+                    line-height: 1.6;
+                }
+            </style>
+        <div>
+ <p style=""><br></p> 
+ <p style="">請參考檢視範例Day_030_Leaf_Encoding.ipynb</p> 
+ <p style="">作業1：請對照範例，完成隨機森林的鐵達尼生存率預測，以及對應的葉編碼+邏輯斯迴歸</p> 
+ <p style="">作業2：上述的結果，葉編碼是否有提高預測的正確性呢?</p> 
+ <p style=""><br></p> 
+ <p style="">作業請提交Day_030_HW.ipynb</p>
+</div></div></div></div></div><a class="sc-FAiZp vXEjv sc-dAWfgX bAFIeD" href="https://ai100-2.cupoy.com/samplecodelist/D30"><i class="zmdi zmdi-search"></i>檢視範例</a></div></div></div><div class="sc-ccvjgv jUfuzg"><div class="sc-lhLRcH iSqrNO"><h3 class="sc-jMtzgO csRwuq">參考資料</h3><div class="sc-fYAFcb ejrjBP"><div class="cupoydraft-content-style sc-dTdPqK BqNw" width="960"><div><div id="cupoynote-15664030542361045">
+            <style type="text/css">
+                #cupoynote-15664030542361045 {
+                    line-height: 1.6;
+                    color: #333;
+                    font-size: 18px;
+                }
+
+                #cupoynote-15664030542361045 a {
+                    color: #333;
+                }
+
+                #cupoynote-15664030542361045 h1, #cupoynote-15664030542361045 h2, #cupoynote-15664030542361045 h3, #cupoynote-15664030542361045 h4, #cupoynote-15664030542361045 h5, #cupoynote-15664030542361045 h6 {
+                    line-height: 1.6;
+                }
+            </style>
+        <div>
+ <p style=""><br></p> 
+ <h3 id="1v3qn">Feature transformations with ensembles of trees</h3> 
+ <p style="">sklearn官網範例 <a href="https://scikit-learn.org/stable/auto_examples/ensemble/plot_feature_transformation.html#example-ensemble-plot-feature-transformation-py" target="_blank">網頁連結</a></p> 
+ <p style="">這是講義內線面這張圖的出處， 裡面有完整的葉編碼程式，因為裡面的一些細節需要多做解釋，因此我們加以註解改寫後放作為今天的範例當中，同學若是有興趣也可以直接參考這篇原文，裡面有一些原文解說。</p> 
+ <figure class="cupoydraft-block" style="">
+  <div class="cupoydraft-block-wrapper">
+   <div class="cupoydraft-image-block">
+    <img crossorigin="anonymous" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/large" widget-image="" data-widgetid="1557990304624" uuid="15664030542368941" onclick=" this.dispatchEvent(new CustomEvent(&#39;playImageBlock&#39;, { bubbles: true, cancelable: true, detail: { imageSrc: &#39;https://ai100-fileentity.cupoy.com/2nd/homework/D30/1557990304624/large&#39;, mouseEvent: event, }, })) " style="cursor: pointer;">
+    <figcaption class="cupoydraft-block-caption">
+     圖片來源：scikit Learn
+    </figcaption>
+   </div>
+  </div>
+ </figure> 
+ <p style=""><br></p> 
+ <h3 id="760iq">CTR 預估[十一]： Algorithm-GBDT Encoder</h3> 
+ <p style="">知乎 算法那些事兒 <a href="https://zhuanlan.zhihu.com/p/31734283" target="_blank">網頁連結</a></p> 
+ <p style="">這個網頁將葉編碼的應用，做了很詳盡的說明 : 包含使用的原因，包含的原理，以及葉編碼的戰史，如果很想弄清楚葉編碼，一定要看看這篇文章。</p> 
+ <figure class="cupoydraft-block" style="">
+  <div class="cupoydraft-block-wrapper">
+   <div class="cupoydraft-image-block">
+    <img crossorigin="anonymous" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/large(1)" widget-image="" data-widgetid="1557990378227" uuid="15664030542365298" onclick=" this.dispatchEvent(new CustomEvent(&#39;playImageBlock&#39;, { bubbles: true, cancelable: true, detail: { imageSrc: &#39;https://ai100-fileentity.cupoy.com/2nd/homework/D30/1557990378227/large&#39;, mouseEvent: event, }, })) " style="cursor: pointer;">
+   </div>
+  </div>
+ </figure> 
+ <p style=""><br></p> 
+ <h3 id="acnoh">三分鐘了解推薦系統中的分解機方法（Factorization Machine, FM）</h3> 
+ <p style="">每日頭條 <a href="https://kknews.cc/zh-tw/other/62k4rml.html" target="_blank">網頁連結</a></p> 
+ <p style="">最後是有關分解機的解說，因為這部分稍微有點複雜，需要先了解矩陣分解 ( Matrix Factorization ) 與推薦系統，如果對FM沒有興趣，可以跳過此連結，但很好奇FM到底是什麼的同學，可以由此入門。</p> 
+ <figure class="cupoydraft-block" style="">
+  <div class="cupoydraft-block-wrapper">
+   <div class="cupoydraft-image-block">
+    <img crossorigin="anonymous" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/large(2)" widget-image="" data-widgetid="1557990415791" uuid="15664030542369472" onclick=" this.dispatchEvent(new CustomEvent(&#39;playImageBlock&#39;, { bubbles: true, cancelable: true, detail: { imageSrc: &#39;https://ai100-fileentity.cupoy.com/2nd/homework/D30/1557990415791/large&#39;, mouseEvent: event, }, })) " style="cursor: pointer;">
+   </div>
+  </div>
+ </figure> 
+ <p style=""><br></p>
+</div></div></div></div></div></div></div><div class="sc-ccbnFN fiFquN"><div class="sc-fNHLbd kDMgIQ"><h3 class="sc-hSmEHG fchKzH">提交作業</h3><p class="sc-ePDpFu ftKNIC">請將你的作業上傳至 Github，並貼上該網網址，完成作業提交</p><div class="sc-ijhsb fSBDkP"><input class="sc-gohEOc exZzro" type="text" placeholder="https://github.com/" value=""><a class="sc-bvCTgw cqWFST">確定提交</a><span class="sc-gKLXLV dIlJZT">Gitgub 網址錯誤</span></div><div class="sc-fdqjUm lcZapj"><div class="sc-cLmFfZ kexkOa">如何提交<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em"><path d="M256 294.1L383 167c9.4-9.4 24.6-9.4 33.9 0s9.3 24.6 0 34L273 345c-9.1 9.1-23.7 9.3-33.1.7L95 201.1c-4.7-4.7-7-10.9-7-17s2.3-12.3 7-17c9.4-9.4 24.6-9.4 33.9 0l127.1 127z"></path></svg></div></div><div class="sc-hTQSVH TBhui"><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step1.jpg&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟一、申請帳號</p><p class="sc-hENMEE fkfXJW">連結至 Github 首頁<a class="sc-csZoYU iibSqt" href="https://www.github.com/" target="_blank">http://www.github.com</a>，填入申請帳號</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step2.jpg&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟二、確認帳號</p><p class="sc-hENMEE fkfXJW">註冊 Github 的 email 中，會收到確認信，請直接點選連結。最後畫面會重導至 Github，請按下「 Confirm 」結束認證流程。</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step3.jpg&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟三、管理專案</p><p class="sc-hENMEE fkfXJW">建立一個開發專案，回到 Github 首頁，按下畫面右下方綠色的「 + New repository 」或者是畫面右上方的「＋」號，並選擇「 New repository 」專案名稱（ Repository name ） 建議命名為「 100Day-ML-Marathon 」以方便大會檢視賽程進度。</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step4.jpg&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟四、專案開發</p><p class="sc-hENMEE fkfXJW">新增專案後，把剛剛建立的專案下載到自已的電腦中，再搭配合適的開發工具去寫你要的成果，如果您是 Windows 的使用者( 如果是 Mac 和 Linux 的使用者，建議採用指令 )，可以先安裝由 Github 官方所提供的圖型化介面，連結為：<a class="sc-csZoYU iibSqt" href="https://windows.github.com/" target="_blank">https://windows.github.com/</a>，請直接點選「 Download GitHub for Windows 」下載。</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step5.jpg&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟五、編輯目錄</p><p class="sc-hENMEE fkfXJW">複製專案到自己的電腦後，你可以開始編輯目錄的內容，包含新增檔案及編輯測試，可以用任何您會用的編輯器，挑戰過程我們建議使用 Jupyter。存檔後，再回到 Github for windows，針對 webproject 這個專案，會有「已變動的提示」，請按下「Show」並輸入「Summary」及「description」，最後按下「 Commit to master 」，就可以看到變更記錄囉！</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step6.jpg&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟六、專案同步</p><p class="sc-hENMEE fkfXJW">網頁畫面為何還是「 Unsynced changes 」？因為這次的改版是在你的本機上進行的，git 只是將記錄存放在本機的 master branch 中，但是還沒有回存到遠端的 Github 上，您可以先去 Github 的首頁看一下是否已經有更新了？如果還沒有，請按下 github for windows 右上方的「Sync」同步，再回到網頁上，就代表已更新完畢，相關的修改記錄都同步囉！</p></div></div><a class="sc-dCaJBF kmBrlz" href="https://drive.google.com/file/d/1n2vaXd0QSm2I6o3dsg8rhlm9sCUnKVd_/view?usp=sharing" target="_blank" rel="noopener noreferrer">詳細步驟參考</a></div><div class="sc-cXHFlN gCgLCG"><div class="sc-ihiiSJ sBsBf"><div class="sc-gJTSre cuqoBR"><i class="zmdi zmdi-close"></i></div><img src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/step1.jpg" alt=""></div></div></div></div><div class="sc-iNovjJ gXZEWo"><div class="sc-kyCyAI jEgvIU"><h3 class="sc-fEVUGC bgpuQv">熱門問答</h3><div class="sc-dchYKM dVxuNS"><a class="sc-jLrYHE hpRqjP" target="_blank" rel="noopener noreferrer" href="https://www.cupoy.com/qa/kwassist/ai_tw/0000016B88BBFEA3000000556375706F795F72656C656173655155455354"><div class="sc-dhVevo bCAHGG"><div class="sc-fqCOlO eXFTvo"><div class="sc-BOulX jMkQrt" style="background-color: rgb(255, 152, 0); justify-content: center; align-items: center; text-align: center; color: rgb(255, 255, 255); display: flex;">梁</div><div class="sc-hAcydR cqASJp">梁記瑋</div><div class="sc-eomEcv fJWWwC">・<span>2019.06.24</span>・3 回答</div></div></div><div class="sc-gcJTYu bPfxob"><div class="sc-iBfVdv fDheFl">D30 到目前為止的一些問題</div><div class="sc-cCbPEh eyQTfR">課程上到現在一直會有一個疑問，就是在課程中對於一些統計的理論感覺會比較少具體的說明，例如可能會不太知道Leaf Encoding、Gradient Boost Decision Tree、Random Forest等的具體意義跟他到底裡面做了什麼，而上網做查詢通常又會出現大量艱澀的統計跟數學，(像是參考資料就是這類的情況，感覺裡面有許多的東西可能已經站在前一個理論的肩膀，因此會有一種要看懂的話需要很多的知識儲備，但是因為內容廣也無從補起)所以很多的練習對使用者來說就是整理出Function所需的格式之後丟進去，然後會得到一個分數，相關係數高就是好，低就是不好，但卻不知道裡面黑盒子在做什麼，如果結果不理想問題又在哪裡？還是其實現在資料科學家中不太需要去研究這些部分呢？以上是目前學習上的困難跟心中的疑惑，懇請解惑</div></div></a><a class="sc-jLrYHE hpRqjP" target="_blank" rel="noopener noreferrer" href="https://www.cupoy.com/qa/kwassist/ai_tw/0000016B233E98D3000000646375706F795F72656C656173655155455354"><div class="sc-dhVevo bCAHGG"><div class="sc-fqCOlO eXFTvo"><div class="sc-BOulX jMkQrt" style="background-color: rgb(218, 200, 39); justify-content: center; align-items: center; text-align: center; color: rgb(255, 255, 255); display: flex;">李</div><div class="sc-hAcydR cqASJp">李婉瑄</div><div class="sc-eomEcv fJWWwC">・<span>2019.06.05</span>・1 回答</div></div></div><div class="sc-gcJTYu bPfxob"><div class="sc-iBfVdv fDheFl">Day30 shape 問題</div><div class="sc-cCbPEh eyQTfR">1. onehot.fit(gdbt.apply(train_X)[:, :, 0])，後面的[:, :, 0]為什麼要這樣取？&nbsp;而在作業裡用random forest 隨機森林的葉編碼(.apply)不需要加上[:, :, 0]因為train_X的shape都是一樣的, 這樣是跟分類器有關係嗎?2. 另外若是單獨看 print出(train_X)[:, :, 0]的值會出現錯誤但為何放進模型裡可以執行呢?</div></div></a><a class="sc-jLrYHE hpRqjP" target="_blank" rel="noopener noreferrer" href="https://www.cupoy.com/qa/kwassist/ai_tw/0000016B061D4179000002D66375706F795F72656C656173655155455354"><div class="sc-dhVevo bCAHGG"><div class="sc-fqCOlO eXFTvo"><div class="sc-BOulX jMkQrt" style="background-color: rgb(0, 188, 212); justify-content: center; align-items: center; text-align: center; color: rgb(255, 255, 255); display: flex;">蕭</div><div class="sc-hAcydR cqASJp">蕭琮寶</div><div class="sc-eomEcv fJWWwC">・<span>2019.05.30</span>・2 回答</div></div></div><div class="sc-gcJTYu bPfxob"><div class="sc-iBfVdv fDheFl">day-30</div><div class="sc-cCbPEh eyQTfR">請問老師&nbsp;feature &nbsp;資料特徵label 希望預測的目標這樣理解對嗎</div></div></a></div><a class="sc-kAKrxA FMzqC" target="_blank" rel="noopener noreferrer" href="https://www.cupoy.com/kwassist/ai_tw?layoutType=qa&amp;queryTags=ml100-2-d30">查看更多</a></div></div><div class="sc-gCKARq dBZuXJ"><div class="sc-fjdPjP fTWPAr"><h3 class="sc-ePAWwb iNXtfY">到 Cupoy 問答社區提問，讓教練群回答你的疑難雜症</h3><a class="sc-ldcLGC dpxHvr">向專家提問</a><div class="sc-fdqjUm lcZapj"><div class="sc-cLmFfZ kexkOa">如何提問<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em"><path d="M256 294.1L383 167c9.4-9.4 24.6-9.4 33.9 0s9.3 24.6 0 34L273 345c-9.1 9.1-23.7 9.3-33.1.7L95 201.1c-4.7-4.7-7-10.9-7-17s2.3-12.3 7-17c9.4-9.4 24.6-9.4 33.9 0l127.1 127z"></path></svg></div></div><div class="sc-hTQSVH TBhui"><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step7.png&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟一、知識特助權限</p><p class="sc-hENMEE fkfXJW">確認知識特助的權限已被開啟，可進入人工智慧的問答社區</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step8.png&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟二、建立問題</p><p class="sc-hENMEE fkfXJW">進入問答社區，點擊建立問題</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step9.png&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟三、開始提問</p><p class="sc-hENMEE fkfXJW">標題請盡量涵蓋日期與標題或是作業內容，可為你的題目下標籤，提問可直接在描述打字，或者使用文字編輯器撰寫。</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step10.png&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟四、追蹤回答</p><p class="sc-hENMEE fkfXJW">發布提問之後，按下追蹤回答，若專家回覆可直接收到通知。</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step11.png&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟五、最新回答</p><p class="sc-hENMEE fkfXJW">可到我的問答追蹤觀看最新的回答</p></div></div><div class="sc-dWcDbm glFRdY"><div class="sc-esExBO fcBkas" style="background-image: url(&quot;https://ai100-2.cupoy.com/images/step12.png&quot;);"></div><div class="sc-ctwKVn dZGqGG"><p class="sc-dpiBDp dQKuge">步驟六、通知</p><p class="sc-hENMEE fkfXJW">若有新的回答在通知的地方會跳出紅色數字提醒已收到回答數量</p></div></div><a class="sc-dCaJBF kmBrlz" href="https://drive.google.com/file/d/1lLjWZnhCHYkNMxNA1n7sUH7YgnM6ZtWj/view?usp=sharing" target="_blank" rel="noopener noreferrer">詳細步驟參考</a></div></div></div></div></div></div></div></span></div><script type="text/javascript" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/main.5ace1db3.js.下載"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div><iframe name="fb_xdm_frame_https" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/xd_arbiter.html" style="border: none;"></iframe></div><div></div></div><div class="fb_dialog  fb_dialog_advanced fb_customer_chat_bubble_animated_no_badge" style="background: none; border-radius: 50%; bottom: 18pt; display: none; height: 45pt; padding: 0px; position: fixed; right: 18pt; top: auto; width: 45pt; z-index: 2147483646;"><div class="fb_dialog_content" style="background: none;"><iframe name="blank_f50a8cbc27de3" width="60px" tabindex="-1" data-testid="bubble_iframe" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/bubble.html" style="border: none;"></iframe></div></div><div class="fb-customerchat fb_invisible_flow fb_iframe_widget" id="fb-customerchat" page_id="1837554926525785" theme_color="#1F43B3" minimized="true" logged_in_greeting="你好！報名與課程相關事務歡迎在此提問，我們很樂意為你解答。解題遇到困難請上Cupoy問答社區提問，感謝。" logged_out_greeting="你好！報名與課程相關事務歡迎在此提問，我們很樂意為你解答。解題遇到困難請上Cupoy問答社區提問，感謝。" greeting_dialog_delay="5" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=149069698493969&amp;container_width=0&amp;greeting_dialog_delay=5&amp;locale=zh_TW&amp;logged_in_greeting=%E4%BD%A0%E5%A5%BD%EF%BC%81%E5%A0%B1%E5%90%8D%E8%88%87%E8%AA%B2%E7%A8%8B%E7%9B%B8%E9%97%9C%E4%BA%8B%E5%8B%99%E6%AD%A1%E8%BF%8E%E5%9C%A8%E6%AD%A4%E6%8F%90%E5%95%8F%EF%BC%8C%E6%88%91%E5%80%91%E5%BE%88%E6%A8%82%E6%84%8F%E7%82%BA%E4%BD%A0%E8%A7%A3%E7%AD%94%E3%80%82%E8%A7%A3%E9%A1%8C%E9%81%87%E5%88%B0%E5%9B%B0%E9%9B%A3%E8%AB%8B%E4%B8%8ACupoy%E5%95%8F%E7%AD%94%E7%A4%BE%E5%8D%80%E6%8F%90%E5%95%8F%EF%BC%8C%E6%84%9F%E8%AC%9D%E3%80%82&amp;logged_out_greeting=%E4%BD%A0%E5%A5%BD%EF%BC%81%E5%A0%B1%E5%90%8D%E8%88%87%E8%AA%B2%E7%A8%8B%E7%9B%B8%E9%97%9C%E4%BA%8B%E5%8B%99%E6%AD%A1%E8%BF%8E%E5%9C%A8%E6%AD%A4%E6%8F%90%E5%95%8F%EF%BC%8C%E6%88%91%E5%80%91%E5%BE%88%E6%A8%82%E6%84%8F%E7%82%BA%E4%BD%A0%E8%A7%A3%E7%AD%94%E3%80%82%E8%A7%A3%E9%A1%8C%E9%81%87%E5%88%B0%E5%9B%B0%E9%9B%A3%E8%AB%8B%E4%B8%8ACupoy%E5%95%8F%E7%AD%94%E7%A4%BE%E5%8D%80%E6%8F%90%E5%95%8F%EF%BC%8C%E6%84%9F%E8%AC%9D%E3%80%82&amp;minimized=true&amp;page_id=1837554926525785&amp;sdk=joey&amp;theme_color=%231F43B3"><span style="vertical-align: bottom; width: 1000px; height: 0px;"><iframe name="f1a264a79a49238" width="1000px" height="1000px" title="" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/customerchat.html" style="border: none; visibility: visible; width: 288pt; height: 211px; border-radius: 9pt; bottom: 63pt; padding: 0px; position: fixed; right: 9pt; top: auto; z-index: 2147483647; max-height: 0px;" class="" data-testid="dialog_iframe"></iframe></span></div><div class="fb_dialog  fb_dialog_advanced fb_customer_chat_bubble_animated_no_badge fb_customer_chat_bubble_pop_in" style="background: none; border-radius: 50%; bottom: 18pt; display: inline; height: 45pt; padding: 0px; position: fixed; right: 18pt; top: auto; width: 45pt; z-index: 2147483646;"><div class="fb_dialog_content" style="background: none;"><iframe name="blank_f1a264a79a49238" width="60px" tabindex="-1" data-testid="bubble_iframe" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./D30 - 分類型特徵優化 - 葉編碼 - 任務內容 _ 百日馬拉松_files/bubble(1).html" style="border: none;"></iframe></div></div></div> <style type="text/css"> @keyframes showPreviewImagePlayer { 0% { opacity: 0; } 100% { opacity: 1; } } @keyframes hidePreviewImagePlayer { 0% { opacity: 1; } 100% { opacity: 0; } } #cupoynoteeditor-preview-image-player { display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; visibility: visible; transform: translateZ(0px); z-index: 99999999999; transition: visibility 300ms ease 0s, z-index 0s ease 300ms; } #cupoynoteeditor-preview-image-player.show { display: block; } #cupoynoteeditor-preview-image-player .preview-image-player-overlay { position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: rgba(0, 0, 0, 0.8); visibility: visible; transform: translateZ(0px); cursor: pointer; /** animation: hidePreviewImagePlayer 0.3s ease-out 0s 1 normal none running; */ } #cupoynoteeditor-preview-image-player.show .preview-image-player-overlay { animation: showPreviewImagePlayer 0.3s ease-out 0s 1 normal none running; } #cupoynoteeditor-preview-image-player .preview-image-player-close { position: absolute; top: 0; right: 0; width: 80px; height: 80px; background-color: transparent; color: #FFF; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; } #cupoynoteeditor-preview-image-player .preview-image-player-close:before { content: ''; display: block; width: 8px; height: 8px; border-top: 2px solid #ddd; border-right: 2px solid #ddd; transform: rotate(45deg); } #cupoynoteeditor-preview-image-player .preview-image-player-close:after { content: ''; display: block; width: 8px; height: 8px; border-left: 2px solid #ddd; border-bottom: 2px solid #ddd; transform: rotate(45deg); } #cupoynoteeditor-preview-image-player .preview-image-player-image { position: absolute; transform: translateZ(0); background-size: cover; background-repeat: no-repeat; background-position: center center; transition: all 300ms cubic-bezier(0.000, 0.000, 0.580, 1.000); transition-timing-function: cubic-bezier(0.000, 0.000, 0.580, 1.000); display: flex; align-items: center; justify-content: center; } #cupoynoteeditor-preview-image-player .preview-image-player-error-state { display: none; } #cupoynoteeditor-preview-image-player .preview-image-player-error-content { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 0 20px; pointer-events: none; } #cupoynoteeditor-preview-image-player .preview-image-player-error-title { font-size: 18px; color: #FFF; margin: 0; } #cupoynoteeditor-preview-image-player .preview-image-player-prev { position: absolute; top: 50%; left: 0px; width: 75px; height: 300px; border-radius: 0px 8px 8px 0px; color: #fff; font-size: 28px; background-color: rgba(200, 200, 200, 0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; transform: translateY(-50%); } #cupoynoteeditor-preview-image-player .preview-image-player-prev:before { content: ''; display: block; width: 8px; height: 8px; border-left: 2px solid #ddd; border-bottom: 2px solid #ddd; transform: rotate(45deg); } #cupoynoteeditor-preview-image-player .preview-image-player-next { position: absolute; top: 50%; right: 0px; width: 75px; height: 300px; border-radius: 0px 8px 8px 0px; color: #fff; font-size: 28px; background-color: rgba(200, 200, 200, 0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; transform: translateY(-50%); } #cupoynoteeditor-preview-image-player .preview-image-player-next:before { content: ''; display: block; width: 8px; height: 8px; border-top: 2px solid #ddd; border-right: 2px solid #ddd; transform: rotate(45deg); } </style> <div id="cupoynoteeditor-preview-image-player"> <div class="preview-image-player-overlay" onclick=" let modal = document.getElementById(&#39;cupoynoteeditor-preview-image-player&#39;); modal.dataset[&#39;images&#39;] = undefined; modal.style.display = &#39;none&#39;; "></div> <div class="preview-image-player-close" onclick=" let modal = document.getElementById(&#39;cupoynoteeditor-preview-image-player&#39;); modal.dataset[&#39;images&#39;] = undefined; modal.style.display = &#39;none&#39;; "></div> <div class="preview-image-player-image" onclick=" let modal = document.getElementById(&#39;cupoynoteeditor-preview-image-player&#39;); let imagesText = modal.dataset[&#39;images&#39;]; let images = imagesText.split(&#39;,&#39;); let index = modal.dataset[&#39;imageindex&#39;]; index = isNaN(index) ? 0 : Number(index); let nextIndex = index + 1; if(nextIndex &gt;= images.length) { modal.dataset[&#39;images&#39;] = undefined; modal.style.display = &#39;none&#39;; } else { let nextImage = images[nextIndex]; modal.dataset[&#39;imageindex&#39;] = nextIndex; let image = modal.getElementsByClassName(&#39;preview-image-player-image&#39;); image[0].style.backgroundImage = &quot;url(&#39;&quot; + nextImage + &quot;&#39;)&quot;; let error = modal.getElementsByClassName(&#39;preview-image-player-error-state&#39;); error[0].style.display = &#39;&#39;; let prev = modal.getElementsByClassName(&#39;preview-image-player-prev&#39;); let next = modal.getElementsByClassName(&#39;preview-image-player-next&#39;); let hasPrev = true; let hasNext = nextIndex + 1 &lt; images.length; if(hasPrev) { prev[0].style.display = &#39;&#39;; } else { prev[0].style.display = &#39;none&#39;; } if(hasNext) { next[0].style.display = &#39;&#39;; } else { next[0].style.display = &#39;none&#39;; } let reader = new Image(); reader.onload = function() { let window_w = window.innerWidth; let window_h = window.innerHeight; let max_width = window_w - 20; let max_height = window_h - 20; let width = reader.naturalWidth; let height = reader.naturalHeight; let scale_w = max_width / width; let scale_h = max_height / height; let top = 0; let left = 0; if(scale_w &lt; 1 || scale_h &lt; 1) { if(scale_w &lt; scale_h) { width = max_width; height = height * scale_w; } else { height = max_height; width = width * scale_h; } } left = (window_w - width) / 2; top = (window_h - height) / 2; image[0].style.left = left + &#39;px&#39;; image[0].style.top = top + &#39;px&#39;; image[0].style.width = width + &#39;px&#39;; image[0].style.height = height + &#39;px&#39;; }; reader.onerror = function() { error[0].style.display = &#39;block&#39;; }; reader.src = nextImage; } "></div> <div class="preview-image-player-prev" onclick=" let modal = document.getElementById(&#39;cupoynoteeditor-preview-image-player&#39;); let imagesText = modal.dataset[&#39;images&#39;]; let images = imagesText.split(&#39;,&#39;); let index = modal.dataset[&#39;imageindex&#39;]; index = isNaN(index) ? 0 : Number(index); let prevIndex = index - 1; if(prevIndex &lt; 0) { modal.dataset[&#39;images&#39;] = undefined; modal.style.display = &#39;none&#39;; } else { let prevImage = images[prevIndex]; modal.dataset[&#39;imageindex&#39;] = prevIndex; let image = modal.getElementsByClassName(&#39;preview-image-player-image&#39;); image[0].style.backgroundImage = &quot;url(&#39;&quot; + prevImage + &quot;&#39;)&quot;; let error = modal.getElementsByClassName(&#39;preview-image-player-error-state&#39;); error[0].style.display = &#39;&#39;; let prev = modal.getElementsByClassName(&#39;preview-image-player-prev&#39;); let next = modal.getElementsByClassName(&#39;preview-image-player-next&#39;); let hasPrev = prevIndex &gt; 0; let hasNext = prevIndex + 1 &lt; images.length; if(hasPrev) { prev[0].style.display = &#39;&#39;; } else { prev[0].style.display = &#39;none&#39;; } if(hasNext) { next[0].style.display = &#39;&#39;; } else { next[0].style.display = &#39;none&#39;; } let reader = new Image(); reader.onload = function() { let window_w = window.innerWidth; let window_h = window.innerHeight; let max_width = window_w - 20; let max_height = window_h - 20; let width = reader.naturalWidth; let height = reader.naturalHeight; let scale_w = max_width / width; let scale_h = max_height / height; let top = 0; let left = 0; if(scale_w &lt; 1 || scale_h &lt; 1) { if(scale_w &lt; scale_h) { width = max_width; height = height * scale_w; } else { height = max_height; width = width * scale_h; } } left = (window_w - width) / 2; top = (window_h - height) / 2; image[0].style.left = left + &#39;px&#39;; image[0].style.top = top + &#39;px&#39;; image[0].style.width = width + &#39;px&#39;; image[0].style.height = height + &#39;px&#39;; }; reader.onerror = function() { error[0].style.display = &#39;block&#39;; }; reader.src = prevImage; } "></div> <div class="preview-image-player-next" onclick=" let modal = document.getElementById(&#39;cupoynoteeditor-preview-image-player&#39;); let imagesText = modal.dataset[&#39;images&#39;]; let images = imagesText.split(&#39;,&#39;); let index = modal.dataset[&#39;imageindex&#39;]; index = isNaN(index) ? 0 : Number(index); let nextIndex = index + 1; if(nextIndex &gt;= images.length) { modal.dataset[&#39;images&#39;] = undefined; modal.style.display = &#39;none&#39;; } else { let nextImage = images[nextIndex]; modal.dataset[&#39;imageindex&#39;] = nextIndex; let image = modal.getElementsByClassName(&#39;preview-image-player-image&#39;); image[0].style.backgroundImage = &quot;url(&#39;&quot; + nextImage + &quot;&#39;)&quot;; let error = modal.getElementsByClassName(&#39;preview-image-player-error-state&#39;); error[0].style.display = &#39;&#39;; let prev = modal.getElementsByClassName(&#39;preview-image-player-prev&#39;); let next = modal.getElementsByClassName(&#39;preview-image-player-next&#39;); let hasPrev = nextIndex &gt; 0; let hasNext = nextIndex + 1 &lt; images.length; if(hasPrev) { prev[0].style.display = &#39;&#39;; } else { prev[0].style.display = &#39;none&#39;; } if(hasNext) { next[0].style.display = &#39;&#39;; } else { next[0].style.display = &#39;none&#39;; } let reader = new Image(); reader.onload = function() { let window_w = window.innerWidth; let window_h = window.innerHeight; let max_width = window_w - 20; let max_height = window_h - 20; let width = reader.naturalWidth; let height = reader.naturalHeight; let scale_w = max_width / width; let scale_h = max_height / height; let top = 0; let left = 0; if(scale_w &lt; 1 || scale_h &lt; 1) { if(scale_w &lt; scale_h) { width = max_width; height = height * scale_w; } else { height = max_height; width = width * scale_h; } } left = (window_w - width) / 2; top = (window_h - height) / 2; image[0].style.left = left + &#39;px&#39;; image[0].style.top = top + &#39;px&#39;; image[0].style.width = width + &#39;px&#39;; image[0].style.height = height + &#39;px&#39;; }; reader.onerror = function() { error[0].style.display = &#39;block&#39;; }; reader.src = nextImage; } "></div> <div class="preview-image-player-error-state"> <div class="preview-image-player-error-content"> <div class="preview-image-player-error-title">無法順利載入圖片</div> </div> </div> </div> </body></html>

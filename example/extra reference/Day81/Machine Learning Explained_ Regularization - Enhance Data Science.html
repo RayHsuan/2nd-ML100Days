@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/ -->
+<html lang="en-GB" class=" td-md-is-chrome"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Machine Learning Explained: Regularization - Enhance Data Science</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="pingback" href="http://enhancedatascience.com/xmlrpc.php">
+    <meta name="generator" content="Powered by ionMag WordPress Free Theme - wpion.com">
+
+
+    <!--
+	 _            ___  ___            
+	(_)           |  \/  |            
+	 _  ___  _ __ | .  . | __ _  __ _ 
+	| |/ _ \| '_ \| |\/| |/ _` |/ _` |
+	| | (_) | | | | |  | | (_| | (_| |
+	|_|\___/|_| |_\_|  |_/\__,_|\__, |
+								 __/ |
+								|___/ 
+								
+    ionMag Theme by tagDiv available for free on wpion.com
+    
+    -->
+
+    <script id="twitter-wjs" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/widgets.js.下載"></script><script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/analytics.js.下載"></script><script type="text/javascript">function ctSetCookie(c_name, value, def_value){document.cookie = c_name + '=' + escape(value) + '; path=/';}ctSetCookie('ct_checkjs', '2000382680', '0');</script><meta property="og:image" content="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424">
+<!-- This site is optimized with the Yoast SEO plugin v11.5 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Today we will study a way to correct overfitting called regularization! Read this post to know better L1, L2 and Elastic-net penalization!">
+<link rel="canonical" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Explained: Regularization - Enhance Data Science">
+<meta property="og:description" content="Today we will study a way to correct overfitting called regularization! Read this post to know better L1, L2 and Elastic-net penalization!">
+<meta property="og:url" content="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/">
+<meta property="og:site_name" content="Enhance Data Science">
+<meta property="article:tag" content="Machine learning">
+<meta property="article:tag" content="Machine learning explained">
+<meta property="article:tag" content="overfitting">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="Regularization">
+<meta property="article:tag" content="Statistics">
+<meta property="article:section" content="Featured">
+<meta property="article:published_time" content="2017-07-04T17:37:56+00:00">
+<meta property="article:modified_time" content="2017-07-05T13:08:10+00:00">
+<meta property="og:updated_time" content="2017-07-05T13:08:10+00:00">
+<meta property="og:image" content="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424">
+<meta property="og:image:secure_url" content="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424">
+<meta property="og:image:width" content="630">
+<meta property="og:image:height" content="424">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="Today we will study a way to correct overfitting called regularization! Read this post to know better L1, L2 and Elastic-net penalization!">
+<meta name="twitter:title" content="Machine Learning Explained: Regularization - Enhance Data Science">
+<meta name="twitter:image" content="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424">
+<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--main">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"http://enhancedatascience.com/#organization","name":"","url":"http://enhancedatascience.com/","sameAs":[]},{"@type":"WebSite","@id":"http://enhancedatascience.com/#website","url":"http://enhancedatascience.com/","name":"Enhance Data Science","publisher":{"@id":"http://enhancedatascience.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"http://enhancedatascience.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#primaryimage","url":"https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424","width":630,"height":424,"caption":"L2 Regularization"},{"@type":"WebPage","@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#webpage","url":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/","inLanguage":"en-GB","name":"Machine Learning Explained: Regularization - Enhance Data Science","isPartOf":{"@id":"http://enhancedatascience.com/#website"},"primaryImageOfPage":{"@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#primaryimage"},"datePublished":"2017-07-04T17:37:56+00:00","dateModified":"2017-07-05T13:08:10+00:00","description":"Today we will study a way to correct overfitting called regularization! Read this post to know better L1, L2 and Elastic-net penalization!"},{"@type":"Article","@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#article","isPartOf":{"@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#webpage"},"author":{"@id":"http://enhancedatascience.com/author/enhancedatascience/#author"},"headline":"Machine Learning Explained: Regularization","datePublished":"2017-07-04T17:37:56+00:00","dateModified":"2017-07-05T13:08:10+00:00","commentCount":"2","mainEntityOfPage":{"@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#webpage"},"publisher":{"@id":"http://enhancedatascience.com/#organization"},"image":{"@id":"http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#primaryimage"},"keywords":"Machine learning,Machine learning explained,overfitting,R,Regularization,Statistics","articleSection":"Featured,Machine learning,Machine learning explained: Machine learning algorithm for non data scientist,R programming"},{"@type":["Person"],"@id":"http://enhancedatascience.com/author/enhancedatascience/#author","name":"EnhanceDataScience","image":{"@type":"ImageObject","@id":"http://enhancedatascience.com/#authorlogo","url":"http://0.gravatar.com/avatar/96c3712d16c8ae8ecd2c9a908d994826?s=96&d=mm&r=g","caption":"EnhanceDataScience"},"sameAs":[]}]}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://secure.gravatar.com/">
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Enhance Data Science » Feed" href="http://enhancedatascience.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Enhance Data Science » Comments Feed" href="http://enhancedatascience.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Enhance Data Science » Machine Learning Explained: Regularization Comments Feed" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/enhancedatascience.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.2.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/wp-emoji-release.min.js.下載" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="wp-quicklatex-format-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/quicklatex-format.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="aalb_basics_css-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/aalb_basics.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-syntax-css-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/wp-syntax.css" type="text/css" media="all">
+<link crossorigin="anonymous" rel="stylesheet" id="google-fonts-style-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-widget-social-icons-styles-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/social-icons.css" type="text/css" media="all">
+<link rel="stylesheet" id="td-theme-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-logos-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/social-logos.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/jquery.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/jquery-migrate.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/related-posts.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ctPublic = {"_ajax_nonce":"f5f48c1b7b","_ajax_url":"http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/apbct-public.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ctNocache = {"ajaxurl":"http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php","info_flag":"","set_cookies_flag":"","blog_home":"http:\/\/enhancedatascience.com\/"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/cleantalk_nocache.min.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/wp-quicklatex-frontend.js.下載"></script>
+<link rel="https://api.w.org/" href="http://enhancedatascience.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://enhancedatascience.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://enhancedatascience.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.2.2">
+<link rel="shortlink" href="https://wp.me/p8Bshf-vB">
+<link rel="alternate" type="application/json+oembed" href="http://enhancedatascience.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://enhancedatascience.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F&amp;format=xml">
+
+<link rel="dns-prefetch" href="http://v0.wordpress.com/">
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+<style type="text/css">img#wpstats{display:none}</style><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="amphtml" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/amp/"><meta name="twitter:widgets:link-color" content="#000000"><meta name="twitter:widgets:border-color" content="#000000"><meta name="twitter:partner" content="tfwp">
+<!-- JS generated by theme -->
+
+<script>
+    
+    
+
+	    var tdBlocksArray = []; //here we store all the items for the current page
+
+	    //td_block class - each ajax block uses a object of this class for requests
+	    function tdBlock() {
+		    this.id = '';
+		    this.block_type = 1; //block type id (1-234 etc)
+		    this.atts = '';
+		    this.td_column_number = '';
+		    this.td_current_page = 1; //
+		    this.post_count = 0; //from wp
+		    this.found_posts = 0; //from wp
+		    this.max_num_pages = 0; //from wp
+		    this.td_filter_value = ''; //current live filter value
+		    this.is_ajax_running = false;
+		    this.td_user_action = ''; // load more or infinite loader (used by the animation)
+		    this.header_color = '';
+		    this.ajax_pagination_infinite_stop = ''; //show load more at page x
+	    }
+
+
+        // td_js_generator - mini detector
+        (function(){
+            var htmlTag = document.getElementsByTagName("html")[0];
+
+            if ( navigator.userAgent.indexOf("MSIE 10.0") > -1 ) {
+                htmlTag.className += ' ie10';
+            }
+
+            if ( !!navigator.userAgent.match(/Trident.*rv\:11\./) ) {
+                htmlTag.className += ' ie11';
+            }
+
+            if ( /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ) {
+                htmlTag.className += ' td-md-is-ios';
+            }
+
+            var user_agent = navigator.userAgent.toLowerCase();
+            if ( user_agent.indexOf("android") > -1 ) {
+                htmlTag.className += ' td-md-is-android';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Mac OS X')  ) {
+                htmlTag.className += ' td-md-is-os-x';
+            }
+
+            if ( /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()) ) {
+               htmlTag.className += ' td-md-is-chrome';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Firefox') ) {
+                htmlTag.className += ' td-md-is-firefox';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Safari') && -1 === navigator.userAgent.indexOf('Chrome') ) {
+                htmlTag.className += ' td-md-is-safari';
+            }
+
+            if( -1 !== navigator.userAgent.indexOf('IEMobile') ){
+                htmlTag.className += ' td-md-is-iemobile';
+            }
+
+        })();
+
+
+
+
+        var tdLocalCache = {};
+
+        ( function () {
+            "use strict";
+
+            tdLocalCache = {
+                data: {},
+                remove: function (resource_id) {
+                    delete tdLocalCache.data[resource_id];
+                },
+                exist: function (resource_id) {
+                    return tdLocalCache.data.hasOwnProperty(resource_id) && tdLocalCache.data[resource_id] !== null;
+                },
+                get: function (resource_id) {
+                    return tdLocalCache.data[resource_id];
+                },
+                set: function (resource_id, cachedData) {
+                    tdLocalCache.remove(resource_id);
+                    tdLocalCache.data[resource_id] = cachedData;
+                }
+            };
+        })();
+
+    
+    
+var td_viewport_interval_list=[{"limitBottom":767,"sidebarWidth":228},{"limitBottom":1018,"sidebarWidth":300},{"limitBottom":1140,"sidebarWidth":300}];
+var td_animation_stack_effect="type0";
+var tds_animation_stack=true;
+var td_animation_stack_specific_selectors=".entry-thumb, img";
+var td_animation_stack_general_selectors=".td-animation-stack img, .td-animation-stack .entry-thumb, .post img";
+var td_ajax_url="http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php?td_theme_name=ionMag&v=1.5.1";
+var td_get_template_directory_uri="http:\/\/enhancedatascience.com\/wp-content\/themes\/ionMag";
+var tds_snap_menu="smart_snap_always";
+var tds_logo_on_sticky="";
+var tds_header_style="";
+var td_please_wait="Please wait...";
+var td_email_user_pass_incorrect="User or password incorrect!";
+var td_email_user_incorrect="Email or username incorrect!";
+var td_email_incorrect="Email incorrect!";
+var tds_more_articles_on_post_enable="";
+var tds_more_articles_on_post_time_to_wait="";
+var tds_more_articles_on_post_pages_distance_from_top=0;
+var tds_theme_color_site_wide="#4db2ec";
+var tds_smart_sidebar="";
+var tdThemeName="ionMag";
+var td_magnific_popup_translation_tPrev="Previous (Left arrow key)";
+var td_magnific_popup_translation_tNext="Next (Right arrow key)";
+var td_magnific_popup_translation_tCounter="%curr% of %total%";
+var td_magnific_popup_translation_ajax_tError="The content from %url% could not be loaded.";
+var td_magnific_popup_translation_image_tError="The image #%curr% could not be loaded.";
+var tds_video_playlists=false;
+var td_ad_background_click_link="";
+var td_ad_background_click_target="";
+</script>
+
+<link rel="stylesheet" type="text/css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+
+<!-- Header style compiled by theme -->
+
+<style>
+    
+
+body {
+	background-image:url("http://207.154.225.136/wp-content/uploads/2017/04/ball-63527-1.jpg");
+	background-repeat:no-repeat;
+	background-position:center top;
+	background-attachment:fixed;
+}
+</style>
+
+<link rel="icon" href="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/04/cropped-Logo2.png?fit=32%2C32" sizes="32x32">
+<link rel="icon" href="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/04/cropped-Logo2.png?fit=192%2C192" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/04/cropped-Logo2.png?fit=180%2C180">
+<meta name="msapplication-TileImage" content="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/04/cropped-Logo2.png?fit=270%2C270">
+
+<!-- BEGIN ExactMetrics v5.3.8 Universal Analytics - https://exactmetrics.com/ -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97009076-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- END ExactMetrics Universal Analytics -->
+
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Machine Learning Explained: Regularization"><meta name="twitter:site" content="@antoineguilllot"><meta name="twitter:description" content="Welcome to this new post of Machine Learning Explained.After dealing with overfitting, today we will study a way to correct overfitting with regularization. Regularization adds a penalty on the different parameters of the model to reduce the freedom of the model. Hence, the model will be less likely to fit the noise of the training data…"><meta name="twitter:image" content="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424"><meta name="twitter:image:alt" content="L2 Regularization">
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6032176462173345",
+    enable_page_level_ads: true
+  });
+</script>
+
+<!-- Hotjar Tracking Code for enhancedatascience.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:554824,hjsv:5};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+</script><script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/hotjar-554824.js.下載"></script>
+<style type="text/css"></style><link type="text/css" rel="stylesheet" id="ig_css_0" media="all" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/frontend.min.css"><link type="text/css" rel="stylesheet" id="ig_css_1" media="all" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/action-bar.min.css"><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/hovercard.min.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/services.min.css"><script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/modules.85681d0457cce3b0e9db.js.下載" charset="utf-8"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style><script charset="utf-8" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/moment_timeline_tweet.fcad8ea2acff297a366cdbcbb2a39c03.js.下載"></script><script charset="utf-8" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/timeline.49693ebcd57b08708ebca7502c7c343d.js.下載"></script><script charset="utf-8" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/button.509719336ca39171c37a321231ccaf83.js.下載"></script></head>
+
+<body class="post-template-default single single-post postid-1959 single-format-standard machine-learning-explained-regularization global-block-template-1 td-boxed-layout ig_laptop td-js-loaded body-td-affix" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+
+<div class="td-scroll-up td-scroll-up-visible"><i class="td-icon-menu-up"></i></div>
+
+<div class="td-menu-background"></div>
+<div id="td-mobile-nav" style="min-height: 889px;">
+    <div class="td-mobile-container">
+        <!-- mobile menu top section -->
+        <div class="td-menu-socials-wrap">
+            <!-- socials -->
+            <div class="td-menu-socials">
+                
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://www.facebook.com/EnhanceDataScience/" title="Facebook">
+                <i class="td-icon-font td-icon-facebook"></i>
+            </a>
+        </span>            </div>
+            <!-- close button -->
+            <div class="td-mobile-close">
+                <a href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#"><i class="td-icon-close-mobile"></i></a>
+            </div>
+        </div>
+
+        <!-- login section -->
+        
+        <!-- menu section -->
+        <div class="td-mobile-content">
+            <div class="menu-primary-container"><ul id="menu-primary" class="td-mobile-main-menu"><li id="menu-item-1672" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-first menu-item-1672"><a href="http://enhancedatascience.com/">Home</a></li>
+<li id="menu-item-1710" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1710"><a href="http://enhancedatascience.com/r-programming/">R programming</a></li>
+<li id="menu-item-1726" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1726"><a href="http://enhancedatascience.com/python-programming/">Python Programming</a></li>
+<li id="menu-item-1734" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1734"><a href="http://enhancedatascience.com/machine-learning/">Machine learning</a></li>
+<li id="menu-item-2304" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2304"><a href="http://enhancedatascience.com/contact/">Contact Us!</a></li>
+</ul></div>        </div>
+    </div>
+
+    <!-- register/login section -->
+    </div><div class="td-search-background"></div>
+<div class="td-search-wrap-mob">
+	<div class="td-drop-down-search" aria-labelledby="td-header-search-button">
+		<form method="get" class="td-search-form" action="http://enhancedatascience.com/">
+			<!-- close button -->
+			<div class="td-search-close">
+				<a href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#"><i class="td-icon-close-mobile"></i></a>
+			</div>
+			<div role="search" class="td-search-input">
+				<span>Search</span>
+				<input id="td-header-search-mob" type="text" value="" name="s" autocomplete="off">
+			</div>
+		</form>
+		<div id="td-aj-search-mob"></div>
+	</div>
+</div>
+
+<div id="td-outer-wrap" class="td-theme-wrap">
+    
+<!--
+Header style 1
+-->
+
+<div class="td-header-wrap td-header-style-1">
+    <div class="td-header-top-menu td-container-wrap">
+        <div class="td-container">
+            
+    <div class="top-bar-style-1">
+        <div class="td-header-sp-top-menu">
+	        <div class="td_data_time">
+            <div>
+
+                Tuesday, August 20, 2019
+            </div>
+        </div>
+        </div>        <div class="td-header-sp-top-widget">
+    
+    
+        <span class="td-social-icon-wrap">
+            <a target="_blank" href="https://www.facebook.com/EnhanceDataScience/" title="Facebook">
+                <i class="td-icon-font td-icon-facebook"></i>
+            </a>
+        </span></div>    </div>
+
+<!-- LOGIN MODAL -->
+        </div>
+    </div>
+
+    <div class="td-header-logo-wrap td-container-wrap">
+        <div class="td-container">
+            <div class="td-header-sp-logo">
+                        <a class="td-main-logo" href="http://enhancedatascience.com/">
+            <img class="td-retina-data" data-retina="http://207.154.225.136/wp-content/uploads/2017/04/Logo2-1.png" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/Logo2-1.png" alt="">
+            <span class="td-visual-hidden">Enhance Data Science</span>
+        </a>
+                </div>
+            <div class="td-header-sp-recs">
+                <div class="td-header-rec-wrap">
+    
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-header td_block_wrap td_block_ad_box td_uid_1_5d5c1dad21266_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6032176462173345" data-ad-slot=""></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot=""></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot=""></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px" data-ad-client="ca-pub-6032176462173345" data-ad-slot=""></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6032176462173345" data-ad-slot=""></ins>
+</div>
+
+ <!-- end A --> 
+
+
+</div>            </div>
+        </div>
+    </div>
+
+    <div class="td-header-menu-wrap-full td-container-wrap" style="height: 55px;">
+        <div class="td-header-menu-wrap td-affix" style="transform: translate3d(0px, -55px, 0px);">
+            <div class="td-container td-header-main-menu">
+                <div id="td-header-menu" role="navigation">
+    <div id="td-top-mobile-toggle"><a href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#"><i class="td-icon-font td-icon-mobile"></i></a></div>
+    <div class="td-main-menu-logo td-logo-in-header">
+                <a class="td-main-logo" href="http://enhancedatascience.com/">
+            <img class="td-retina-data" data-retina="http://207.154.225.136/wp-content/uploads/2017/04/Logo2-1.png" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/Logo2-1.png" alt="">
+        </a>
+        </div>
+    <div class="menu-primary-container"><ul id="menu-primary-1" class="sf-menu sf-js-enabled"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-first td-menu-item td-normal-menu menu-item-1672"><a href="http://enhancedatascience.com/">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-1710"><a href="http://enhancedatascience.com/r-programming/">R programming</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-1726"><a href="http://enhancedatascience.com/python-programming/">Python Programming</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-1734"><a href="http://enhancedatascience.com/machine-learning/">Machine learning</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-2304"><a href="http://enhancedatascience.com/contact/">Contact Us!</a></li>
+</ul></div></div>
+
+    <div class="td-header-menu-search">
+        <div class="td-search-btns-wrap">
+            <a id="td-header-search-button" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+            <a id="td-header-search-button-mob" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+        </div>
+
+        <div class="td-search-box-wrap">
+            <div class="td-drop-down-search" aria-labelledby="td-header-search-button">
+                <form method="get" class="td-search-form" action="http://enhancedatascience.com/">
+                    <div role="search" class="td-head-form-search-wrap">
+                        <input id="td-header-search" type="text" value="" name="s" autocomplete="off"><input class="wpb_button wpb_btn-inverse btn" type="submit" id="td-header-search-top" value="Search">
+                    </div>
+                </form>
+                <div id="td-aj-search"></div>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div><div class="td-main-content-wrap td-container-wrap">
+
+    <div class="td-container td-post-template-default ">
+        <div class="td-crumb-container"><div class="entry-crumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList"><span class="td-bred-first"><a href="http://enhancedatascience.com/">Home</a></span> <i class="td-icon-right td-bread-sep"></i> <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                               <a title="View all posts in Machine learning" class="entry-crumb" itemscope="" itemprop="item" itemtype="http://schema.org/Thing" href="http://enhancedatascience.com/category/machine-learning/">
+                                  <span itemprop="name">Machine learning</span>    </a>    <meta itemprop="position" content="1"></span> <i class="td-icon-right td-bread-sep td-bred-no-url-last"></i> <span class="td-bred-no-url-last">Machine Learning Explained: Regularization</span></div></div>
+
+        <div class="td-pb-row">
+                                    <div class="td-pb-span8 td-main-content" role="main">
+                            <div class="td-ss-main-content">
+                                
+    <article id="post-1959" class="post-1959 post type-post status-publish format-standard has-post-thumbnail hentry category-featured category-machine-learning category-machine-learning-explained category-r-programming tag-machine-learning tag-machine-learning-explained tag-overfitting tag-r tag-regularization tag-statistics" itemscope="" itemtype="http://schema.org/Article">
+        <div class="td-post-header">
+
+            <ul class="td-category"><li class="entry-category"><a href="http://enhancedatascience.com/category/machine-learning/">Machine learning</a></li><li class="entry-category"><a href="http://enhancedatascience.com/category/machine-learning/machine-learning-explained/">Machine learning explained: Machine learning algorithm for non data scientist</a></li><li class="entry-category"><a href="http://enhancedatascience.com/category/r-programming/">R programming</a></li></ul>
+            <header class="td-post-title">
+                <h1 class="entry-title">Machine Learning Explained: Regularization</h1>
+
+                
+
+                <div class="td-module-meta-info">
+                                        <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2017-07-04T18:37:56+00:00">4th July 2017</time></span>                    <div class="td-post-comments"><a href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#comments"><i class="td-icon-comments"></i>2</a></div>                    <div class="td-post-views-wrap">
+                                                                    </div>
+                </div>
+            </header>
+
+        </div>
+
+        <div class="td-post-sharing td-post-sharing-top ">
+				<div class="td-default-sharing">
+		            <a class="td-social-sharing-buttons td-social-facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F" onclick="window.open(this.href, &#39;mywin&#39;,&#39;left=50,top=50,width=600,height=350,toolbar=0&#39;); return false;"><i class="td-icon-facebook"></i><div class="td-social-but-text">Share on Facebook</div></a>
+		            <a class="td-social-sharing-buttons td-social-twitter" href="https://twitter.com/intent/tweet?text=Machine+Learning+Explained%3A+Regularization&amp;url=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F&amp;via=Enhance+Data+Science"><i class="td-icon-twitter"></i><div class="td-social-but-text">Tweet on Twitter</div></a>
+		            <a class="td-social-sharing-buttons td-social-google" href="https://plus.google.com/share?url=http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/" onclick="window.open(this.href, &#39;mywin&#39;,&#39;left=50,top=50,width=600,height=350,toolbar=0&#39;); return false;"><i class="td-icon-googleplus"></i></a>
+		            <a class="td-social-sharing-buttons td-social-pinterest" href="https://pinterest.com/pin/create/button/?url=http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/&amp;media=http://enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png&amp;description=Today%20we%20will%20study%20a%20way%20to%20correct%20overfitting%20called%20regularization!%20Read%20this%20post%20to%20know%20better%20L1,%20L2%20and%20Elastic-net%20penalization!" onclick="window.open(this.href, &#39;mywin&#39;,&#39;left=50,top=50,width=600,height=350,toolbar=0&#39;); return false;"><i class="td-icon-pinterest"></i></a>
+		            <a class="td-social-sharing-buttons td-social-whatsapp" href="whatsapp://send?text=Machine+Learning+Explained%3A+Regularization%20-%20http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F"><i class="td-icon-whatsapp"></i></a>
+	            </div></div>        
+        <div class="td-post-content">
+
+        <div class="td-post-featured-image"><a href="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424" data-caption="" class="td-modal-image"><img width="630" height="424" class="entry-thumb td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/L2regularization.png" srcset="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?w=630 630w, https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?resize=300%2C202 300w" sizes="(max-width: 630px) 100vw, 630px" alt="L2 Regularization" title="L2regularization"></a></div>
+        
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-content_top td_block_wrap td_block_ad_box td_uid_3_5d5c1dad2c3c1_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>
+</div>
+
+ <!-- end A --> 
+
+<p>Welcome to this new post of Machine Learning Explained.After dealing with&nbsp;<a href="http://enhancedatascience.com/2017/06/29/machine-learning-explained-overfitting/">overfitting</a>, today we will study a way to <strong>correct overfitting with regularization</strong>. Regularization adds a penalty on the different parameters of the model to reduce the freedom of the model. Hence, the model will be<strong> less likely to fit the noise</strong> of the training data and will improve the generalization abilities of the model. In this post, we will study and compare:</p>
+<ul>
+<li>The L1 regularization (also called Lasso)</li>
+<li>The L2 regularization (also called Ridge)</li>
+<li>The L1/L2 regularization (also called Elastic net)</li>
+</ul>
+<p>You can find the R code for regularization at the end of the post.</p>
+<h2>L1 Regularization (Lasso penalisation)</h2>
+<p>The L1 regularization adds a penalty equal to the sum of the absolute value of the coefficients.&nbsp;<img data-attachment-id="1960" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/eqn2248/" data-orig-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/06/eqn2248.png?fit=352%2C108" data-orig-size="352,108" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="L1 Reg" data-image-description="" data-medium-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/06/eqn2248.png?fit=300%2C92" data-large-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/06/eqn2248.png?fit=352%2C108" class="aligncenter wp-image-1960 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/eqn2248.png" alt="" width="288" height="88" srcset="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/06/eqn2248.png?w=352 352w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/06/eqn2248.png?resize=300%2C92 300w" sizes="(max-width: 288px) 100vw, 288px"></p>
+
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-content_inline td_block_wrap td_block_ad_box td_uid_2_5d5c1dad2bc46_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="8046348514"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="8046348514"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="8046348514"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="8046348514"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="8046348514"></ins>
+</div>
+
+ <!-- end A --> 
+
+<p>The L1 regularization will <strong>shrink some parameters to zero</strong>. Hence some variables will not play any role in the model, L1 regression can be seen as a way to select&nbsp;features in a model. Let’s see this with an example!<br>
+We want to predict the prices of houses from <a href="https://www.kaggle.com/harlfoxem/housesalesprediction/kernels">House Sales in King County, USA dataset</a>&nbsp;on Kaggle. We will train the data on 0.5% of the dataset, we are taking such a small dataset to ensure that they will be overfitting. The test will be done on the other 99.5% of the data.</p>
+<p>We will use the glmnet&nbsp;packages to set a penalization and to test several lambda&nbsp;values. As lambda grows bigger, more coefficient will be cut. Below is the evolution of the value of the different coefficients while lambda is growing.<img data-attachment-id="1985" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/l1regularization/" data-orig-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L1regularization.png?fit=630%2C424" data-orig-size="630,424" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="L1 Regularization" data-image-description="" data-medium-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L1regularization.png?fit=300%2C202" data-large-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L1regularization.png?fit=630%2C424" class="aligncenter wp-image-1985 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/L1regularization.png" alt="L1 Regularization" width="456" height="307" srcset="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L1regularization.png?w=630 630w, https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L1regularization.png?resize=300%2C202 300w" sizes="(max-width: 456px) 100vw, 456px"></p>
+<p>As expected, coefficients are cut one by one until no variables remain. Let’s see how the test error is evolving:</p>
+<p><img data-attachment-id="1986" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/testerrorl1regularization/" data-orig-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/TestErrorL1Regularization.png?fit=630%2C424" data-orig-size="630,424" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Test Error L1 Regularization" data-image-description="" data-medium-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/TestErrorL1Regularization.png?fit=300%2C202" data-large-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/TestErrorL1Regularization.png?fit=630%2C424" class="aligncenter wp-image-1986 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/TestErrorL1Regularization.png" alt="Test Error L1 Regularization" width="419" height="282" srcset="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/TestErrorL1Regularization.png?w=630 630w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/TestErrorL1Regularization.png?resize=300%2C202 300w" sizes="(max-width: 419px) 100vw, 419px"></p>
+<p>At the beginning, cutting coefficient reduces the overfitting and the generalization abilities of the model. Hence, the test error is decreasing. However, as we are cutting more and more coefficient, the test error start increasing. The model is not able to learn complex pattern with so few variables.</p>
+<h2>L2 Regularization (Ridge penalisation)</h2>
+<p>The L2 regularization adds a penalty equal to the sum of the squared value of the coefficients.</p>
+<p><img data-attachment-id="1991" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/codecogseqn-1/" data-orig-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/CodeCogsEqn-1.gif?fit=264%2C53" data-orig-size="264,53" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="L2Reg" data-image-description="" data-medium-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/CodeCogsEqn-1.gif?fit=264%2C53" data-large-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/CodeCogsEqn-1.gif?fit=264%2C53" class="aligncenter size-full wp-image-1991 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/CodeCogsEqn-1.gif" alt="L2 Reg" width="264" height="53">The L2 regularization will force <strong>the parameters to be relatively small</strong>, the bigger the penalization, the smaller (and the more robust) the coefficients are.</p>
+<p><img data-attachment-id="1988" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/l2regularization/" data-orig-file="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424" data-orig-size="630,424" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="L2regularization" data-image-description="" data-medium-file="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=300%2C202" data-large-file="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424" class="aligncenter wp-image-1988 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/L2regularization(1).png" alt="L2 Regularization" width="395" height="266" srcset="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?w=630 630w, https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?resize=300%2C202 300w" sizes="(max-width: 395px) 100vw, 395px"></p>
+<p>When we compare this plot to the L1 regularization plot, we notice that the coefficients decrease progressively and are not cut to zero. They slowly decrease to zero. That is the behavior we expected. Let’s see how the test error evolves:</p>
+<p><img data-attachment-id="1989" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/l2regularizationerror/" data-orig-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2RegularizationError.png?fit=630%2C424" data-orig-size="630,424" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="L2RegularizationError" data-image-description="" data-medium-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2RegularizationError.png?fit=300%2C202" data-large-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2RegularizationError.png?fit=630%2C424" class="aligncenter wp-image-1989 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/L2RegularizationError.png" alt="L2 Regularization Error" width="413" height="278" srcset="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2RegularizationError.png?w=630 630w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2RegularizationError.png?resize=300%2C202 300w" sizes="(max-width: 413px) 100vw, 413px"></p>
+<p>On this case, the L2 regularization&nbsp;is more efficient than the L1 regularization with an error below 240 000.</p>
+<h2 id="firstHeading" class="firstHeading" lang="en">Elastic-net</h2>
+<p>Elastic-net is a mix of <strong>both L1 and L2 regularizations</strong>. A penalty is applied to the sum of the absolute values and to the sum of the squared values:</p>
+<p><img data-attachment-id="1992" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/codecogseqn-3/" data-orig-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/CodeCogsEqn-3.gif?fit=427%2C53" data-orig-size="427,53" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Elastic net regularization" data-image-description="" data-medium-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/CodeCogsEqn-3.gif?fit=300%2C37" data-large-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/CodeCogsEqn-3.gif?fit=427%2C53" class="aligncenter size-full wp-image-1992 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/CodeCogsEqn-3.gif" alt="Elastic net regularization" width="427" height="53"></p>
+<p>Lambda is a shared penalization parameter while alpha sets the ratio between L1 and L2 regularization in the Elastic Net Regularization. Hence, we expect a hybrid&nbsp;behavior between L1 and L2 regularization.<img data-attachment-id="1994" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/elasticnetregularization/" data-orig-file="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ElasticNetRegularization.png?fit=630%2C424" data-orig-size="630,424" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Elastic coefficients evolution" data-image-description="" data-medium-file="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ElasticNetRegularization.png?fit=300%2C202" data-large-file="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ElasticNetRegularization.png?fit=630%2C424" class="aligncenter wp-image-1994 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/ElasticNetRegularization.png" alt="Elastic coefficients evolution" width="459" height="309" srcset="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ElasticNetRegularization.png?w=630 630w, https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ElasticNetRegularization.png?resize=300%2C202 300w" sizes="(max-width: 459px) 100vw, 459px"></p>
+<p>&nbsp;</p>
+<p>And that’s happening: Though coefficients are cut, the cut is less abrupt than the cut with lasso penalization alone. The Elastic Net error does not seem to improve the L2&nbsp;our previous models.<img data-attachment-id="1995" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/elastic-net-error/" data-orig-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/Elastic-Net-Error.png?fit=630%2C424" data-orig-size="630,424" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Elastic Net Error" data-image-description="" data-medium-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/Elastic-Net-Error.png?fit=300%2C202" data-large-file="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/Elastic-Net-Error.png?fit=630%2C424" class="aligncenter wp-image-1995 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/Elastic-Net-Error.png" alt="Elastic Net Error" width="436" height="293" srcset="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/Elastic-Net-Error.png?w=630 630w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/Elastic-Net-Error.png?resize=300%2C202 300w" sizes="(max-width: 436px) 100vw, 436px"></p>
+<p>&nbsp;</p>
+<h2>A geometric perspective on regularization</h2>
+<p>The Lasso, Ridge and Elastic-net regression can also be viewed as a constraint added to the optimization process.<br>
+The Lasso&nbsp;error minimization can be rewritten:</p>
+<p><img data-attachment-id="2004" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/errorconstraintl1/" data-orig-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ErrorConstraintL1.gif?fit=323%2C26" data-orig-size="323,26" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Error Constraint L1" data-image-description="" data-medium-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ErrorConstraintL1.gif?fit=300%2C24" data-large-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ErrorConstraintL1.gif?fit=323%2C26" class="aligncenter size-full wp-image-2004 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/ErrorConstraintL1.gif" alt="Error Constraint L1 Lasso" width="323" height="26"></p>
+<p>And the ridge error minimization can be rewritten:</p>
+<p><img data-attachment-id="2005" data-permalink="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/errorconstraintl2/" data-orig-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ErrorConstraintL2.gif?fit=316%2C26" data-orig-size="316,26" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="ErrorConstraintL2" data-image-description="" data-medium-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ErrorConstraintL2.gif?fit=300%2C25" data-large-file="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/ErrorConstraintL2.gif?fit=316%2C26" class="aligncenter size-full wp-image-2005 td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/ErrorConstraintL2.gif" alt="Error Constraint L2" width="316" height="26"></p>
+<p>When written in this way, it’s clear that Lasso restricts the coefficients to a square shape (or an L1 sphere) which diagonals are equal to 2t. The ridge error restricts the coefficients to a circle (or an L2 sphere) of radius t. This appears clearly in the picture above (from <a href="http://scikit-learn.org/stable/auto_examples/linear_model/plot_sgd_penalties.html">scikit-learn</a>):</p>
+<p><img src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/sphx_glr_plot_sgd_penalties_001.png" width="640" height="640" class="td-animation-stack-type0-1"></p>
+<p>That’s it, you know how regularization works! Here it was specifically used for linear regression but regularization can be used with any parametric algorithm (such as neural net).</p>
+<p>If you liked this post, you can subscribe to the newsletter and get access to all our news on data science and machine learning:</p>
+<div id="rainmaker_form_1974" class="rm_form_container rainmaker_form rm-form-style  rm_subscription rm_init_done" data-type="rm_subscription" data-form-id="1974"><form action="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#rainmaker_form_1974"><div class="rm_form_el_set rm_form_el_email "><label class="rm_form_label">Email</label><input class="rm_form_field" type="email" name="email" required="" placeholder="Email"></div><div class="rm_form_el_set rm_form_el_button "><input class="rm_form_field rm_button" type="submit" name="button" value="Submit"></div><div style="position:absolute; left: -5000px"><input type="text" class="rm_required_field" value="" tabindex="-1"></div></form><div class="rm-loader"></div></div><div id="rm_form_message_1974" class="rm_form_message" style="display:none">Thank you for following us!</div>
+<h2>R Code</h2>
+<div><div id="highlighter_215166" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r functions">require</code><code class="r plain">(data.table)</code></div><div class="line number2 index1 alt1"><code class="r functions">require</code><code class="r plain">(glmnet)</code></div><div class="line number3 index2 alt2"><code class="r functions">set.seed</code><code class="r plain">(123)</code></div><div class="line number4 index3 alt1"><code class="r comments">###reading data</code></div><div class="line number5 index4 alt2"><code class="r plain">housingData=</code><code class="r functions">fread</code><code class="r plain">(</code><code class="r string">'data/kc_house_data.csv'</code><code class="r plain">)</code></div><div class="line number6 index5 alt1"><code class="r comments">##Removing non numeric var</code></div><div class="line number7 index6 alt2"><code class="r plain">housingData[,floors:=</code><code class="r functions">as.numeric</code><code class="r plain">(floors)][,</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'zipcode'</code><code class="r plain">,</code><code class="r string">'lat'</code><code class="r plain">,</code><code class="r string">'long'</code><code class="r plain">,</code><code class="r string">'id'</code><code class="r plain">,</code><code class="r string">'date'</code><code class="r plain">,</code><code class="r string">'sqft_basement'</code><code class="r plain">):=</code><code class="r keyword">NULL</code><code class="r plain">]</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="r comments">###Splitting data</code></div><div class="line number10 index9 alt1"><code class="r plain">indexTrain=</code><code class="r functions">sample.int</code><code class="r plain">(</code><code class="r functions">nrow</code><code class="r plain">(housingData),</code><code class="r functions">nrow</code><code class="r plain">(housingData)*0.005)</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="r comments">##no Reg</code></div><div class="line number14 index13 alt1"><code class="r plain">lmNoReg=</code><code class="r functions">lm</code><code class="r plain">(price~.,housingData[indexTrain])</code></div><div class="line number15 index14 alt2"><code class="r functions">summary</code><code class="r plain">(lmNoReg)</code></div><div class="line number16 index15 alt1"><code class="r plain">pred_no_reg=</code><code class="r functions">predict</code><code class="r plain">(lmNoReg,housingData[-indexTrain])</code></div><div class="line number17 index16 alt2">&nbsp;</div><div class="line number18 index17 alt1"><code class="r functions">sqrt</code><code class="r plain">(</code><code class="r functions">mean</code><code class="r plain">((pred_no_reg-housingData[-indexTrain]$price)^2))</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="r plain">plotCoeffEvolution=</code><code class="r keyword">function</code><code class="r plain">(penalizedGlm,type=</code><code class="r string">'L1'</code><code class="r plain">)</code></div><div class="line number22 index21 alt1"><code class="r plain">{</code></div><div class="line number23 index22 alt2"><code class="r spaces">&nbsp;</code><code class="r functions">require</code><code class="r plain">(ggplot2)</code></div><div class="line number24 index23 alt1"><code class="r spaces">&nbsp;</code><code class="r plain">lambda=penalizedGlm$lambda</code></div><div class="line number25 index24 alt2"><code class="r spaces">&nbsp;</code><code class="r plain">coeff=</code><code class="r functions">as.matrix</code><code class="r plain">(penalizedGlm$beta)</code></div><div class="line number26 index25 alt1"><code class="r spaces">&nbsp;</code><code class="r plain">rowName=</code><code class="r functions">rownames</code><code class="r plain">(coeff)</code></div><div class="line number27 index26 alt2"><code class="r spaces">&nbsp;</code><code class="r plain">coeff=</code><code class="r functions">data.table</code><code class="r plain">(coeff)</code></div><div class="line number28 index27 alt1"><code class="r spaces">&nbsp;</code><code class="r plain">coeff[,name:=rowName]</code></div><div class="line number29 index28 alt2"><code class="r spaces">&nbsp;</code><code class="r plain">coeff=</code><code class="r functions">melt</code><code class="r plain">(coeff,id.vars = </code><code class="r string">'name'</code><code class="r plain">)</code></div><div class="line number30 index29 alt1"><code class="r spaces">&nbsp;</code><code class="r plain">coeff[,variable:=</code><code class="r functions">rep</code><code class="r plain">(lambda,each=</code><code class="r functions">length</code><code class="r plain">(</code><code class="r functions">unique</code><code class="r plain">(name)))]</code></div><div class="line number31 index30 alt2"><code class="r spaces">&nbsp;</code><code class="r functions">ggplot</code><code class="r plain">(coeff,</code><code class="r functions">aes</code><code class="r plain">(x=variable,y=value,color=name))+</code><code class="r functions">geom_line</code><code class="r plain">()+</code><code class="r functions">xlab</code><code class="r plain">(</code><code class="r functions">paste0</code><code class="r plain">(type,</code><code class="r string">' regularisation'</code><code class="r plain">))+</code><code class="r functions">ylab</code><code class="r plain">(</code><code class="r string">'Value of coefficient'</code><code class="r plain">)+</code><code class="r functions">scale_x_log10</code><code class="r plain">()</code></div><div class="line number32 index31 alt1"><code class="r plain">}</code></div><div class="line number33 index32 alt2">&nbsp;</div><div class="line number34 index33 alt1"><code class="r comments">##Different L1 regularisation</code></div><div class="line number35 index34 alt2"><code class="r plain">fit = </code><code class="r functions">glmnet</code><code class="r plain">(</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[indexTrain,-</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'price'</code><code class="r plain">),with=F]),</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[indexTrain]$price) , family=</code><code class="r string">"gaussian"</code><code class="r plain">,alpha=1)</code></div><div class="line number36 index35 alt1">&nbsp;</div><div class="line number37 index36 alt2"><code class="r plain">pred_L1_reg=</code><code class="r functions">data.table</code><code class="r plain">(</code><code class="r functions">predict</code><code class="r plain">(fit,</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[-indexTrain,-</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'price'</code><code class="r plain">),with=F])))</code></div><div class="line number38 index37 alt1"><code class="r plain">RMSE_L1=</code><code class="r functions">sqrt</code><code class="r plain">(</code><code class="r functions">apply</code><code class="r plain">(pred_L1_reg[,(.SD-housingData[-indexTrain]$price)^2,.SD=1:</code><code class="r functions">ncol</code><code class="r plain">(pred_L1_reg)],2,mean))</code></div><div class="line number39 index38 alt2"><code class="r plain">DF_plot=</code><code class="r functions">data.frame</code><code class="r plain">(lambda=fit$lambda,rmse=RMSE_L1)</code></div><div class="line number40 index39 alt1"><code class="r functions">ggplot</code><code class="r plain">(DF_plot,</code><code class="r functions">aes</code><code class="r plain">(x=lambda,y=rmse))+</code><code class="r functions">geom_line</code><code class="r plain">()+</code><code class="r functions">ggtitle</code><code class="r plain">(</code><code class="r string">"Evolution of test error vs lambda value"</code><code class="r plain">)+</code><code class="r functions">scale_x_log10</code><code class="r plain">()</code></div><div class="line number41 index40 alt2"><code class="r functions">require</code><code class="r plain">(plotly)</code></div><div class="line number42 index41 alt1">&nbsp;</div><div class="line number43 index42 alt2"><code class="r comments">## L2 regularisation</code></div><div class="line number44 index43 alt1"><code class="r plain">fit = </code><code class="r functions">glmnet</code><code class="r plain">(</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[indexTrain,-</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'price'</code><code class="r plain">),with=F]),</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[indexTrain]$price) , family=</code><code class="r string">"gaussian"</code><code class="r plain">,alpha=0)</code></div><div class="line number45 index44 alt2">&nbsp;</div><div class="line number46 index45 alt1"><code class="r plain">pred_L2_reg=</code><code class="r functions">data.table</code><code class="r plain">(</code><code class="r functions">predict</code><code class="r plain">(fit,</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[-indexTrain,-</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'price'</code><code class="r plain">),with=F])))</code></div><div class="line number47 index46 alt2"><code class="r plain">RMSE_L2=</code><code class="r functions">sqrt</code><code class="r plain">(</code><code class="r functions">apply</code><code class="r plain">(pred_L2_reg[,(.SD-housingData[-indexTrain]$price)^2,.SD=1:</code><code class="r functions">ncol</code><code class="r plain">(pred_L2_reg)],2,mean))</code></div><div class="line number48 index47 alt1"><code class="r plain">DF_plot=</code><code class="r functions">data.frame</code><code class="r plain">(lambda=fit$lambda,rmse=RMSE_L2)</code></div><div class="line number49 index48 alt2"><code class="r functions">plotCoeffEvolution</code><code class="r plain">(fit,</code><code class="r string">'L2'</code><code class="r plain">)</code></div><div class="line number50 index49 alt1"><code class="r functions">require</code><code class="r plain">(ggplot2)</code></div><div class="line number51 index50 alt2"><code class="r functions">ggplot</code><code class="r plain">(DF_plot,</code><code class="r functions">aes</code><code class="r plain">(x=lambda,y=rmse))+</code><code class="r functions">geom_line</code><code class="r plain">()+</code><code class="r functions">ggtitle</code><code class="r plain">(</code><code class="r string">"Evolution of test error vs lambda value"</code><code class="r plain">)+</code><code class="r functions">scale_x_log10</code><code class="r plain">()</code></div><div class="line number52 index51 alt1">&nbsp;</div><div class="line number53 index52 alt2">&nbsp;</div><div class="line number54 index53 alt1"><code class="r comments">##Different L1L2 regularisation</code></div><div class="line number55 index54 alt2"><code class="r plain">fit = </code><code class="r functions">glmnet</code><code class="r plain">(</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[indexTrain,-</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'price'</code><code class="r plain">),with=F]),</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[indexTrain]$price) , family=</code><code class="r string">"gaussian"</code><code class="r plain">,alpha=0.03)</code></div><div class="line number56 index55 alt1">&nbsp;</div><div class="line number57 index56 alt2"><code class="r plain">pred_L1L2_reg=</code><code class="r functions">data.table</code><code class="r plain">(</code><code class="r functions">predict</code><code class="r plain">(fit,</code><code class="r functions">as.matrix</code><code class="r plain">(housingData[-indexTrain,-</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'price'</code><code class="r plain">),with=F])))</code></div><div class="line number58 index57 alt1"><code class="r plain">RMSE_L1L2=</code><code class="r functions">sqrt</code><code class="r plain">(</code><code class="r functions">apply</code><code class="r plain">(pred_L1L2_reg[,(.SD-housingData[-indexTrain]$price)^2,.SD=1:</code><code class="r functions">ncol</code><code class="r plain">(pred_L1L2_reg)],2,mean))</code></div><div class="line number59 index58 alt2"><code class="r plain">DF_plot=</code><code class="r functions">data.frame</code><code class="r plain">(lambda=fit$lambda,rmse=RMSE_L1L2)</code></div><div class="line number60 index59 alt1"><code class="r functions">plotCoeffEvolution</code><code class="r plain">(fit,</code><code class="r string">'Elastic'</code><code class="r plain">)</code></div><div class="line number61 index60 alt2"><code class="r functions">require</code><code class="r plain">(ggplot2)</code></div><div class="line number62 index61 alt1"><code class="r functions">ggplot</code><code class="r plain">(DF_plot,</code><code class="r functions">aes</code><code class="r plain">(x=lambda,y=rmse))+</code><code class="r functions">geom_line</code><code class="r plain">()+</code><code class="r functions">ggtitle</code><code class="r plain">(</code><code class="r string">"Evolution of test error vs lambda value"</code><code class="r plain">)+</code><code class="r functions">scale_x_log10</code><code class="r plain">()</code></div></div></td></tr></tbody></table></div></div>
+<p>&nbsp;</p>
+<h2></h2>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-1959" class="share-twitter sd-button share-icon no-text" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-1959" class="share-facebook sd-button share-icon no-text" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span></span><span class="sharing-screen-reader-text">Click to share on Facebook (Opens in new window)</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-1959" class="share-google-plus-1 sd-button share-icon no-text" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-visual jp-relatedposts-grid "><div class="jp-relatedposts-post jp-relatedposts-post0 jp-relatedposts-post-thumbs" data-post-id="2103" data-post-format="false"><a class="jp-relatedposts-post-a" href="http://enhancedatascience.com/2017/07/31/machine-learning-explained-dimensionality-reduction/" title="Machine Learning Explained: Dimensionality Reduction
+
+Dealing with a lot of dimensions can be painful for machine learning algorithms. High dimensionality will increase the computational complexity, increase the risk of overfitting (as your algorithm has more degrees of freedom) and the sparsity of the data will grow. Hence, dimensionality reduction will project the data in a…" rel="nofollow" data-origin="1959" data-position="0"><img class="jp-relatedposts-post-img" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/ShadowProjection.jpg" width="350" alt="Machine Learning Explained: Dimensionality Reduction"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://enhancedatascience.com/2017/07/31/machine-learning-explained-dimensionality-reduction/" title="Machine Learning Explained: Dimensionality Reduction
+
+Dealing with a lot of dimensions can be painful for machine learning algorithms. High dimensionality will increase the computational complexity, increase the risk of overfitting (as your algorithm has more degrees of freedom) and the sparsity of the data will grow. Hence, dimensionality reduction will project the data in a…" rel="nofollow" data-origin="1959" data-position="0">Machine Learning Explained: Dimensionality Reduction</a></h4><p class="jp-relatedposts-post-excerpt">Dealing with a lot of dimensions can be painful for machine learning algorithms. High dimensionality will increase the computational complexity, increase the risk of overfitting (as your algorithm has more degrees of freedom) and the sparsity of the data will grow. Hence, dimensionality reduction will project the data in a…</p><p class="jp-relatedposts-post-date" style="display: block;">31st July 2017</p><p class="jp-relatedposts-post-context">In "Featured"</p></div><div class="jp-relatedposts-post jp-relatedposts-post1 jp-relatedposts-post-thumbs" data-post-id="1942" data-post-format="false"><a class="jp-relatedposts-post-a" href="http://enhancedatascience.com/2017/06/29/machine-learning-explained-overfitting/" title="Machine Learning Explained: Overfitting
+
+Welcome to this new post of Machine Learning Explained.After dealing with bagging, today, we will deal with overfitting. Overfitting is the devil of Machine Learning and Data Science and has to be avoided in all of your models. What is overfitting? A good model is able to learn the pattern from…" rel="nofollow" data-origin="1959" data-position="1"><img class="jp-relatedposts-post-img" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/PolynomialOverfit.png" width="350" alt="Machine Learning Explained: Overfitting"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://enhancedatascience.com/2017/06/29/machine-learning-explained-overfitting/" title="Machine Learning Explained: Overfitting
+
+Welcome to this new post of Machine Learning Explained.After dealing with bagging, today, we will deal with overfitting. Overfitting is the devil of Machine Learning and Data Science and has to be avoided in all of your models. What is overfitting? A good model is able to learn the pattern from…" rel="nofollow" data-origin="1959" data-position="1">Machine Learning Explained: Overfitting</a></h4><p class="jp-relatedposts-post-excerpt">Welcome to this new post of Machine Learning Explained.After dealing with bagging, today, we will deal with overfitting. Overfitting is the devil of Machine Learning and Data Science and has to be avoided&nbsp;in all of your models. What is overfitting? A good model is able to learn the pattern from…</p><p class="jp-relatedposts-post-date" style="display: block;">29th June 2017</p><p class="jp-relatedposts-post-context">In "Featured"</p></div><div class="jp-relatedposts-post jp-relatedposts-post2 jp-relatedposts-post-thumbs" data-post-id="1929" data-post-format="false"><a class="jp-relatedposts-post-a" href="http://enhancedatascience.com/2017/06/28/machine-learning-explained-bagging/" title="Machine Learning Explained: Bagging
+
+Bagging is a powerful method to improve the performance of simple models and reduce overfitting of more complex models. The principle is very easy to understand, instead of fitting the model on one sample of the population, several models are fitted on different samples (with replacement) of the population. Then,…" rel="nofollow" data-origin="1959" data-position="2"><img class="jp-relatedposts-post-img" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/baggedTrees.png" width="350" alt="Machine Learning Explained: Bagging"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://enhancedatascience.com/2017/06/28/machine-learning-explained-bagging/" title="Machine Learning Explained: Bagging
+
+Bagging is a powerful method to improve the performance of simple models and reduce overfitting of more complex models. The principle is very easy to understand, instead of fitting the model on one sample of the population, several models are fitted on different samples (with replacement) of the population. Then,…" rel="nofollow" data-origin="1959" data-position="2">Machine Learning Explained: Bagging</a></h4><p class="jp-relatedposts-post-excerpt">Bagging is a powerful method to improve the performance of simple models and reduce overfitting of more complex models. The principle is very easy to understand, instead of fitting the model on one sample of the population, several models are fitted on different samples (with replacement) of the population. Then,…</p><p class="jp-relatedposts-post-date" style="display: block;">28th June 2017</p><p class="jp-relatedposts-post-context">In "Featured"</p></div></div></div>
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-content_bottom td_block_wrap td_block_ad_box td_uid_4_5d5c1dad2ca87_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3476548114"></ins>
+</div>
+
+ <!-- end A --> 
+
+        </div>
+
+        <footer>
+                        
+            <div class="td-post-source-tags">
+                                <ul class="td-tags td-post-small-box clearfix"><li><span>TAGS</span></li><li><a href="http://enhancedatascience.com/tag/machine-learning/">Machine learning</a></li><li><a href="http://enhancedatascience.com/tag/machine-learning-explained/">Machine learning explained</a></li><li><a href="http://enhancedatascience.com/tag/overfitting/">overfitting</a></li><li><a href="http://enhancedatascience.com/tag/r/">R</a></li><li><a href="http://enhancedatascience.com/tag/regularization/">Regularization</a></li><li><a href="http://enhancedatascience.com/tag/statistics/">Statistics</a></li></ul>            </div>
+
+            <div class="td-block-row td-post-next-prev"><div class="td-block-span6 td-post-prev-post"><div class="td-post-next-prev-content"><span>Previous article</span><a href="http://enhancedatascience.com/2017/06/29/machine-learning-explained-overfitting/">Machine Learning Explained: Overfitting</a></div></div><div class="td-next-prev-separator"></div><div class="td-block-span6 td-post-next-post"><div class="td-post-next-prev-content"><span>Next article</span><a href="http://enhancedatascience.com/2017/07/06/pick-best-r-packages-interactive-plot-visualisation-22/">A pick of the best R packages for interactive plots and visualisations (2/2)</a></div></div></div>            <div class="author-box-wrap"><a href="http://enhancedatascience.com/author/enhancedatascience/"><img alt="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/96c3712d16c8ae8ecd2c9a908d994826.png" srcset="http://0.gravatar.com/avatar/96c3712d16c8ae8ecd2c9a908d994826?s=192&amp;d=mm&amp;r=g 2x" class="avatar avatar-96 photo grav-hashed td-animation-stack-type0-1" height="96" width="96" id="grav-96c3712d16c8ae8ecd2c9a908d994826-0"></a><div class="desc"><div class="td-author-name vcard author"><span class="fn"><a href="http://enhancedatascience.com/author/enhancedatascience/">EnhanceDataScience</a></span></div><div class="td-author-description"></div><div class="td-author-social"></div><div class="clearfix"></div></div></div>            <div class="td-post-sharing td-post-sharing-bottom td-with-like"><span class="td-post-share-title">SHARE</span>
+            <div class="td-default-sharing">
+	            <a class="td-social-sharing-buttons td-social-facebook" href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F" onclick="window.open(this.href, &#39;mywin&#39;,&#39;left=50,top=50,width=600,height=350,toolbar=0&#39;); return false;"><i class="td-icon-facebook"></i><div class="td-social-but-text">Facebook</div></a>
+	            <a class="td-social-sharing-buttons td-social-twitter" href="https://twitter.com/intent/tweet?text=Machine+Learning+Explained%3A+Regularization&amp;url=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F&amp;via=Enhance+Data+Science"><i class="td-icon-twitter"></i><div class="td-social-but-text">Twitter</div></a>
+	            <a class="td-social-sharing-buttons td-social-google" href="https://plus.google.com/share?url=http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/" onclick="window.open(this.href, &#39;mywin&#39;,&#39;left=50,top=50,width=600,height=350,toolbar=0&#39;); return false;"><i class="td-icon-googleplus"></i></a>
+	            <a class="td-social-sharing-buttons td-social-pinterest" href="https://pinterest.com/pin/create/button/?url=http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/&amp;media=http://enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png&amp;description=Today%20we%20will%20study%20a%20way%20to%20correct%20overfitting%20called%20regularization!%20Read%20this%20post%20to%20know%20better%20L1,%20L2%20and%20Elastic-net%20penalization!" onclick="window.open(this.href, &#39;mywin&#39;,&#39;left=50,top=50,width=600,height=350,toolbar=0&#39;); return false;"><i class="td-icon-pinterest"></i></a>
+	            <a class="td-social-sharing-buttons td-social-whatsapp" href="whatsapp://send?text=Machine+Learning+Explained%3A+Regularization%20-%20http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F"><i class="td-icon-whatsapp"></i></a>
+            </div><div class="td-classic-sharing"><ul><li class="td-classic-facebook"><iframe frameborder="0" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/like.html" style="border:none; overflow:hidden; width:105px; height:21px; background-color:transparent;"></iframe></li><li class="td-classic-twitter"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 63px; height: 20px;" title="Twitter Tweet Button" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/tweet_button.0639d67d95b7680840758b6833f06d87.en.html" data-url="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/"></iframe> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li></ul></div></div>	        <span style="display: none;" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><meta itemprop="name" content="EnhanceDataScience"></span><meta itemprop="datePublished" content="2017-07-04T18:37:56+00:00"><meta itemprop="dateModified" content="2017-07-05T14:08:10+01:00"><meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/"><span style="display: none;" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization"><span style="display: none;" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="http://207.154.225.136/wp-content/uploads/2017/04/Logo2-1.png"></span><meta itemprop="name" content="Enhance Data Science"></span><meta itemprop="headline " content="Machine Learning Explained: Regularization"><span style="display: none;" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://i1.wp.com/enhancedatascience.com/wp-content/uploads/2017/07/L2regularization.png?fit=630%2C424"><meta itemprop="width" content="630"><meta itemprop="height" content="424"></span>        </footer>
+    </article> <!-- /.post -->
+
+    <script>var block_td_uid_5_5d5c1dad2e1bf = new tdBlock();
+block_td_uid_5_5d5c1dad2e1bf.id = "td_uid_5_5d5c1dad2e1bf";
+block_td_uid_5_5d5c1dad2e1bf.atts = '{"limit":3,"sort":"","post_ids":"","tag_slug":"","autors_id":"","installed_post_types":"","category_id":"","category_ids":"","custom_title":"","custom_url":"","show_child_cat":"","sub_cat_ajax":"","ajax_pagination":"next_prev","header_color":"","header_text_color":"","ajax_pagination_infinite_stop":"","td_column_number":3,"td_ajax_preloading":"","td_ajax_filter_type":"td_custom_related","td_ajax_filter_ids":"","td_filter_default_txt":"All","color_preset":"","border_top":"","class":"td_uid_5_5d5c1dad2e1bf_rand","el_class":"","offset":"","css":"","tdc_css":"","tdc_css_class":"td_uid_5_5d5c1dad2e1bf_rand","live_filter":"cur_post_same_categories","live_filter_cur_post_id":1959,"live_filter_cur_post_author":"2","block_template_id":""}';
+block_td_uid_5_5d5c1dad2e1bf.td_column_number = "3";
+block_td_uid_5_5d5c1dad2e1bf.block_type = "td_block_related_posts";
+block_td_uid_5_5d5c1dad2e1bf.post_count = "3";
+block_td_uid_5_5d5c1dad2e1bf.found_posts = "40";
+block_td_uid_5_5d5c1dad2e1bf.header_color = "";
+block_td_uid_5_5d5c1dad2e1bf.ajax_pagination_infinite_stop = "";
+block_td_uid_5_5d5c1dad2e1bf.max_num_pages = "14";
+tdBlocksArray.push(block_td_uid_5_5d5c1dad2e1bf);
+</script><div class="td_block_wrap td_block_related_posts td_uid_5_5d5c1dad2e1bf_rand td_with_ajax_pagination td-pb-border-top td_block_template_1" data-td-block-uid="td_uid_5_5d5c1dad2e1bf"><h4 class="td-related-title"><a id="td_uid_6_5d5c1dad2ec8f" class="td-related-left td-cur-simple-item" data-td_filter_value="" data-td_block_id="td_uid_5_5d5c1dad2e1bf" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#">RELATED ARTICLES</a><a id="td_uid_7_5d5c1dad2ecd2" class="td-related-right" data-td_filter_value="td_related_more_from_author" data-td_block_id="td_uid_5_5d5c1dad2e1bf" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#">MORE FROM AUTHOR</a></h4><div id="td_uid_5_5d5c1dad2e1bf" class="td_block_inner">
+
+	<div class="td-related-row">
+
+	<div class="td-related-span4">
+
+        <div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="http://enhancedatascience.com/2019/07/09/how-to-use-r-in-aws-lambda/" rel="bookmark" title="How to Use R in AWS Lambda"><img width="198" height="139" class="entry-thumb td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/cropped-final-logo.png" srcset="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2019/07/cropped-final-logo.png?resize=100%2C70 100w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2019/07/cropped-final-logo.png?resize=198%2C139 198w" sizes="(max-width: 198px) 100vw, 198px" alt="" title="How to Use R in AWS Lambda"></a></div>                <div class="td-post-category-wrap"></div>
+            </div>
+            <div class="item-details">
+                <h3 class="entry-title td-module-title"><a href="http://enhancedatascience.com/2019/07/09/how-to-use-r-in-aws-lambda/" rel="bookmark" title="How to Use R in AWS Lambda">How to Use R in AWS Lambda</a></h3>            </div>
+        </div>
+        
+	</div> <!-- ./td-related-span4 -->
+
+	<div class="td-related-span4">
+
+        <div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="http://enhancedatascience.com/2018/05/23/create-your-machine-learning-library-from-scratch-with-r-3-5-knn/" rel="bookmark" title="Create your Machine Learning library from scratch with R ! (3/5) – KNN"><img width="198" height="145" class="entry-thumb td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/decision_boundary.png" srcset="https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/decision_boundary.png?resize=80%2C60 80w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/decision_boundary.png?resize=198%2C145 198w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/decision_boundary.png?resize=300%2C220 300w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/decision_boundary.png?zoom=2&amp;resize=198%2C145 396w, https://i2.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/decision_boundary.png?zoom=3&amp;resize=198%2C145 594w" sizes="(max-width: 198px) 100vw, 198px" alt="" title="Create your Machine Learning library from scratch with R ! (3/5) – KNN"></a></div>                <div class="td-post-category-wrap"></div>
+            </div>
+            <div class="item-details">
+                <h3 class="entry-title td-module-title"><a href="http://enhancedatascience.com/2018/05/23/create-your-machine-learning-library-from-scratch-with-r-3-5-knn/" rel="bookmark" title="Create your Machine Learning library from scratch with R ! (3/5) – KNN">Create your Machine Learning library from scratch with R ! (3/5) – KNN</a></h3>            </div>
+        </div>
+        
+	</div> <!-- ./td-related-span4 -->
+
+	<div class="td-related-span4">
+
+        <div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+            <div class="td-module-image">
+                <div class="td-module-thumb"><a href="http://enhancedatascience.com/2018/05/15/create-machine-learning-library-r-pca/" rel="bookmark" title="Create your Machine Learning library from scratch with R ! (2/5) – PCA"><img width="198" height="145" class="entry-thumb td-animation-stack-type0-1" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/PCA_iris.png" srcset="https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/PCA_iris.png?resize=80%2C60 80w, https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/PCA_iris.png?resize=198%2C145 198w, https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/PCA_iris.png?resize=300%2C220 300w, https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/PCA_iris.png?zoom=2&amp;resize=198%2C145 396w, https://i0.wp.com/enhancedatascience.com/wp-content/uploads/2018/05/PCA_iris.png?zoom=3&amp;resize=198%2C145 594w" sizes="(max-width: 198px) 100vw, 198px" alt="PCA iris" title="Create your Machine Learning library from scratch with R ! (2/5) – PCA"></a></div>                <div class="td-post-category-wrap"></div>
+            </div>
+            <div class="item-details">
+                <h3 class="entry-title td-module-title"><a href="http://enhancedatascience.com/2018/05/15/create-machine-learning-library-r-pca/" rel="bookmark" title="Create your Machine Learning library from scratch with R ! (2/5) – PCA">Create your Machine Learning library from scratch with R ! (2/5) – PCA</a></h3>            </div>
+        </div>
+        
+	</div> <!-- ./td-related-span4 --></div><!--./row-fluid--></div><div class="td-next-prev-wrap"><a href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#" class="td-ajax-prev-page ajax-page-disabled" id="prev-page-td_uid_5_5d5c1dad2e1bf" data-td_block_id="td_uid_5_5d5c1dad2e1bf"><i class="td-icon-font td-icon-menu-left"></i></a><a href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#" class="td-ajax-next-page" id="next-page-td_uid_5_5d5c1dad2e1bf" data-td_block_id="td_uid_5_5d5c1dad2e1bf"><i class="td-icon-font td-icon-menu-right"></i></a></div></div> <!-- ./block -->
+	<div class="comments" id="comments">
+        
+            <div class="td-comments-title-wrap td_block_template_1">
+                <h4 class="td-comments-title "><span>2 COMMENTS</span></h4>
+            </div>
+
+		        <ol class="comment-list ">
+                            <li class="comment pingback" id="comment-254">
+			<article>
+	            <footer>
+                    <img alt="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/none.png" srcset="http://1.gravatar.com/avatar/?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo avatar-default grav-hashed grav-hijack" height="50" width="50" id="grav-false-0">                    <cite><a href="http://enhancedatascience.com/2017/07/31/machine-learning-explained-dimensionality-reduction/" rel="external nofollow" class="url">Machine Learning Explained: Dimensionality Reduction - Enh</a></cite>
+
+                    <a class="comment-link" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#comment-254">
+                        <time pubdate="1501525076">31st July 2017 at 7:17 pm</time>
+                    </a>
+                </footer>
+
+                <div class="comment-content">
+                    <p>[…] and penalization methods, which will add cost for having too many variables. For instance, L1 regularization will cut some variables’ coefficient to zero. Regularization limits the space where the […]</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-254">
+                    <a rel="nofollow" class="comment-reply-link" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#comment-254" data-commentid="254" data-postid="1959" data-belowelement="comment-254" data-respondelement="respond" aria-label="Reply to Machine Learning Explained: Dimensionality Reduction - Enh">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+        <li class="comment pingback" id="comment-4288">
+			<article>
+	            <footer>
+                    <img alt="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/none(1).png" srcset="http://0.gravatar.com/avatar/?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo avatar-default grav-hashed grav-hijack" height="50" width="50" id="grav-false-1">                    <cite><a href="https://www.springboard.com/blog/artificial-intelligence-questions/" rel="external nofollow" class="url">Interview Prep: 40 Artificial Intelligence Questions | Springboard Blog</a></cite>
+
+                    <a class="comment-link" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#comment-4288">
+                        <time pubdate="1555113384">13th April 2019 at 12:56 am</time>
+                    </a>
+                </footer>
+
+                <div class="comment-content">
+                    <p>[…] More reading: Machine Learning Explained: Regularization […]</p>
+                </div>
+
+	            <div class="comment-meta" id="comment-4288">
+                    <a rel="nofollow" class="comment-reply-link" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#comment-4288" data-commentid="4288" data-postid="1959" data-belowelement="comment-4288" data-respondelement="respond" aria-label="Reply to Interview Prep: 40 Artificial Intelligence Questions | Springboard Blog">Reply</a>                </div>
+            </article>
+    </li><!-- #comment-## -->
+                </ol>
+                <div class="comment-pagination">
+                                                        </div>
+
+            	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">LEAVE A REPLY <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://enhancedatascience.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+				<div class="clearfix"></div>
+				<div class="comment-form-input-wrap td-form-comment">
+					<textarea placeholder="Comment:" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+					<div class="td-warning-comment">Please enter your comment!</div>
+				</div>
+		        <div class="comment-form-input-wrap td-form-author">
+			            <input class="" id="author" name="author" placeholder="Name:*" type="text" value="" size="30" aria-required="true">
+			            <div class="td-warning-author">Please enter your name here</div>
+			         </div>
+<div class="comment-form-input-wrap td-form-email">
+			            <input class="" id="email" name="email" placeholder="Email:*" type="text" value="" size="30" aria-required="true">
+			            <div class="td-warning-email-error">You have entered an incorrect email address!</div>
+			            <div class="td-warning-email">Please enter your email address here</div>
+			         </div>
+<div class="comment-form-input-wrap td-form-url">
+			            <input class="" id="url" name="url" placeholder="Website:" type="text" value="" size="30">
+                     </div>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"><label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="1959" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><input type="hidden" id="ct_checkjs_670e8a43b246801ca1eaca97b3e19189" name="ct_checkjs" value="2000382680"><script type="text/javascript">setTimeout(function(){apbct_sendAJAXRequest({action: 'apbct_js_keys__get'},{callback: apbct_js_keys__set_input_value, input_name: 'ct_checkjs_670e8a43b246801ca1eaca97b3e19189'});}, 1000);</script>			</form>
+			</div><!-- #respond -->
+	    </div> <!-- /.content -->
+                            </div>
+                        </div>
+                        <div class="td-pb-span4 td-main-sidebar" role="complementary">
+                            <div class="td-ss-main-sidebar">
+                                <aside class="td_block_template_1 widget widget_text"><h4 class="block-title"><span>Subscribe to our latest news !</span></h4>			<div class="textwidget"><div id="rainmaker_form_1974" class="rm_form_container rainmaker_form rm-form-style  rm_subscription rm_init_done" data-type="rm_subscription" data-form-id="1974"><form action="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#rainmaker_form_1974"><div class="rm_form_el_set rm_form_el_email "><label class="rm_form_label">Email</label><input class="rm_form_field" type="email" name="email" required="" placeholder="Email"></div><div class="rm_form_el_set rm_form_el_button "><input class="rm_form_field rm_button" type="submit" name="button" value="Submit"></div><div style="position:absolute; left: -5000px"><input type="text" class="rm_required_field" value="" tabindex="-1"></div></form><div class="rm-loader"></div></div><div id="rm_form_message_1974" class="rm_form_message" style="display:none">Thank you for following us!</div></div>
+		</aside>
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-sidebar td_block_wrap td_block_ad_box td_block_widget td_uid_8_5d5c1dad321df_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3122758115"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3122758115"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3122758115"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3122758115"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="3122758115"></ins>
+</div>
+
+ <!-- end A --> 
+
+<aside class="td_block_template_1 widget sl-links-main"><h4 class="block-title"><span>Blog roll</span></h4><ul class="simple-links-list simple-links-3-list" id="simple-links-3-list"><li class="simple-links-item simple-links-widget-item" id="link-1840"><a href="https://www.r-bloggers.com/" target="" title="">R bloggers</a></li><li class="simple-links-item simple-links-widget-item" id="link-1842"><a href="https://www.r-users.com/" target="" title="">R jobs</a></li></ul><!-- End .simple-links-list --></aside>
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-custom_ad_1 td_block_wrap td_block_ad_box td_block_widget td_uid_9_5d5c1dad3335b_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="7134155319"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="7134155319"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="7134155319"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="7134155319"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="7134155319"></ins>
+</div>
+
+ <!-- end A --> 
+
+<aside class="td_block_template_1 widget widget_twitter_timeline"><h4 class="block-title"><span>Follow me on Twitter</span></h4><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-timeline twitter-timeline-rendered" style="position: static; visibility: visible; display: inline-block; width: 100%; height: 400px; padding: 0px; border: none; max-width: 100%; min-width: 180px; margin-top: 0px; margin-bottom: 0px; min-height: 200px;" data-widget-id="profile:AntGuilllot" title="Twitter Timeline" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/saved_resource.html"></iframe></aside>
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-custom_ad_2 td_block_wrap td_block_ad_box td_block_widget td_uid_10_5d5c1dad33ae9_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="4848340114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="4848340114"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="4848340114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="4848340114"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="4848340114"></ins>
+</div>
+
+ <!-- end A --> 
+
+<aside class="td_block_template_1 widget widget_tag_cloud"><h4 class="block-title"><span>Tags</span></h4><div class="tagcloud"><a href="http://enhancedatascience.com/tag/algebra/" class="tag-cloud-link tag-link-81 tag-link-position-1" style="font-size: 11.44262295082pt;" aria-label="algebra (3 items)">algebra</a>
+<a href="http://enhancedatascience.com/tag/bagging/" class="tag-cloud-link tag-link-62 tag-link-position-2" style="font-size: 8pt;" aria-label="bagging (1 item)">bagging</a>
+<a href="http://enhancedatascience.com/tag/cart/" class="tag-cloud-link tag-link-54 tag-link-position-3" style="font-size: 8pt;" aria-label="CART (1 item)">CART</a>
+<a href="http://enhancedatascience.com/tag/classification/" class="tag-cloud-link tag-link-52 tag-link-position-4" style="font-size: 11.44262295082pt;" aria-label="Classification (3 items)">Classification</a>
+<a href="http://enhancedatascience.com/tag/clustering/" class="tag-cloud-link tag-link-77 tag-link-position-5" style="font-size: 8pt;" aria-label="clustering (1 item)">clustering</a>
+<a href="http://enhancedatascience.com/tag/d3-js/" class="tag-cloud-link tag-link-66 tag-link-position-6" style="font-size: 8pt;" aria-label="D3.js (1 item)">D3.js</a>
+<a href="http://enhancedatascience.com/tag/d3partitionr/" class="tag-cloud-link tag-link-7 tag-link-position-7" style="font-size: 14.311475409836pt;" aria-label="D3partitionR (6 items)">D3partitionR</a>
+<a href="http://enhancedatascience.com/tag/data-table/" class="tag-cloud-link tag-link-57 tag-link-position-8" style="font-size: 8pt;" aria-label="data.table (1 item)">data.table</a>
+<a href="http://enhancedatascience.com/tag/data-visualisation/" class="tag-cloud-link tag-link-55 tag-link-position-9" style="font-size: 13.508196721311pt;" aria-label="Data visualisation (5 items)">Data visualisation</a>
+<a href="http://enhancedatascience.com/tag/dimensionality-reduction/" class="tag-cloud-link tag-link-69 tag-link-position-10" style="font-size: 10.065573770492pt;" aria-label="Dimensionality reduction (2 items)">Dimensionality reduction</a>
+<a href="http://enhancedatascience.com/tag/from-scratch/" class="tag-cloud-link tag-link-78 tag-link-position-11" style="font-size: 10.065573770492pt;" aria-label="From scratch (2 items)">From scratch</a>
+<a href="http://enhancedatascience.com/tag/highcharter/" class="tag-cloud-link tag-link-8 tag-link-position-12" style="font-size: 8pt;" aria-label="Highcharter (1 item)">Highcharter</a>
+<a href="http://enhancedatascience.com/tag/highcharts/" class="tag-cloud-link tag-link-9 tag-link-position-13" style="font-size: 8pt;" aria-label="Highcharts (1 item)">Highcharts</a>
+<a href="http://enhancedatascience.com/tag/ica/" class="tag-cloud-link tag-link-70 tag-link-position-14" style="font-size: 8pt;" aria-label="ICA (1 item)">ICA</a>
+<a href="http://enhancedatascience.com/tag/js/" class="tag-cloud-link tag-link-10 tag-link-position-15" style="font-size: 16.032786885246pt;" aria-label="JS (9 items)">JS</a>
+<a href="http://enhancedatascience.com/tag/k-means/" class="tag-cloud-link tag-link-56 tag-link-position-16" style="font-size: 8pt;" aria-label="K-means (1 item)">K-means</a>
+<a href="http://enhancedatascience.com/tag/kmeans/" class="tag-cloud-link tag-link-76 tag-link-position-17" style="font-size: 8pt;" aria-label="kmeans (1 item)">kmeans</a>
+<a href="http://enhancedatascience.com/tag/lda/" class="tag-cloud-link tag-link-71 tag-link-position-18" style="font-size: 8pt;" aria-label="LDA (1 item)">LDA</a>
+<a href="http://enhancedatascience.com/tag/linear-regression/" class="tag-cloud-link tag-link-79 tag-link-position-19" style="font-size: 8pt;" aria-label="linear regression (1 item)">linear regression</a>
+<a href="http://enhancedatascience.com/tag/logistic-regression/" class="tag-cloud-link tag-link-80 tag-link-position-20" style="font-size: 8pt;" aria-label="logistic regression (1 item)">logistic regression</a>
+<a href="http://enhancedatascience.com/tag/machine-learning/" class="tag-cloud-link tag-link-51 tag-link-position-21" style="font-size: 16.491803278689pt;" aria-label="Machine learning (10 items)">Machine learning</a>
+<a href="http://enhancedatascience.com/tag/machine-learning-explained/" class="tag-cloud-link tag-link-53 tag-link-position-22" style="font-size: 14.311475409836pt;" aria-label="Machine learning explained (6 items)">Machine learning explained</a>
+<a href="http://enhancedatascience.com/tag/maps/" class="tag-cloud-link tag-link-11 tag-link-position-23" style="font-size: 10.065573770492pt;" aria-label="Maps (2 items)">Maps</a>
+<a href="http://enhancedatascience.com/tag/overfitting/" class="tag-cloud-link tag-link-63 tag-link-position-24" style="font-size: 10.065573770492pt;" aria-label="overfitting (2 items)">overfitting</a>
+<a href="http://enhancedatascience.com/tag/overview/" class="tag-cloud-link tag-link-12 tag-link-position-25" style="font-size: 10.065573770492pt;" aria-label="Overview (2 items)">Overview</a>
+<a href="http://enhancedatascience.com/tag/packages/" class="tag-cloud-link tag-link-67 tag-link-position-26" style="font-size: 11.44262295082pt;" aria-label="packages (3 items)">packages</a>
+<a href="http://enhancedatascience.com/tag/pca/" class="tag-cloud-link tag-link-59 tag-link-position-27" style="font-size: 11.44262295082pt;" aria-label="PCA (3 items)">PCA</a>
+<a href="http://enhancedatascience.com/tag/plotly/" class="tag-cloud-link tag-link-68 tag-link-position-28" style="font-size: 8pt;" aria-label="plotly (1 item)">plotly</a>
+<a href="http://enhancedatascience.com/tag/python/" class="tag-cloud-link tag-link-82 tag-link-position-29" style="font-size: 8pt;" aria-label="python (1 item)">python</a>
+<a href="http://enhancedatascience.com/tag/r/" class="tag-cloud-link tag-link-13 tag-link-position-30" style="font-size: 22pt;" aria-label="R (32 items)">R</a>
+<a href="http://enhancedatascience.com/tag/regression/" class="tag-cloud-link tag-link-14 tag-link-position-31" style="font-size: 14.311475409836pt;" aria-label="Regression (6 items)">Regression</a>
+<a href="http://enhancedatascience.com/tag/regularization/" class="tag-cloud-link tag-link-64 tag-link-position-32" style="font-size: 8pt;" aria-label="Regularization (1 item)">Regularization</a>
+<a href="http://enhancedatascience.com/tag/reinforcement-learning/" class="tag-cloud-link tag-link-75 tag-link-position-33" style="font-size: 8pt;" aria-label="Reinforcement learning (1 item)">Reinforcement learning</a>
+<a href="http://enhancedatascience.com/tag/semantic/" class="tag-cloud-link tag-link-61 tag-link-position-34" style="font-size: 10.065573770492pt;" aria-label="semantic (2 items)">semantic</a>
+<a href="http://enhancedatascience.com/tag/shiny/" class="tag-cloud-link tag-link-15 tag-link-position-35" style="font-size: 16.950819672131pt;" aria-label="Shiny (11 items)">Shiny</a>
+<a href="http://enhancedatascience.com/tag/statistics/" class="tag-cloud-link tag-link-16 tag-link-position-36" style="font-size: 10.065573770492pt;" aria-label="Statistics (2 items)">Statistics</a>
+<a href="http://enhancedatascience.com/tag/supervised-learning/" class="tag-cloud-link tag-link-73 tag-link-position-37" style="font-size: 10.065573770492pt;" aria-label="Supervised learning (2 items)">Supervised learning</a>
+<a href="http://enhancedatascience.com/tag/tourism/" class="tag-cloud-link tag-link-17 tag-link-position-38" style="font-size: 8pt;" aria-label="Tourism (1 item)">Tourism</a>
+<a href="http://enhancedatascience.com/tag/tsne/" class="tag-cloud-link tag-link-72 tag-link-position-39" style="font-size: 8pt;" aria-label="Tsne (1 item)">Tsne</a>
+<a href="http://enhancedatascience.com/tag/tutorial/" class="tag-cloud-link tag-link-18 tag-link-position-40" style="font-size: 16.491803278689pt;" aria-label="Tutorial (10 items)">Tutorial</a>
+<a href="http://enhancedatascience.com/tag/twitter/" class="tag-cloud-link tag-link-60 tag-link-position-41" style="font-size: 10.065573770492pt;" aria-label="Twitter (2 items)">Twitter</a>
+<a href="http://enhancedatascience.com/tag/unsupervised-learning/" class="tag-cloud-link tag-link-74 tag-link-position-42" style="font-size: 10.065573770492pt;" aria-label="Unsupervised learning (2 items)">Unsupervised learning</a>
+<a href="http://enhancedatascience.com/tag/vectorization/" class="tag-cloud-link tag-link-83 tag-link-position-43" style="font-size: 8pt;" aria-label="vectorization (1 item)">vectorization</a>
+<a href="http://enhancedatascience.com/tag/vizualisation/" class="tag-cloud-link tag-link-65 tag-link-position-44" style="font-size: 13.508196721311pt;" aria-label="Vizualisation (5 items)">Vizualisation</a>
+<a href="http://enhancedatascience.com/tag/walkthrough/" class="tag-cloud-link tag-link-19 tag-link-position-45" style="font-size: 15.459016393443pt;" aria-label="Walkthrough (8 items)">Walkthrough</a></div>
+</aside>
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-custom_ad_3 td_block_wrap td_block_ad_box td_block_widget td_uid_11_5d5c1dad35499_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>
+</div>
+
+ <!-- end A --> 
+
+
+ <!-- A generated by theme --> 
+
+<script async="" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/f.txt"></script><div class="td-g-rec td-g-rec-id-custom_ad_4 td_block_wrap td_block_ad_box td_block_widget td_uid_12_5d5c1dad35bf4_rand td-pb-border-top td_block_template_1 ">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1140 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+	                    if ( td_screen_width >= 1019  && td_screen_width < 1140 ) {
+	                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+	                        (adsbygoogle = window.adsbygoogle || []).push({});
+	                    }
+	                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-6032176462173345" data-ad-slot="6325073315"></ins>
+</div>
+
+ <!-- end A --> 
+
+                            </div>
+                        </div>
+                            </div> <!-- /.td-pb-row -->
+    </div> <!-- /.td-container -->
+</div> <!-- /.td-main-content-wrap -->
+
+    <!-- Instagram -->
+    
+    <div class="td-footer-ad td-container-wrap">
+            </div>
+
+    <div class="td-footer-outer-wrapper td-container-wrap">
+        <!-- Footer -->
+        
+        <!-- Sub Footer -->
+
+                    <div class="td-sub-footer-container">
+                <div class="td-container">
+                    <div class="td-pb-row">
+                        <div class="td-pb-span12 td-sub-footer-menu">
+                            <div class="menu-primary-container"><ul id="menu-primary-2" class="td-subfooter-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-first td-menu-item td-normal-menu menu-item-1672"><a href="http://enhancedatascience.com/">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-1710"><a href="http://enhancedatascience.com/r-programming/">R programming</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-1726"><a href="http://enhancedatascience.com/python-programming/">Python Programming</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-1734"><a href="http://enhancedatascience.com/machine-learning/">Machine learning</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-menu-item td-normal-menu menu-item-2304"><a href="http://enhancedatascience.com/contact/">Contact Us!</a></li>
+</ul></div>                        </div>
+
+                        <div class="td-pb-span12 td-sub-footer-copy">
+                            © <br>Powered by <a href="https://www.wpion.com/free-news-theme/">ionMag news theme</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+</div><!--close td-outer-wrap-->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-96c3712d16c8ae8ecd2c9a908d994826">
+	</div>
+	</div>
+
+
+    <!--
+
+        Theme: ionMag by tagDiv.com 2017
+        Version: 1.5.1 (rara)
+        Deploy mode: deploy
+        
+        uid: 5d5c1dad38934
+    -->
+
+    
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/enhancedatascience.com\/2017\/07\/04\/machine-learning-explained-regularization\/":1959};
+	</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/shCore.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/shBrushR.js.下載"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://enhancedatascience.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://enhancedatascience.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+	// Infinite scroll support
+	if ( typeof( jQuery ) !== 'undefined' ) {
+		jQuery( function( $ ) {
+			$( document.body ).on( 'post-load', function() {
+				SyntaxHighlighter.highlight();
+			} );
+		} );
+	}
+</script>
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='jetpack-carousel-ie8fix-css'  href='http://enhancedatascience.com/wp-content/plugins/jetpack/modules/carousel/jetpack-carousel-ie8fix.css?ver=20121024' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="rainmaker_form_style-css" href="./Machine Learning Explained_ Regularization - Enhance Data Science_files/form.css" type="text/css" media="all">
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/photon.min.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/devicepx-jetpack.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/wp-syntax.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/gprofiles.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/wpgroho.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/tagdiv_theme.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/comment-reply.min.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/eu-cookie-law.min.js.下載"></script><aside class="td_block_template_1 widget widget_eu_cookie_law_widget" style="display: block;"><div class="hide-on-button" data-hide-timeout="30" id="eu-cookie-law">
+	<form method="post">
+		<input type="submit" value="Close and accept" class="accept">
+	</form>
+
+	Privacy &amp; Cookies: This site uses cookies.		<br>
+		To find out more, as well as how to remove or block these, see here:
+	<a href="https://jetpack.com/support/cookies/">
+		Our Cookie Policy	</a>
+</div>
+</aside>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/twitter-timeline.min.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/wp-embed.min.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/spin.min.js.下載"></script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/jquery.spin.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php","nonce":"28514d744f","display_exif":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"http:\/\/enhancedatascience.com\/wp-login.php?redirect_to=http%3A%2F%2Fenhancedatascience.com%2F2017%2F07%2F04%2Fmachine-learning-explained-regularization%2F","blog_id":"1","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"local_comments_commenting_as":"<fieldset><label for=\"email\">Email (Required)<\/label> <input type=\"text\" name=\"email\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-email-field\" \/><\/fieldset><fieldset><label for=\"author\">Name (Required)<\/label> <input type=\"text\" name=\"author\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-author-field\" \/><\/fieldset><fieldset><label for=\"url\">Website<\/label> <input type=\"text\" name=\"url\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-url-field\" \/><\/fieldset>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/jetpack-carousel.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var rm_pre_data = {"ajax_url":"http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php","rm_nonce_field":"03f98265ed"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/main.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var icegram_pre_data = {"ajax_url":"http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php","post_obj":{"is_home":false,"page_id":1959,"action":"display_messages","shortcodes":[],"cache_compatibility":"no","device":"laptop"}};
+var icegram_data = {"messages":[{"post_title":"Pop-up subscribe","type":"action-bar","theme":"solid","animation":"slide","headline":"Subscribe to our newsletter !","icon":"","message":"<p style=\"text-align: center;\">Follow us to have the latest update on Data Science, R and Python\u00a0programming, Machine learning and deep learning !<\/p>\n","use_form":"yes","form_style":"style_3","form_layout":"bottom","form_bg_color":"","form_text_color":"","form_header":"","rainmaker_form_code":"1974","form_html_original":"<form action=\"\" method=\"post\" id=\"demo-embed-subscribe-form\" name=\"demo-embed-subscribe-form\" class=\"\" target=\"blank\" >\r\n\r\n    <label for=\"NAME\">Enter your name <\/label>\r\n\t<input type=\"text\" value=\"\" name=\"NAME\" class=\"\" id=\"NAME\">\r\n    <input type=\"submit\" value=\"SUBSCRIBE\" name=\"subscribe\" id=\"subscribe\" class=\"button\">\r\n<\/form>\r\n","form_footer":"Give it a try, you can unsubscribe anytime.","label":"SUBSCRIBE","link":"","use_theme_defaults":"yes","bg_color":"","text_color":"","cta_bg_color":"#ee0204","cta_text_color":"","position":"21","use_custom_code":"yes","custom_css":"@import url(https:\/\/fonts.googleapis.com\/css?family=Open+Sans:400,600);\r\n@import url(https:\/\/fonts.googleapis.com\/css?family=Raleway:400,600);\r\n#ig_this_message{\r\n  width: 35%;\r\n  color: #000000;\r\n  background-image: url('http:\/\/www.icegram.com\/gallery\/wp-content\/uploads\/2016\/05\/brick_wall_gal.jpg');\r\n  background-repeat: no-repeat;\r\n  background-position: center center;\r\n  background-size: cover; \r\n}\r\n#ig_this_message .ig_message{\r\n  padding: 2em 3em;\r\n  text-align: center;\r\n}\r\n#ig_this_message .ig_first_heading{ \r\n  font-size: 1.5em;\r\n  font-weight: 600;\r\n  font-family: 'Open Sans';\r\n  line-height: 1.5em;\r\n}\r\n#ig_this_message .ig_sub_heading{ \r\n  font-size: .8em;\r\n  font-family: 'Open Sans';\r\n  line-height: 1.5em;\r\n}\r\n\r\n#ig_this_message .ig_close {\r\n  background-position: -523px center;\r\n  background-color: rgba(0, 0, 0, 0);\r\n}\r\n#ig_this_message .ig_button{ \r\n  font-family: open sans;\r\n  border-radius:3px;\r\n  font-size: 1.2em;\r\n  box-shadow:none;\r\n}\r\n#ig_this_message.ig_form_inline .ig_form_container.layout_inline .ig_half .ig_form_els {\r\n width: 99%;\r\n}\r\n\r\n#ig_this_message.ig_form_style_0 .ig_form_container .ig_form_els input {\r\n  text-align:center;\r\n  font-family: 'Raleway', sans-serif;\r\n  border-radius: 3px;\r\n  border: 1px solid #DDDCD8;\r\n  background-color: #FFFFFF;\r\n\r\n}\r\n.ig_form_style_0 .ig_form_container .ig_form_els input {\r\n  font-size: 0.8em;\r\n}\r\n#ig_this_message .ig_form_footer{\r\n  font-family: open sans;\r\n  font-size: .7em;\r\n  color: #444;\r\n  margin-top: 1.2em;\r\n  text-align: center;\r\n}\r\n\r\n@media only screen and (max-width: 319px), (min-width: 320px) and (max-width: 359px),(min-width: 360px) and (max-width: 413px){\r\n#ig_this_message {\r\n    width: 90%;\r\n }\r\n}\r\n\r\n@media only screen and (min-width: 414px) and (max-width: 643px){\r\n#ig_this_message{\r\n    width: 70%;\r\n }\r\n}\r\n\r\n@media only screen and (min-width: 644px) and (max-width: 767px),(min-width: 668px) and (max-width: 1992px){\r\n#ig_this_message{\r\n    width: 40%;\r\n }\r\n}","custom_js":"<script type=\"text\/javascript\"> \/* add your js code here *\/ <\/script>","id":"1972","delay_time":"15","retargeting":"yes","campaign_id":1971,"expiry_time":"today","retargeting_clicked":"yes","expiry_time_clicked":"+50 years","form_html":"<div id=\"rainmaker_form_1974\" class=\"rm_form_container rainmaker_form rm-form-style \" data-type=\"rm_subscription\" data-form-id=\"1974\"><form action=\"\/2017\/07\/04\/machine-learning-explained-regularization\/#rainmaker_form_1974\"><div class=\"rm_form_el_set rm_form_el_email \"><label class=\"rm_form_label\" >Email<\/label><input class=\"rm_form_field\" type=\"email\" name=\"email\"  required placeholder=\"Email\"\/><\/div><div class=\"rm_form_el_set rm_form_el_button \"><input class=\"rm_form_field rm_button\" type=\"submit\" name=\"button\"   value=\"Submit\"\/><\/div><\/form><div class=\"rm-loader\"><\/div><\/div><div id=\"rm_form_message_1974\" class=\"rm_form_message\" style=\"display:none\">Thank you for following us!<\/div>"}],"ajax_url":"http:\/\/enhancedatascience.com\/wp-admin\/admin-ajax.php","defaults":{"icon":"http:\/\/enhancedatascience.com\/wp-content\/plugins\/icegram\/assets\/images\/icegram-logo-branding-64-grey.png","powered_by_logo":"","powered_by_text":""},"scripts":["http:\/\/enhancedatascience.com\/wp-content\/plugins\/icegram\/assets\/js\/icegram.min.js?var=1.10.28.2"],"css":["http:\/\/enhancedatascience.com\/wp-content\/plugins\/icegram\/assets\/css\/frontend.min.css?var=1.10.28.2","http:\/\/enhancedatascience.com\/wp-content\/plugins\/icegram\/message-types\/action-bar\/themes\/action-bar.min.css?var=1.10.28.2"]};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/main.min.js.下載"></script><script type="text/javascript" id="ig_script_0" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/icegram.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/sharing.min.js.下載"></script>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-google-plus-1', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+</script>
+
+    <script>
+        if (tdDetect.isIe === true || tdDetect.isIe11 || tdDetect.isSafari) {
+            console.log("Powerd by ionMag WordPress theme | available on wpion.com");
+        } else {
+            console.log("%c - Powerd by ionMag WordPress theme  | available on wpion.com - ", "color:white; background:black; font-size: 13px; padding:2px;");    
+        }
+    </script>
+<!-- JS generated by theme -->
+
+<script>
+    
+
+	
+
+		(function(){
+			var html_jquery_obj = jQuery('html');
+
+			if (html_jquery_obj.length && (html_jquery_obj.is('.ie8') || html_jquery_obj.is('.ie9'))) {
+
+				var path = 'http://enhancedatascience.com/wp-content/themes/ionMag/style.css';
+
+				jQuery.get(path, function(data) {
+
+					var str_split_separator = '#td_css_split_separator';
+					var arr_splits = data.split(str_split_separator);
+					var arr_length = arr_splits.length;
+
+					if (arr_length > 1) {
+
+						var dir_path = 'http://enhancedatascience.com/wp-content/themes/ionMag';
+						var splited_css = '';
+
+						for (var i = 0; i < arr_length; i++) {
+							if (i > 0) {
+								arr_splits[i] = str_split_separator + ' ' + arr_splits[i];
+							}
+							//jQuery('head').append('<style>' + arr_splits[i] + '</style>');
+
+							var formated_str = arr_splits[i].replace(/\surl\(\'(?!data\:)/gi, function regex_function(str) {
+								return ' url(\'' + dir_path + '/' + str.replace(/url\(\'/gi, '').replace(/^\s+|\s+$/gm,'');
+							});
+
+							splited_css += "<style>" + formated_str + "</style>";
+						}
+
+						var td_theme_css = jQuery('link#td-theme-css');
+
+						if (td_theme_css.length) {
+							td_theme_css.after(splited_css);
+						}
+					}
+				});
+			}
+		})();
+
+	
+	
+</script>
+
+<script type="text/javascript" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/e-201934.js.下載" async="async" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:6.1',blog:'127137525',post:'1959',tz:'1',srv:'enhancedatascience.com'} ]);
+	_stq.push([ 'clickTrackerInit', '127137525', '1959' ]);
+</script>
+
+
+
+<!-- Dynamic page generated in 0.972 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2019-08-20 17:19:57 -->
+
+<!-- super cache --><div id="icegram_messages_container"><div class="icegram action_bar_1972"><div class="ig_action_bar ig_container ig_solid ig_no_hide ig_bottom ig_no_icon ig_form_bottom ig_form_style_3 ig_anim_slide_out ig_hide" id="icegram_message_1972" style="display: block;"><style id="ig_custom_css_1972" type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
+#icegram_message_1972{
+  width: 35%;
+  color: #000000;
+  background-image: url('http://www.icegram.com/gallery/wp-content/uploads/2016/05/brick_wall_gal.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; 
+}
+#icegram_message_1972 .ig_message{
+  padding: 2em 3em;
+  text-align: center;
+}
+#icegram_message_1972 .ig_first_heading{ 
+  font-size: 1.5em;
+  font-weight: 600;
+  font-family: 'Open Sans';
+  line-height: 1.5em;
+}
+#icegram_message_1972 .ig_sub_heading{ 
+  font-size: .8em;
+  font-family: 'Open Sans';
+  line-height: 1.5em;
+}
+
+#icegram_message_1972 .ig_close {
+  background-position: -523px center;
+  background-color: rgba(0, 0, 0, 0);
+}
+#icegram_message_1972 .ig_button{ 
+  font-family: open sans;
+  border-radius:3px;
+  font-size: 1.2em;
+  box-shadow:none;
+}
+#icegram_message_1972.ig_form_inline .ig_form_container.layout_inline .ig_half .ig_form_els {
+ width: 99%;
+}
+
+#icegram_message_1972.ig_form_style_0 .ig_form_container .ig_form_els input {
+  text-align:center;
+  font-family: 'Raleway', sans-serif;
+  border-radius: 3px;
+  border: 1px solid #DDDCD8;
+  background-color: #FFFFFF;
+
+}
+.ig_form_style_0 .ig_form_container .ig_form_els input {
+  font-size: 0.8em;
+}
+#icegram_message_1972 .ig_form_footer{
+  font-family: open sans;
+  font-size: .7em;
+  color: #444;
+  margin-top: 1.2em;
+  text-align: center;
+}
+
+@media only screen and (max-width: 319px), (min-width: 320px) and (max-width: 359px),(min-width: 360px) and (max-width: 413px){
+#icegram_message_1972 {
+    width: 90%;
+ }
+}
+
+@media only screen and (min-width: 414px) and (max-width: 643px){
+#icegram_message_1972{
+    width: 70%;
+ }
+}
+
+@media only screen and (min-width: 644px) and (max-width: 767px),(min-width: 668px) and (max-width: 1992px){
+#icegram_message_1972{
+    width: 40%;
+ }
+}</style><div class="ig_content ig_clear_fix"><div class="ig_close" id="ig_close_1972"><span></span></div><div class="ig_form_container layout_left rm_subscription rainmaker_form rm_init_done"><style type="text/css">.ig_form_bottom.ig_form_style_3 .ig_form_container:before{ display:none;}</style><form action="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#rainmaker_form_1974" class="ig_clear_fix rm_init_done"><div class="ig_embed_form_container ig_clear_fix ig_half"><div class="ig_form_els ig_form_els_first"><input type="email" name="email" required="" placeholder="Email" size="25"></div><div class="ig_form_els ig_form_els_last"><input type="submit" name="button" value="SUBSCRIBE" class="ig_button"></div><div class="" style="position: absolute; left: -5000px;"><input class="ig_form_required_field" type="text" tabindex="-1" value=""></div></div></form><div class="ig_form_footer">Give it a try, you can unsubscribe anytime.</div></div><div class="ig_data ig_clear_fix"><div class="ig_headline">Subscribe to our newsletter !</div><div class="ig_message"><p style="text-align: center;">Follow us to have the latest update on Data Science, R and Python&nbsp;programming, Machine learning and deep learning !</p>
+</div></div><div class="ig_button" style="display: none;">SUBSCRIBE</div><div class="ig_form_container layout_right layout_bottom rm_subscription rainmaker_form rm_init_done"><style type="text/css">.ig_form_bottom.ig_form_style_3 .ig_form_container:before{ display:none;}</style><form action="http://enhancedatascience.com/2017/07/04/machine-learning-explained-regularization/#rainmaker_form_1974" class="ig_clear_fix rm_init_done"><div class="ig_embed_form_container ig_clear_fix ig_half"><div class="ig_form_els ig_form_els_first"><input type="email" name="email" required="" placeholder="Email" size="25"></div><div class="ig_form_els ig_form_els_last"><input type="submit" name="button" value="SUBSCRIBE" class="ig_button"></div><div class="" style="position: absolute; left: -5000px;"><input class="ig_form_required_field" type="text" tabindex="-1" value=""></div></div></form><div class="ig_form_footer">Give it a try, you can unsubscribe anytime.</div></div></div></div></div></div><script type="text/javascript"> /* add your js code here */ </script><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/widget_iframe.0639d67d95b7680840758b6833f06d87.html" title="Twitter settings iframe" style="display: none;"></iframe><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/box-90f3a29ef7448451db5af955688970d7.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/saved_resource(1).html"></iframe><img src="./Machine Learning Explained_ Regularization - Enhance Data Science_files/g.gif" alt=":)" width="6" height="5" id="wpstats"></body></html>

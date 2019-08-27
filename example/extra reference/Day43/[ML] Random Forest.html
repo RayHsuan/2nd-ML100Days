@@ -1,0 +1,3445 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://hhtucode.blogspot.com/2013/06/ml-random-forest.html -->
+<html dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>[ML] Random Forest </title>
+
+<!-- Chrome, Firefox OS and Opera -->
+<meta content="#eeeeee" name="theme-color">
+<!-- Windows Phone -->
+<meta content="#eeeeee" name="msapplication-navbutton-color">
+<meta content="blogger" name="generator">
+<link href="http://hhtucode.blogspot.com/favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="HHtu&#39;s Code - Atom" href="http://hhtucode.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="HHtu&#39;s Code - RSS" href="http://hhtucode.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="HHtu&#39;s Code - Atom" href="https://www.blogger.com/feeds/1099001297101871030/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="HHtu&#39;s Code - Atom" href="http://hhtucode.blogspot.com/feeds/9156326499313916453/comments/default">
+<!--Can't find substitution for tag [blog.ieCssRetrofitLinks]-->
+<link href="./[ML] Random Forest_files/RF.png" rel="image_src">
+<meta content="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" property="og:url">
+<meta content="[ML] Random Forest " property="og:title">
+<meta content="終於來到我最喜歡的演算法 - Random Forest   會喜歡的原因是, 他簡單, 直觀, 當然前提是你要知道甚麼是 Tree   在看 Random Forest 之前最好先去了解一下 Tree, Link:  Decision Tree , Link:  CART   ..." property="og:description">
+<meta content="http://3.bp.blogspot.com/-SevR2YUQudc/Uck93cfSflI/AAAAAAAAA2M/TxGzbHXKYiE/w1200-h630-p-k-no-nu/RF.png" property="og:image">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<style type="text/css">@font-face{font-family:'Roboto';font-style:italic;font-weight:300;src:local('Roboto Light Italic'),local('Roboto-LightItalic'),url(//fonts.gstatic.com/s/roboto/v20/KFOjCnqEu92Fr1Mu51TjASc6CsE.ttf)format('truetype');}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:local('Roboto'),local('Roboto-Regular'),url(//fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxP.ttf)format('truetype');}@font-face{font-family:'Roboto';font-style:normal;font-weight:700;src:local('Roboto Bold'),local('Roboto-Bold'),url(//fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc9.ttf)format('truetype');}</style>
+<style id="page-skin-1" type="text/css"><!--
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:bold}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+/*!************************************************
+* Blogger Template Style
+* Name: Contempo
+**************************************************/
+body{
+overflow-wrap:break-word;
+word-break:break-word;
+word-wrap:break-word
+}
+.hidden{
+display:none
+}
+.invisible{
+visibility:hidden
+}
+.container::after,.float-container::after{
+clear:both;
+content:'';
+display:table
+}
+.clearboth{
+clear:both
+}
+#comments .comment .comment-actions,.subscribe-popup .FollowByEmail .follow-by-email-submit,.widget.Profile .profile-link,.widget.Profile .profile-link.visit-profile{
+background:0 0;
+border:0;
+box-shadow:none;
+color:#2196f3;
+cursor:pointer;
+font-size:14px;
+font-weight:700;
+outline:0;
+text-decoration:none;
+text-transform:uppercase;
+width:auto
+}
+.dim-overlay{
+background-color:rgba(0,0,0,.54);
+height:100vh;
+left:0;
+position:fixed;
+top:0;
+width:100%
+}
+#sharing-dim-overlay{
+background-color:transparent
+}
+input::-ms-clear{
+display:none
+}
+.blogger-logo,.svg-icon-24.blogger-logo{
+fill:#ff9800;
+opacity:1
+}
+.loading-spinner-large{
+-webkit-animation:mspin-rotate 1.568s infinite linear;
+animation:mspin-rotate 1.568s infinite linear;
+height:48px;
+overflow:hidden;
+position:absolute;
+width:48px;
+z-index:200
+}
+.loading-spinner-large>div{
+-webkit-animation:mspin-revrot 5332ms infinite steps(4);
+animation:mspin-revrot 5332ms infinite steps(4)
+}
+.loading-spinner-large>div>div{
+-webkit-animation:mspin-singlecolor-large-film 1333ms infinite steps(81);
+animation:mspin-singlecolor-large-film 1333ms infinite steps(81);
+background-size:100%;
+height:48px;
+width:3888px
+}
+.mspin-black-large>div>div,.mspin-grey_54-large>div>div{
+background-image:url(https://www.blogblog.com/indie/mspin_black_large.svg)
+}
+.mspin-white-large>div>div{
+background-image:url(https://www.blogblog.com/indie/mspin_white_large.svg)
+}
+.mspin-grey_54-large{
+opacity:.54
+}
+@-webkit-keyframes mspin-singlecolor-large-film{
+from{
+-webkit-transform:translateX(0);
+transform:translateX(0)
+}
+to{
+-webkit-transform:translateX(-3888px);
+transform:translateX(-3888px)
+}
+}
+@keyframes mspin-singlecolor-large-film{
+from{
+-webkit-transform:translateX(0);
+transform:translateX(0)
+}
+to{
+-webkit-transform:translateX(-3888px);
+transform:translateX(-3888px)
+}
+}
+@-webkit-keyframes mspin-rotate{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(360deg);
+transform:rotate(360deg)
+}
+}
+@keyframes mspin-rotate{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(360deg);
+transform:rotate(360deg)
+}
+}
+@-webkit-keyframes mspin-revrot{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(-360deg);
+transform:rotate(-360deg)
+}
+}
+@keyframes mspin-revrot{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(-360deg);
+transform:rotate(-360deg)
+}
+}
+.skip-navigation{
+background-color:#fff;
+box-sizing:border-box;
+color:#000;
+display:block;
+height:0;
+left:0;
+line-height:50px;
+overflow:hidden;
+padding-top:0;
+position:fixed;
+text-align:center;
+top:0;
+-webkit-transition:box-shadow .3s,height .3s,padding-top .3s;
+transition:box-shadow .3s,height .3s,padding-top .3s;
+width:100%;
+z-index:900
+}
+.skip-navigation:focus{
+box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
+height:50px
+}
+#main{
+outline:0
+}
+.main-heading{
+position:absolute;
+clip:rect(1px,1px,1px,1px);
+padding:0;
+border:0;
+height:1px;
+width:1px;
+overflow:hidden
+}
+.Attribution{
+margin-top:1em;
+text-align:center
+}
+.Attribution .blogger img,.Attribution .blogger svg{
+vertical-align:bottom
+}
+.Attribution .blogger img{
+margin-right:.5em
+}
+.Attribution div{
+line-height:24px;
+margin-top:.5em
+}
+.Attribution .copyright,.Attribution .image-attribution{
+font-size:.7em;
+margin-top:1.5em
+}
+.BLOG_mobile_video_class{
+display:none
+}
+.bg-photo{
+background-attachment:scroll!important
+}
+body .CSS_LIGHTBOX{
+z-index:900
+}
+.extendable .show-less,.extendable .show-more{
+border-color:#2196f3;
+color:#2196f3;
+margin-top:8px
+}
+.extendable .show-less.hidden,.extendable .show-more.hidden{
+display:none
+}
+.inline-ad{
+display:none;
+max-width:100%;
+overflow:hidden
+}
+.adsbygoogle{
+display:block
+}
+#cookieChoiceInfo{
+bottom:0;
+top:auto
+}
+iframe.b-hbp-video{
+border:0
+}
+.post-body img{
+max-width:100%
+}
+.post-body iframe{
+max-width:100%
+}
+.post-body a[imageanchor="1"]{
+display:inline-block
+}
+.byline{
+margin-right:1em
+}
+.byline:last-child{
+margin-right:0
+}
+.link-copied-dialog{
+max-width:520px;
+outline:0
+}
+.link-copied-dialog .modal-dialog-buttons{
+margin-top:8px
+}
+.link-copied-dialog .goog-buttonset-default{
+background:0 0;
+border:0
+}
+.link-copied-dialog .goog-buttonset-default:focus{
+outline:0
+}
+.paging-control-container{
+margin-bottom:16px
+}
+.paging-control-container .paging-control{
+display:inline-block
+}
+.paging-control-container .comment-range-text::after,.paging-control-container .paging-control{
+color:#2196f3
+}
+.paging-control-container .comment-range-text,.paging-control-container .paging-control{
+margin-right:8px
+}
+.paging-control-container .comment-range-text::after,.paging-control-container .paging-control::after{
+content:'\00B7';
+cursor:default;
+padding-left:8px;
+pointer-events:none
+}
+.paging-control-container .comment-range-text:last-child::after,.paging-control-container .paging-control:last-child::after{
+content:none
+}
+.byline.reactions iframe{
+height:20px
+}
+.b-notification{
+color:#000;
+background-color:#fff;
+border-bottom:solid 1px #000;
+box-sizing:border-box;
+padding:16px 32px;
+text-align:center
+}
+.b-notification.visible{
+-webkit-transition:margin-top .3s cubic-bezier(.4,0,.2,1);
+transition:margin-top .3s cubic-bezier(.4,0,.2,1)
+}
+.b-notification.invisible{
+position:absolute
+}
+.b-notification-close{
+position:absolute;
+right:8px;
+top:8px
+}
+.no-posts-message{
+line-height:40px;
+text-align:center
+}
+@media screen and (max-width:800px){
+body.item-view .post-body a[imageanchor="1"][style*="float: left;"],body.item-view .post-body a[imageanchor="1"][style*="float: right;"]{
+float:none!important;
+clear:none!important
+}
+body.item-view .post-body a[imageanchor="1"] img{
+display:block;
+height:auto;
+margin:0 auto
+}
+body.item-view .post-body>.separator:first-child>a[imageanchor="1"]:first-child{
+margin-top:20px
+}
+.post-body a[imageanchor]{
+display:block
+}
+body.item-view .post-body a[imageanchor="1"]{
+margin-left:0!important;
+margin-right:0!important
+}
+body.item-view .post-body a[imageanchor="1"]+a[imageanchor="1"]{
+margin-top:16px
+}
+}
+.item-control{
+display:none
+}
+#comments{
+border-top:1px dashed rgba(0,0,0,.54);
+margin-top:20px;
+padding:20px
+}
+#comments .comment-thread ol{
+margin:0;
+padding-left:0;
+padding-left:0
+}
+#comments .comment .comment-replybox-single,#comments .comment-thread .comment-replies{
+margin-left:60px
+}
+#comments .comment-thread .thread-count{
+display:none
+}
+#comments .comment{
+list-style-type:none;
+padding:0 0 30px;
+position:relative
+}
+#comments .comment .comment{
+padding-bottom:8px
+}
+.comment .avatar-image-container{
+position:absolute
+}
+.comment .avatar-image-container img{
+border-radius:50%
+}
+.avatar-image-container svg,.comment .avatar-image-container .avatar-icon{
+border-radius:50%;
+border:solid 1px #707070;
+box-sizing:border-box;
+fill:#707070;
+height:35px;
+margin:0;
+padding:7px;
+width:35px
+}
+.comment .comment-block{
+margin-top:10px;
+margin-left:60px;
+padding-bottom:0
+}
+#comments .comment-author-header-wrapper{
+margin-left:40px
+}
+#comments .comment .thread-expanded .comment-block{
+padding-bottom:20px
+}
+#comments .comment .comment-header .user,#comments .comment .comment-header .user a{
+color:#212121;
+font-style:normal;
+font-weight:700
+}
+#comments .comment .comment-actions{
+bottom:0;
+margin-bottom:15px;
+position:absolute
+}
+#comments .comment .comment-actions>*{
+margin-right:8px
+}
+#comments .comment .comment-header .datetime{
+bottom:0;
+color:rgba(33,33,33,.54);
+display:inline-block;
+font-size:13px;
+font-style:italic;
+margin-left:8px
+}
+#comments .comment .comment-footer .comment-timestamp a,#comments .comment .comment-header .datetime a{
+color:rgba(33,33,33,.54)
+}
+#comments .comment .comment-content,.comment .comment-body{
+margin-top:12px;
+word-break:break-word
+}
+.comment-body{
+margin-bottom:12px
+}
+#comments.embed[data-num-comments="0"]{
+border:0;
+margin-top:0;
+padding-top:0
+}
+#comments.embed[data-num-comments="0"] #comment-post-message,#comments.embed[data-num-comments="0"] div.comment-form>p,#comments.embed[data-num-comments="0"] p.comment-footer{
+display:none
+}
+#comment-editor-src{
+display:none
+}
+.comments .comments-content .loadmore.loaded{
+max-height:0;
+opacity:0;
+overflow:hidden
+}
+.extendable .remaining-items{
+height:0;
+overflow:hidden;
+-webkit-transition:height .3s cubic-bezier(.4,0,.2,1);
+transition:height .3s cubic-bezier(.4,0,.2,1)
+}
+.extendable .remaining-items.expanded{
+height:auto
+}
+.svg-icon-24,.svg-icon-24-button{
+cursor:pointer;
+height:24px;
+width:24px;
+min-width:24px
+}
+.touch-icon{
+margin:-12px;
+padding:12px
+}
+.touch-icon:active,.touch-icon:focus{
+background-color:rgba(153,153,153,.4);
+border-radius:50%
+}
+svg:not(:root).touch-icon{
+overflow:visible
+}
+html[dir=rtl] .rtl-reversible-icon{
+-webkit-transform:scaleX(-1);
+-ms-transform:scaleX(-1);
+transform:scaleX(-1)
+}
+.svg-icon-24-button,.touch-icon-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0
+}
+.touch-icon-button .touch-icon:active,.touch-icon-button .touch-icon:focus{
+background-color:transparent
+}
+.touch-icon-button:active .touch-icon,.touch-icon-button:focus .touch-icon{
+background-color:rgba(153,153,153,.4);
+border-radius:50%
+}
+.Profile .default-avatar-wrapper .avatar-icon{
+border-radius:50%;
+border:solid 1px #707070;
+box-sizing:border-box;
+fill:#707070;
+margin:0
+}
+.Profile .individual .default-avatar-wrapper .avatar-icon{
+padding:25px
+}
+.Profile .individual .avatar-icon,.Profile .individual .profile-img{
+height:120px;
+width:120px
+}
+.Profile .team .default-avatar-wrapper .avatar-icon{
+padding:8px
+}
+.Profile .team .avatar-icon,.Profile .team .default-avatar-wrapper,.Profile .team .profile-img{
+height:40px;
+width:40px
+}
+.snippet-container{
+margin:0;
+position:relative;
+overflow:hidden
+}
+.snippet-fade{
+bottom:0;
+box-sizing:border-box;
+position:absolute;
+width:96px
+}
+.snippet-fade{
+right:0
+}
+.snippet-fade:after{
+content:'\2026'
+}
+.snippet-fade:after{
+float:right
+}
+.post-bottom{
+-webkit-box-align:center;
+-webkit-align-items:center;
+-ms-flex-align:center;
+align-items:center;
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-flex-wrap:wrap;
+-ms-flex-wrap:wrap;
+flex-wrap:wrap
+}
+.post-footer{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+-webkit-flex-wrap:wrap;
+-ms-flex-wrap:wrap;
+flex-wrap:wrap;
+-webkit-box-ordinal-group:2;
+-webkit-order:1;
+-ms-flex-order:1;
+order:1
+}
+.post-footer>*{
+-webkit-box-flex:0;
+-webkit-flex:0 1 auto;
+-ms-flex:0 1 auto;
+flex:0 1 auto
+}
+.post-footer .byline:last-child{
+margin-right:1em
+}
+.jump-link{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+-webkit-box-ordinal-group:3;
+-webkit-order:2;
+-ms-flex-order:2;
+order:2
+}
+.centered-top-container.sticky{
+left:0;
+position:fixed;
+right:0;
+top:0;
+width:auto;
+z-index:50;
+-webkit-transition-property:opacity,-webkit-transform;
+transition-property:opacity,-webkit-transform;
+transition-property:transform,opacity;
+transition-property:transform,opacity,-webkit-transform;
+-webkit-transition-duration:.2s;
+transition-duration:.2s;
+-webkit-transition-timing-function:cubic-bezier(.4,0,.2,1);
+transition-timing-function:cubic-bezier(.4,0,.2,1)
+}
+.centered-top-placeholder{
+display:none
+}
+.collapsed-header .centered-top-placeholder{
+display:block
+}
+.centered-top-container .Header .replaced h1,.centered-top-placeholder .Header .replaced h1{
+display:none
+}
+.centered-top-container.sticky .Header .replaced h1{
+display:block
+}
+.centered-top-container.sticky .Header .header-widget{
+background:0 0
+}
+.centered-top-container.sticky .Header .header-image-wrapper{
+display:none
+}
+.centered-top-container img,.centered-top-placeholder img{
+max-width:100%
+}
+.collapsible{
+-webkit-transition:height .3s cubic-bezier(.4,0,.2,1);
+transition:height .3s cubic-bezier(.4,0,.2,1)
+}
+.collapsible,.collapsible>summary{
+display:block;
+overflow:hidden
+}
+.collapsible>:not(summary){
+display:none
+}
+.collapsible[open]>:not(summary){
+display:block
+}
+.collapsible:focus,.collapsible>summary:focus{
+outline:0
+}
+.collapsible>summary{
+cursor:pointer;
+display:block;
+padding:0
+}
+.collapsible:focus>summary,.collapsible>summary:focus{
+background-color:transparent
+}
+.collapsible>summary::-webkit-details-marker{
+display:none
+}
+.collapsible-title{
+-webkit-box-align:center;
+-webkit-align-items:center;
+-ms-flex-align:center;
+align-items:center;
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex
+}
+.collapsible-title .title{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+-webkit-box-ordinal-group:1;
+-webkit-order:0;
+-ms-flex-order:0;
+order:0;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
+}
+.collapsible-title .chevron-down,.collapsible[open] .collapsible-title .chevron-up{
+display:block
+}
+.collapsible-title .chevron-up,.collapsible[open] .collapsible-title .chevron-down{
+display:none
+}
+.flat-button{
+cursor:pointer;
+display:inline-block;
+font-weight:700;
+text-transform:uppercase;
+border-radius:2px;
+padding:8px;
+margin:-8px
+}
+.flat-icon-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0;
+margin:-12px;
+padding:12px;
+cursor:pointer;
+box-sizing:content-box;
+display:inline-block;
+line-height:0
+}
+.flat-icon-button,.flat-icon-button .splash-wrapper{
+border-radius:50%
+}
+.flat-icon-button .splash.animate{
+-webkit-animation-duration:.3s;
+animation-duration:.3s
+}
+.overflowable-container{
+max-height:46px;
+overflow:hidden;
+position:relative
+}
+.overflow-button{
+cursor:pointer
+}
+#overflowable-dim-overlay{
+background:0 0
+}
+.overflow-popup{
+box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+background-color:#ffffff;
+left:0;
+max-width:calc(100% - 32px);
+position:absolute;
+top:0;
+visibility:hidden;
+z-index:101
+}
+.overflow-popup ul{
+list-style:none
+}
+.overflow-popup .tabs li,.overflow-popup li{
+display:block;
+height:auto
+}
+.overflow-popup .tabs li{
+padding-left:0;
+padding-right:0
+}
+.overflow-button.hidden,.overflow-popup .tabs li.hidden,.overflow-popup li.hidden{
+display:none
+}
+.pill-button{
+background:0 0;
+border:1px solid;
+border-radius:12px;
+cursor:pointer;
+display:inline-block;
+padding:4px 16px;
+text-transform:uppercase
+}
+.ripple{
+position:relative
+}
+.ripple>*{
+z-index:1
+}
+.splash-wrapper{
+bottom:0;
+left:0;
+overflow:hidden;
+pointer-events:none;
+position:absolute;
+right:0;
+top:0;
+z-index:0
+}
+.splash{
+background:#ccc;
+border-radius:100%;
+display:block;
+opacity:.6;
+position:absolute;
+-webkit-transform:scale(0);
+-ms-transform:scale(0);
+transform:scale(0)
+}
+.splash.animate{
+-webkit-animation:ripple-effect .4s linear;
+animation:ripple-effect .4s linear
+}
+@-webkit-keyframes ripple-effect{
+100%{
+opacity:0;
+-webkit-transform:scale(2.5);
+transform:scale(2.5)
+}
+}
+@keyframes ripple-effect{
+100%{
+opacity:0;
+-webkit-transform:scale(2.5);
+transform:scale(2.5)
+}
+}
+.search{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+line-height:24px;
+width:24px
+}
+.search.focused{
+width:100%
+}
+.search.focused .section{
+width:100%
+}
+.search form{
+z-index:101
+}
+.search h3{
+display:none
+}
+.search form{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-flex:1;
+-webkit-flex:1 0 0;
+-ms-flex:1 0 0px;
+flex:1 0 0;
+border-bottom:solid 1px transparent;
+padding-bottom:8px
+}
+.search form>*{
+display:none
+}
+.search.focused form>*{
+display:block
+}
+.search .search-input label{
+display:none
+}
+.centered-top-placeholder.cloned .search form{
+z-index:30
+}
+.search.focused form{
+border-color:#ffffff;
+position:relative;
+width:auto
+}
+.collapsed-header .centered-top-container .search.focused form{
+border-bottom-color:transparent
+}
+.search-expand{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto
+}
+.search-expand-text{
+display:none
+}
+.search-close{
+display:inline;
+vertical-align:middle
+}
+.search-input{
+-webkit-box-flex:1;
+-webkit-flex:1 0 1px;
+-ms-flex:1 0 1px;
+flex:1 0 1px
+}
+.search-input input{
+background:0 0;
+border:0;
+box-sizing:border-box;
+color:#ffffff;
+display:inline-block;
+outline:0;
+width:calc(100% - 48px)
+}
+.search-input input.no-cursor{
+color:transparent;
+text-shadow:0 0 0 #ffffff
+}
+.collapsed-header .centered-top-container .search-action,.collapsed-header .centered-top-container .search-input input{
+color:#212121
+}
+.collapsed-header .centered-top-container .search-input input.no-cursor{
+color:transparent;
+text-shadow:0 0 0 #212121
+}
+.collapsed-header .centered-top-container .search-input input.no-cursor:focus,.search-input input.no-cursor:focus{
+outline:0
+}
+.search-focused>*{
+visibility:hidden
+}
+.search-focused .search,.search-focused .search-icon{
+visibility:visible
+}
+.search.focused .search-action{
+display:block
+}
+.search.focused .search-action:disabled{
+opacity:.3
+}
+.widget.Sharing .sharing-button{
+display:none
+}
+.widget.Sharing .sharing-buttons li{
+padding:0
+}
+.widget.Sharing .sharing-buttons li span{
+display:none
+}
+.post-share-buttons{
+position:relative
+}
+.centered-bottom .share-buttons .svg-icon-24,.share-buttons .svg-icon-24{
+fill:#212121
+}
+.sharing-open.touch-icon-button:active .touch-icon,.sharing-open.touch-icon-button:focus .touch-icon{
+background-color:transparent
+}
+.share-buttons{
+background-color:#ffffff;
+border-radius:2px;
+box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+color:#212121;
+list-style:none;
+margin:0;
+padding:8px 0;
+position:absolute;
+top:-11px;
+min-width:200px;
+z-index:101
+}
+.share-buttons.hidden{
+display:none
+}
+.sharing-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0;
+cursor:pointer
+}
+.share-buttons li{
+margin:0;
+height:48px
+}
+.share-buttons li:last-child{
+margin-bottom:0
+}
+.share-buttons li .sharing-platform-button{
+box-sizing:border-box;
+cursor:pointer;
+display:block;
+height:100%;
+margin-bottom:0;
+padding:0 16px;
+position:relative;
+width:100%
+}
+.share-buttons li .sharing-platform-button:focus,.share-buttons li .sharing-platform-button:hover{
+background-color:rgba(128,128,128,.1);
+outline:0
+}
+.share-buttons li svg[class*=" sharing-"],.share-buttons li svg[class^=sharing-]{
+position:absolute;
+top:10px
+}
+.share-buttons li span.sharing-platform-button{
+position:relative;
+top:0
+}
+.share-buttons li .platform-sharing-text{
+display:block;
+font-size:16px;
+line-height:48px;
+white-space:nowrap
+}
+.share-buttons li .platform-sharing-text{
+margin-left:56px
+}
+.sidebar-container{
+background-color:#ffffff;
+max-width:284px;
+overflow-y:auto;
+-webkit-transition-property:-webkit-transform;
+transition-property:-webkit-transform;
+transition-property:transform;
+transition-property:transform,-webkit-transform;
+-webkit-transition-duration:.3s;
+transition-duration:.3s;
+-webkit-transition-timing-function:cubic-bezier(0,0,.2,1);
+transition-timing-function:cubic-bezier(0,0,.2,1);
+width:284px;
+z-index:101;
+-webkit-overflow-scrolling:touch
+}
+.sidebar-container .navigation{
+line-height:0;
+padding:16px
+}
+.sidebar-container .sidebar-back{
+cursor:pointer
+}
+.sidebar-container .widget{
+background:0 0;
+margin:0 16px;
+padding:16px 0
+}
+.sidebar-container .widget .title{
+color:#212121;
+margin:0
+}
+.sidebar-container .widget ul{
+list-style:none;
+margin:0;
+padding:0
+}
+.sidebar-container .widget ul ul{
+margin-left:1em
+}
+.sidebar-container .widget li{
+font-size:16px;
+line-height:normal
+}
+.sidebar-container .widget+.widget{
+border-top:1px dashed #cccccc
+}
+.BlogArchive li{
+margin:16px 0
+}
+.BlogArchive li:last-child{
+margin-bottom:0
+}
+.Label li a{
+display:inline-block
+}
+.BlogArchive .post-count,.Label .label-count{
+float:right;
+margin-left:.25em
+}
+.BlogArchive .post-count::before,.Label .label-count::before{
+content:'('
+}
+.BlogArchive .post-count::after,.Label .label-count::after{
+content:')'
+}
+.widget.Translate .skiptranslate>div{
+display:block!important
+}
+.widget.Profile .profile-link{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex
+}
+.widget.Profile .team-member .default-avatar-wrapper,.widget.Profile .team-member .profile-img{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+margin-right:1em
+}
+.widget.Profile .individual .profile-link{
+-webkit-box-orient:vertical;
+-webkit-box-direction:normal;
+-webkit-flex-direction:column;
+-ms-flex-direction:column;
+flex-direction:column
+}
+.widget.Profile .team .profile-link .profile-name{
+-webkit-align-self:center;
+-ms-flex-item-align:center;
+-ms-grid-row-align:center;
+align-self:center;
+display:block;
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto
+}
+.dim-overlay{
+background-color:rgba(0,0,0,.54);
+z-index:100
+}
+body.sidebar-visible{
+overflow-y:hidden
+}
+@media screen and (max-width:1439px){
+.sidebar-container{
+bottom:0;
+position:fixed;
+top:0;
+left:0;
+right:auto
+}
+.sidebar-container.sidebar-invisible{
+-webkit-transition-timing-function:cubic-bezier(.4,0,.6,1);
+transition-timing-function:cubic-bezier(.4,0,.6,1);
+-webkit-transform:translateX(-284px);
+-ms-transform:translateX(-284px);
+transform:translateX(-284px)
+}
+}
+@media screen and (min-width:1440px){
+.sidebar-container{
+position:absolute;
+top:0;
+left:0;
+right:auto
+}
+.sidebar-container .navigation{
+display:none
+}
+}
+.dialog{
+box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+background:#ffffff;
+box-sizing:border-box;
+color:#757575;
+padding:30px;
+position:fixed;
+text-align:center;
+width:calc(100% - 24px);
+z-index:101
+}
+.dialog input[type=email],.dialog input[type=text]{
+background-color:transparent;
+border:0;
+border-bottom:solid 1px rgba(117,117,117,.12);
+color:#757575;
+display:block;
+font-family:Roboto, sans-serif;
+font-size:16px;
+line-height:24px;
+margin:auto;
+padding-bottom:7px;
+outline:0;
+text-align:center;
+width:100%
+}
+.dialog input[type=email]::-webkit-input-placeholder,.dialog input[type=text]::-webkit-input-placeholder{
+color:#757575
+}
+.dialog input[type=email]::-moz-placeholder,.dialog input[type=text]::-moz-placeholder{
+color:#757575
+}
+.dialog input[type=email]:-ms-input-placeholder,.dialog input[type=text]:-ms-input-placeholder{
+color:#757575
+}
+.dialog input[type=email]::placeholder,.dialog input[type=text]::placeholder{
+color:#757575
+}
+.dialog input[type=email]:focus,.dialog input[type=text]:focus{
+border-bottom:solid 2px #2196f3;
+padding-bottom:6px
+}
+.dialog input.no-cursor{
+color:transparent;
+text-shadow:0 0 0 #757575
+}
+.dialog input.no-cursor:focus{
+outline:0
+}
+.dialog input.no-cursor:focus{
+outline:0
+}
+.dialog input[type=submit]{
+font-family:Roboto, sans-serif
+}
+.dialog .goog-buttonset-default{
+color:#2196f3
+}
+.subscribe-popup{
+max-width:364px
+}
+.subscribe-popup h3{
+color:#212121;
+font-size:1.8em;
+margin-top:0
+}
+.subscribe-popup .FollowByEmail h3{
+display:none
+}
+.subscribe-popup .FollowByEmail .follow-by-email-submit{
+color:#2196f3;
+display:inline-block;
+margin:0 auto;
+margin-top:24px;
+width:auto;
+white-space:normal
+}
+.subscribe-popup .FollowByEmail .follow-by-email-submit:disabled{
+cursor:default;
+opacity:.3
+}
+@media (max-width:800px){
+.blog-name div.widget.Subscribe{
+margin-bottom:16px
+}
+body.item-view .blog-name div.widget.Subscribe{
+margin:8px auto 16px auto;
+width:100%
+}
+}
+.tabs{
+list-style:none
+}
+.tabs li{
+display:inline-block
+}
+.tabs li a{
+cursor:pointer;
+display:inline-block;
+font-weight:700;
+text-transform:uppercase;
+padding:12px 8px
+}
+.tabs .selected{
+border-bottom:4px solid #ffffff
+}
+.tabs .selected a{
+color:#ffffff
+}
+body#layout .bg-photo,body#layout .bg-photo-overlay{
+display:none
+}
+body#layout .page_body{
+padding:0;
+position:relative;
+top:0
+}
+body#layout .page{
+display:inline-block;
+left:inherit;
+position:relative;
+vertical-align:top;
+width:540px
+}
+body#layout .centered{
+max-width:954px
+}
+body#layout .navigation{
+display:none
+}
+body#layout .sidebar-container{
+display:inline-block;
+width:40%
+}
+body#layout .hamburger-menu,body#layout .search{
+display:none
+}
+.centered-top-container .svg-icon-24,body.collapsed-header .centered-top-placeholder .svg-icon-24{
+fill:#ffffff
+}
+.sidebar-container .svg-icon-24{
+fill:#707070
+}
+.centered-bottom .svg-icon-24,body.collapsed-header .centered-top-container .svg-icon-24{
+fill:#707070
+}
+.centered-bottom .share-buttons .svg-icon-24,.share-buttons .svg-icon-24{
+fill:#212121
+}
+body{
+background-color:#eeeeee;
+color:#757575;
+font:15px Roboto, sans-serif;
+margin:0;
+min-height:100vh
+}
+img{
+max-width:100%
+}
+h3{
+color:#757575;
+font-size:16px
+}
+a{
+text-decoration:none;
+color:#2196f3
+}
+a:visited{
+color:#2196f3
+}
+a:hover{
+color:#2196f3
+}
+blockquote{
+color:#444444;
+font:italic 300 15px Roboto, sans-serif;
+font-size:x-large;
+text-align:center
+}
+.pill-button{
+font-size:12px
+}
+.bg-photo-container{
+height:480px;
+overflow:hidden;
+position:absolute;
+width:100%;
+z-index:1
+}
+.bg-photo{
+background:#eeeeee url(https://themes.googleusercontent.com/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw) no-repeat scroll top center /* Credit: Michael Elkan (http://www.offset.com/photos/394244) */;;
+background-attachment:scroll;
+background-size:cover;
+-webkit-filter:blur(0px);
+filter:blur(0px);
+height:calc(100% + 2 * 0px);
+left:0px;
+position:absolute;
+top:0px;
+width:calc(100% + 2 * 0px)
+}
+.bg-photo-overlay{
+background:rgba(0,0,0,.26);
+background-size:cover;
+height:480px;
+position:absolute;
+width:100%;
+z-index:2
+}
+.hamburger-menu{
+float:left;
+margin-top:0
+}
+.sticky .hamburger-menu{
+float:none;
+position:absolute
+}
+.search{
+border-bottom:solid 1px rgba(255, 255, 255, 0);
+float:right;
+position:relative;
+-webkit-transition-property:width;
+transition-property:width;
+-webkit-transition-duration:.5s;
+transition-duration:.5s;
+-webkit-transition-timing-function:cubic-bezier(.4,0,.2,1);
+transition-timing-function:cubic-bezier(.4,0,.2,1);
+z-index:101
+}
+.search .dim-overlay{
+background-color:transparent
+}
+.search form{
+height:36px;
+-webkit-transition-property:border-color;
+transition-property:border-color;
+-webkit-transition-delay:.5s;
+transition-delay:.5s;
+-webkit-transition-duration:.2s;
+transition-duration:.2s;
+-webkit-transition-timing-function:cubic-bezier(.4,0,.2,1);
+transition-timing-function:cubic-bezier(.4,0,.2,1)
+}
+.search.focused{
+width:calc(100% - 48px)
+}
+.search.focused form{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-flex:1;
+-webkit-flex:1 0 1px;
+-ms-flex:1 0 1px;
+flex:1 0 1px;
+border-color:#ffffff;
+margin-left:-24px;
+padding-left:36px;
+position:relative;
+width:auto
+}
+.item-view .search,.sticky .search{
+right:0;
+float:none;
+margin-left:0;
+position:absolute
+}
+.item-view .search.focused,.sticky .search.focused{
+width:calc(100% - 50px)
+}
+.item-view .search.focused form,.sticky .search.focused form{
+border-bottom-color:#757575
+}
+.centered-top-placeholder.cloned .search form{
+z-index:30
+}
+.search_button{
+-webkit-box-flex:0;
+-webkit-flex:0 0 24px;
+-ms-flex:0 0 24px;
+flex:0 0 24px;
+-webkit-box-orient:vertical;
+-webkit-box-direction:normal;
+-webkit-flex-direction:column;
+-ms-flex-direction:column;
+flex-direction:column
+}
+.search_button svg{
+margin-top:0
+}
+.search-input{
+height:48px
+}
+.search-input input{
+display:block;
+color:#ffffff;
+font:16px Roboto, sans-serif;
+height:48px;
+line-height:48px;
+padding:0;
+width:100%
+}
+.search-input input::-webkit-input-placeholder{
+color:#ffffff;
+opacity:.3
+}
+.search-input input::-moz-placeholder{
+color:#ffffff;
+opacity:.3
+}
+.search-input input:-ms-input-placeholder{
+color:#ffffff;
+opacity:.3
+}
+.search-input input::placeholder{
+color:#ffffff;
+opacity:.3
+}
+.search-action{
+background:0 0;
+border:0;
+color:#ffffff;
+cursor:pointer;
+display:none;
+height:48px;
+margin-top:0
+}
+.sticky .search-action{
+color:#757575
+}
+.search.focused .search-action{
+display:block
+}
+.search.focused .search-action:disabled{
+opacity:.3
+}
+.page_body{
+position:relative;
+z-index:20
+}
+.page_body .widget{
+margin-bottom:16px
+}
+.page_body .centered{
+box-sizing:border-box;
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-orient:vertical;
+-webkit-box-direction:normal;
+-webkit-flex-direction:column;
+-ms-flex-direction:column;
+flex-direction:column;
+margin:0 auto;
+max-width:922px;
+min-height:100vh;
+padding:24px 0
+}
+.page_body .centered>*{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto
+}
+.page_body .centered>#footer{
+margin-top:auto
+}
+.blog-name{
+margin:24px 0 16px 0
+}
+.item-view .blog-name,.sticky .blog-name{
+box-sizing:border-box;
+margin-left:36px;
+min-height:48px;
+opacity:1;
+padding-top:12px
+}
+.blog-name .subscribe-section-container{
+margin-bottom:32px;
+text-align:center;
+-webkit-transition-property:opacity;
+transition-property:opacity;
+-webkit-transition-duration:.5s;
+transition-duration:.5s
+}
+.item-view .blog-name .subscribe-section-container,.sticky .blog-name .subscribe-section-container{
+margin:0 0 8px 0
+}
+.blog-name .PageList{
+margin-top:16px;
+padding-top:8px;
+text-align:center
+}
+.blog-name .PageList .overflowable-contents{
+width:100%
+}
+.blog-name .PageList h3.title{
+color:#ffffff;
+margin:8px auto;
+text-align:center;
+width:100%
+}
+.centered-top-container .blog-name{
+-webkit-transition-property:opacity;
+transition-property:opacity;
+-webkit-transition-duration:.5s;
+transition-duration:.5s
+}
+.item-view .return_link{
+margin-bottom:12px;
+margin-top:12px;
+position:absolute
+}
+.item-view .blog-name{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-flex-wrap:wrap;
+-ms-flex-wrap:wrap;
+flex-wrap:wrap;
+margin:0 48px 27px 48px
+}
+.item-view .subscribe-section-container{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto
+}
+.item-view #header,.item-view .Header{
+margin-bottom:5px;
+margin-right:15px
+}
+.item-view .sticky .Header{
+margin-bottom:0
+}
+.item-view .Header p{
+margin:10px 0 0 0;
+text-align:left
+}
+.item-view .post-share-buttons-bottom{
+margin-right:16px
+}
+.sticky{
+background:#ffffff;
+box-shadow:0 0 20px 0 rgba(0,0,0,.7);
+box-sizing:border-box;
+margin-left:0
+}
+.sticky #header{
+margin-bottom:8px;
+margin-right:8px
+}
+.sticky .centered-top{
+margin:4px auto;
+max-width:890px;
+min-height:48px
+}
+.sticky .blog-name{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+margin:0 48px
+}
+.sticky .blog-name #header{
+-webkit-box-flex:0;
+-webkit-flex:0 1 auto;
+-ms-flex:0 1 auto;
+flex:0 1 auto;
+-webkit-box-ordinal-group:2;
+-webkit-order:1;
+-ms-flex-order:1;
+order:1;
+overflow:hidden
+}
+.sticky .blog-name .subscribe-section-container{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+-webkit-box-ordinal-group:3;
+-webkit-order:2;
+-ms-flex-order:2;
+order:2
+}
+.sticky .Header h1{
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+margin-right:-10px;
+margin-bottom:-10px;
+padding-right:10px;
+padding-bottom:10px
+}
+.sticky .Header p{
+display:none
+}
+.sticky .PageList{
+display:none
+}
+.search-focused>*{
+visibility:visible
+}
+.search-focused .hamburger-menu{
+visibility:visible
+}
+.item-view .search-focused .blog-name,.sticky .search-focused .blog-name{
+opacity:0
+}
+.centered-bottom,.centered-top-container,.centered-top-placeholder{
+padding:0 16px
+}
+.centered-top{
+position:relative
+}
+.item-view .centered-top.search-focused .subscribe-section-container,.sticky .centered-top.search-focused .subscribe-section-container{
+opacity:0
+}
+.page_body.has-vertical-ads .centered .centered-bottom{
+display:inline-block;
+width:calc(100% - 176px)
+}
+.Header h1{
+color:#ffffff;
+font:bold 45px Roboto, sans-serif;
+line-height:normal;
+margin:0 0 13px 0;
+text-align:center;
+width:100%
+}
+.Header h1 a,.Header h1 a:hover,.Header h1 a:visited{
+color:#ffffff
+}
+.item-view .Header h1,.sticky .Header h1{
+font-size:24px;
+line-height:24px;
+margin:0;
+text-align:left
+}
+.sticky .Header h1{
+color:#757575
+}
+.sticky .Header h1 a,.sticky .Header h1 a:hover,.sticky .Header h1 a:visited{
+color:#757575
+}
+.Header p{
+color:#ffffff;
+margin:0 0 13px 0;
+opacity:.8;
+text-align:center
+}
+.widget .title{
+line-height:28px
+}
+.BlogArchive li{
+font-size:16px
+}
+.BlogArchive .post-count{
+color:#757575
+}
+#page_body .FeaturedPost,.Blog .blog-posts .post-outer-container{
+background:#ffffff;
+min-height:40px;
+padding:30px 40px;
+width:auto
+}
+.Blog .blog-posts .post-outer-container:last-child{
+margin-bottom:0
+}
+.Blog .blog-posts .post-outer-container .post-outer{
+border:0;
+position:relative;
+padding-bottom:.25em
+}
+.post-outer-container{
+margin-bottom:16px
+}
+.post:first-child{
+margin-top:0
+}
+.post .thumb{
+float:left;
+height:20%;
+width:20%
+}
+.post-share-buttons-bottom,.post-share-buttons-top{
+float:right
+}
+.post-share-buttons-bottom{
+margin-right:24px
+}
+.post-footer,.post-header{
+clear:left;
+color:rgba(0, 0, 0, 0.54);
+margin:0;
+width:inherit
+}
+.blog-pager{
+text-align:center
+}
+.blog-pager a{
+color:#2196f3
+}
+.blog-pager a:visited{
+color:#2196f3
+}
+.blog-pager a:hover{
+color:#2196f3
+}
+.post-title{
+font:bold 22px Roboto, sans-serif;
+float:left;
+margin:0 0 8px 0;
+max-width:calc(100% - 48px)
+}
+.post-title a{
+font:bold 30px Roboto, sans-serif
+}
+.post-title,.post-title a,.post-title a:hover,.post-title a:visited{
+color:#212121
+}
+.post-body{
+color:#757575;
+font:15px Roboto, sans-serif;
+line-height:1.6em;
+margin:1.5em 0 2em 0;
+display:block
+}
+.post-body img{
+height:inherit
+}
+.post-body .snippet-thumbnail{
+float:left;
+margin:0;
+margin-right:2em;
+max-height:128px;
+max-width:128px
+}
+.post-body .snippet-thumbnail img{
+max-width:100%
+}
+.main .FeaturedPost .widget-content{
+border:0;
+position:relative;
+padding-bottom:.25em
+}
+.FeaturedPost img{
+margin-top:2em
+}
+.FeaturedPost .snippet-container{
+margin:2em 0
+}
+.FeaturedPost .snippet-container p{
+margin:0
+}
+.FeaturedPost .snippet-thumbnail{
+float:none;
+height:auto;
+margin-bottom:2em;
+margin-right:0;
+overflow:hidden;
+max-height:calc(600px + 2em);
+max-width:100%;
+text-align:center;
+width:100%
+}
+.FeaturedPost .snippet-thumbnail img{
+max-width:100%;
+width:100%
+}
+.byline{
+color:rgba(0, 0, 0, 0.54);
+display:inline-block;
+line-height:24px;
+margin-top:8px;
+vertical-align:top
+}
+.byline.post-author:first-child{
+margin-right:0
+}
+.byline.reactions .reactions-label{
+line-height:22px;
+vertical-align:top
+}
+.byline.post-share-buttons{
+position:relative;
+display:inline-block;
+margin-top:0;
+width:100%
+}
+.byline.post-share-buttons .sharing{
+float:right
+}
+.flat-button.ripple:hover{
+background-color:rgba(33,150,243,.12)
+}
+.flat-button.ripple .splash{
+background-color:rgba(33,150,243,.4)
+}
+a.timestamp-link,a:active.timestamp-link,a:visited.timestamp-link{
+color:inherit;
+font:inherit;
+text-decoration:inherit
+}
+.post-share-buttons{
+margin-left:0
+}
+.clear-sharing{
+min-height:24px
+}
+.comment-link{
+color:#2196f3;
+position:relative
+}
+.comment-link .num_comments{
+margin-left:8px;
+vertical-align:top
+}
+#comment-holder .continue{
+display:none
+}
+#comment-editor{
+margin-bottom:20px;
+margin-top:20px
+}
+#comments .comment-form h4,#comments h3.title{
+position:absolute;
+clip:rect(1px,1px,1px,1px);
+padding:0;
+border:0;
+height:1px;
+width:1px;
+overflow:hidden
+}
+.post-filter-message{
+background-color:rgba(0,0,0,.7);
+color:#fff;
+display:table;
+margin-bottom:16px;
+width:100%
+}
+.post-filter-message div{
+display:table-cell;
+padding:15px 28px
+}
+.post-filter-message div:last-child{
+padding-left:0;
+text-align:right
+}
+.post-filter-message a{
+white-space:nowrap
+}
+.post-filter-message .search-label,.post-filter-message .search-query{
+font-weight:700;
+color:#2196f3
+}
+#blog-pager{
+margin:2em 0
+}
+#blog-pager a{
+color:#2196f3;
+font-size:14px
+}
+.subscribe-button{
+border-color:#ffffff;
+color:#ffffff
+}
+.sticky .subscribe-button{
+border-color:#757575;
+color:#757575
+}
+.tabs{
+margin:0 auto;
+padding:0
+}
+.tabs li{
+margin:0 8px;
+vertical-align:top
+}
+.tabs .overflow-button a,.tabs li a{
+color:#cccccc;
+font:700 normal 15px Roboto, sans-serif;
+line-height:18px
+}
+.tabs .overflow-button a{
+padding:12px 8px
+}
+.overflow-popup .tabs li{
+text-align:left
+}
+.overflow-popup li a{
+color:#757575;
+display:block;
+padding:8px 20px
+}
+.overflow-popup li.selected a{
+color:#212121
+}
+a.report_abuse{
+font-weight:400
+}
+.Label li,.Label span.label-size,.byline.post-labels a{
+background-color:#f7f7f7;
+border:1px solid #f7f7f7;
+border-radius:15px;
+display:inline-block;
+margin:4px 4px 4px 0;
+padding:3px 8px
+}
+.Label a,.byline.post-labels a{
+color:rgba(0,0,0,0.54)
+}
+.Label ul{
+list-style:none;
+padding:0
+}
+.PopularPosts{
+background-color:#eeeeee;
+padding:30px 40px
+}
+.PopularPosts .item-content{
+color:#757575;
+margin-top:24px
+}
+.PopularPosts a,.PopularPosts a:hover,.PopularPosts a:visited{
+color:#2196f3
+}
+.PopularPosts .post-title,.PopularPosts .post-title a,.PopularPosts .post-title a:hover,.PopularPosts .post-title a:visited{
+color:#212121;
+font-size:18px;
+font-weight:700;
+line-height:24px
+}
+.PopularPosts,.PopularPosts h3.title a{
+color:#757575;
+font:15px Roboto, sans-serif
+}
+.main .PopularPosts{
+padding:16px 40px
+}
+.PopularPosts h3.title{
+font-size:14px;
+margin:0
+}
+.PopularPosts h3.post-title{
+margin-bottom:0
+}
+.PopularPosts .byline{
+color:rgba(0, 0, 0, 0.54)
+}
+.PopularPosts .jump-link{
+float:right;
+margin-top:16px
+}
+.PopularPosts .post-header .byline{
+font-size:.9em;
+font-style:italic;
+margin-top:6px
+}
+.PopularPosts ul{
+list-style:none;
+padding:0;
+margin:0
+}
+.PopularPosts .post{
+padding:20px 0
+}
+.PopularPosts .post+.post{
+border-top:1px dashed #cccccc
+}
+.PopularPosts .item-thumbnail{
+float:left;
+margin-right:32px
+}
+.PopularPosts .item-thumbnail img{
+height:88px;
+padding:0;
+width:88px
+}
+.inline-ad{
+margin-bottom:16px
+}
+.desktop-ad .inline-ad{
+display:block
+}
+.adsbygoogle{
+overflow:hidden
+}
+.vertical-ad-container{
+float:right;
+margin-right:16px;
+width:128px
+}
+.vertical-ad-container .AdSense+.AdSense{
+margin-top:16px
+}
+.inline-ad-placeholder,.vertical-ad-placeholder{
+background:#ffffff;
+border:1px solid #000;
+opacity:.9;
+vertical-align:middle;
+text-align:center
+}
+.inline-ad-placeholder span,.vertical-ad-placeholder span{
+margin-top:290px;
+display:block;
+text-transform:uppercase;
+font-weight:700;
+color:#212121
+}
+.vertical-ad-placeholder{
+height:600px
+}
+.vertical-ad-placeholder span{
+margin-top:290px;
+padding:0 40px
+}
+.inline-ad-placeholder{
+height:90px
+}
+.inline-ad-placeholder span{
+margin-top:36px
+}
+.Attribution{
+color:#757575
+}
+.Attribution a,.Attribution a:hover,.Attribution a:visited{
+color:#2196f3
+}
+.Attribution svg{
+fill:#707070
+}
+.sidebar-container{
+box-shadow:1px 1px 3px rgba(0,0,0,.1)
+}
+.sidebar-container,.sidebar-container .sidebar_bottom{
+background-color:#ffffff
+}
+.sidebar-container .navigation,.sidebar-container .sidebar_top_wrapper{
+background-color:#ffffff
+}
+.sidebar-container .sidebar_top{
+overflow:auto
+}
+.sidebar-container .sidebar_bottom{
+width:100%;
+padding-top:16px
+}
+.sidebar-container .widget:first-child{
+padding-top:0
+}
+.sidebar_top .widget.Profile{
+padding-bottom:16px
+}
+.widget.Profile{
+margin:0;
+width:100%
+}
+.widget.Profile h2{
+display:none
+}
+.widget.Profile h3.title{
+color:rgba(0,0,0,0.52);
+margin:16px 32px
+}
+.widget.Profile .individual{
+text-align:center
+}
+.widget.Profile .individual .profile-link{
+padding:1em
+}
+.widget.Profile .individual .default-avatar-wrapper .avatar-icon{
+margin:auto
+}
+.widget.Profile .team{
+margin-bottom:32px;
+margin-left:32px;
+margin-right:32px
+}
+.widget.Profile ul{
+list-style:none;
+padding:0
+}
+.widget.Profile li{
+margin:10px 0
+}
+.widget.Profile .profile-img{
+border-radius:50%;
+float:none
+}
+.widget.Profile .profile-link{
+color:#212121;
+font-size:.9em;
+margin-bottom:1em;
+opacity:.87;
+overflow:hidden
+}
+.widget.Profile .profile-link.visit-profile{
+border-style:solid;
+border-width:1px;
+border-radius:12px;
+cursor:pointer;
+font-size:12px;
+font-weight:400;
+padding:5px 20px;
+display:inline-block;
+line-height:normal
+}
+.widget.Profile dd{
+color:rgba(0, 0, 0, 0.54);
+margin:0 16px
+}
+.widget.Profile location{
+margin-bottom:1em
+}
+.widget.Profile .profile-textblock{
+font-size:14px;
+line-height:24px;
+position:relative
+}
+body.sidebar-visible .page_body{
+overflow-y:scroll
+}
+body.sidebar-visible .bg-photo-container{
+overflow-y:scroll
+}
+@media screen and (min-width:1440px){
+.sidebar-container{
+margin-top:480px;
+min-height:calc(100% - 480px);
+overflow:visible;
+z-index:32
+}
+.sidebar-container .sidebar_top_wrapper{
+background-color:#f7f7f7;
+height:480px;
+margin-top:-480px
+}
+.sidebar-container .sidebar_top{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+height:480px;
+-webkit-box-orient:horizontal;
+-webkit-box-direction:normal;
+-webkit-flex-direction:row;
+-ms-flex-direction:row;
+flex-direction:row;
+max-height:480px
+}
+.sidebar-container .sidebar_bottom{
+max-width:284px;
+width:284px
+}
+body.collapsed-header .sidebar-container{
+z-index:15
+}
+.sidebar-container .sidebar_top:empty{
+display:none
+}
+.sidebar-container .sidebar_top>:only-child{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+-webkit-align-self:center;
+-ms-flex-item-align:center;
+-ms-grid-row-align:center;
+align-self:center;
+width:100%
+}
+.sidebar_top_wrapper.no-items{
+display:none
+}
+}
+.post-snippet.snippet-container{
+max-height:120px
+}
+.post-snippet .snippet-item{
+line-height:24px
+}
+.post-snippet .snippet-fade{
+background:-webkit-linear-gradient(left,#ffffff 0,#ffffff 20%,rgba(255, 255, 255, 0) 100%);
+background:linear-gradient(to left,#ffffff 0,#ffffff 20%,rgba(255, 255, 255, 0) 100%);
+color:#757575;
+height:24px
+}
+.popular-posts-snippet.snippet-container{
+max-height:72px
+}
+.popular-posts-snippet .snippet-item{
+line-height:24px
+}
+.PopularPosts .popular-posts-snippet .snippet-fade{
+color:#757575;
+height:24px
+}
+.main .popular-posts-snippet .snippet-fade{
+background:-webkit-linear-gradient(left,#eeeeee 0,#eeeeee 20%,rgba(238, 238, 238, 0) 100%);
+background:linear-gradient(to left,#eeeeee 0,#eeeeee 20%,rgba(238, 238, 238, 0) 100%)
+}
+.sidebar_bottom .popular-posts-snippet .snippet-fade{
+background:-webkit-linear-gradient(left,#ffffff 0,#ffffff 20%,rgba(255, 255, 255, 0) 100%);
+background:linear-gradient(to left,#ffffff 0,#ffffff 20%,rgba(255, 255, 255, 0) 100%)
+}
+.profile-snippet.snippet-container{
+max-height:192px
+}
+.has-location .profile-snippet.snippet-container{
+max-height:144px
+}
+.profile-snippet .snippet-item{
+line-height:24px
+}
+.profile-snippet .snippet-fade{
+background:-webkit-linear-gradient(left,#ffffff 0,#ffffff 20%,rgba(255, 255, 255, 0) 100%);
+background:linear-gradient(to left,#ffffff 0,#ffffff 20%,rgba(255, 255, 255, 0) 100%);
+color:rgba(0, 0, 0, 0.54);
+height:24px
+}
+@media screen and (min-width:1440px){
+.profile-snippet .snippet-fade{
+background:-webkit-linear-gradient(left,#f7f7f7 0,#f7f7f7 20%,rgba(247, 247, 247, 0) 100%);
+background:linear-gradient(to left,#f7f7f7 0,#f7f7f7 20%,rgba(247, 247, 247, 0) 100%)
+}
+}
+@media screen and (max-width:800px){
+.blog-name{
+margin-top:0
+}
+body.item-view .blog-name{
+margin:0 48px
+}
+.centered-bottom{
+padding:8px
+}
+body.item-view .centered-bottom{
+padding:0
+}
+.page_body .centered{
+padding:10px 0
+}
+body.item-view #header,body.item-view .widget.Header{
+margin-right:0
+}
+body.collapsed-header .centered-top-container .blog-name{
+display:block
+}
+body.collapsed-header .centered-top-container .widget.Header h1{
+text-align:center
+}
+.widget.Header header{
+padding:0
+}
+.widget.Header h1{
+font-size:24px;
+line-height:24px;
+margin-bottom:13px
+}
+body.item-view .widget.Header h1{
+text-align:center
+}
+body.item-view .widget.Header p{
+text-align:center
+}
+.blog-name .widget.PageList{
+padding:0
+}
+body.item-view .centered-top{
+margin-bottom:5px
+}
+.search-action,.search-input{
+margin-bottom:-8px
+}
+.search form{
+margin-bottom:8px
+}
+body.item-view .subscribe-section-container{
+margin:5px 0 0 0;
+width:100%
+}
+#page_body.section div.widget.FeaturedPost,div.widget.PopularPosts{
+padding:16px
+}
+div.widget.Blog .blog-posts .post-outer-container{
+padding:16px
+}
+div.widget.Blog .blog-posts .post-outer-container .post-outer{
+padding:0
+}
+.post:first-child{
+margin:0
+}
+.post-body .snippet-thumbnail{
+margin:0 3vw 3vw 0
+}
+.post-body .snippet-thumbnail img{
+height:20vw;
+width:20vw;
+max-height:128px;
+max-width:128px
+}
+div.widget.PopularPosts div.item-thumbnail{
+margin:0 3vw 3vw 0
+}
+div.widget.PopularPosts div.item-thumbnail img{
+height:20vw;
+width:20vw;
+max-height:88px;
+max-width:88px
+}
+.post-title{
+line-height:1
+}
+.post-title,.post-title a{
+font-size:20px
+}
+#page_body.section div.widget.FeaturedPost h3 a{
+font-size:22px
+}
+.mobile-ad .inline-ad{
+display:block
+}
+.page_body.has-vertical-ads .vertical-ad-container,.page_body.has-vertical-ads .vertical-ad-container ins{
+display:none
+}
+.page_body.has-vertical-ads .centered .centered-bottom,.page_body.has-vertical-ads .centered .centered-top{
+display:block;
+width:auto
+}
+div.post-filter-message div{
+padding:8px 16px
+}
+}
+@media screen and (min-width:1440px){
+body{
+position:relative
+}
+body.item-view .blog-name{
+margin-left:48px
+}
+.page_body{
+margin-left:284px
+}
+.search{
+margin-left:0
+}
+.search.focused{
+width:100%
+}
+.sticky{
+padding-left:284px
+}
+.hamburger-menu{
+display:none
+}
+body.collapsed-header .page_body .centered-top-container{
+padding-left:284px;
+padding-right:0;
+width:100%
+}
+body.collapsed-header .centered-top-container .search.focused{
+width:100%
+}
+body.collapsed-header .centered-top-container .blog-name{
+margin-left:0
+}
+body.collapsed-header.item-view .centered-top-container .search.focused{
+width:calc(100% - 50px)
+}
+body.collapsed-header.item-view .centered-top-container .blog-name{
+margin-left:40px
+}
+}
+
+--></style>
+<style id="template-skin-1" type="text/css"><!--
+body#layout .hidden,
+body#layout .invisible {
+display: inherit;
+}
+body#layout .navigation {
+display: none;
+}
+body#layout .page,
+body#layout .sidebar_top,
+body#layout .sidebar_bottom {
+display: inline-block;
+left: inherit;
+position: relative;
+vertical-align: top;
+}
+body#layout .page {
+float: right;
+margin-left: 20px;
+width: 55%;
+}
+body#layout .sidebar-container {
+float: right;
+width: 40%;
+}
+body#layout .hamburger-menu {
+display: none;
+}
+--></style>
+<style>
+    .bg-photo {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw);}
+    
+@media (max-width: 480px) { .bg-photo {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw&options=w480);}}
+@media (max-width: 640px) and (min-width: 481px) { .bg-photo {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw&options=w640);}}
+@media (max-width: 800px) and (min-width: 641px) { .bg-photo {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw&options=w800);}}
+@media (max-width: 1200px) and (min-width: 801px) { .bg-photo {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw&options=w1200);}}
+/* Last tag covers anything over one higher than the previous max-size cap. */
+@media (min-width: 1201px) { .bg-photo {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=L1lcAxxz0CLgsDzixEprHJ2F38TyEjCyE3RSAjynQDks0lT1BDc1OxXKaTEdLc89HPvdB11X9FDw&options=w1600);}}
+  </style>
+<script async="async" src="./[ML] Random Forest_files/clipboard.min.js.下載"></script>
+<link href="./[ML] Random Forest_files/authorization.css" media="all" onload="if(media!=&#39;all&#39;)media=&#39;all&#39;" rel="stylesheet"><noscript><link href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=1099001297101871030&amp;zx=3fe4d0f3-1b0d-494d-ba70-aaa69974480b' rel='stylesheet'/></noscript>
+
+</head>
+<body class="item-view version-1-3-0 variant-indie_light collapsed-header" data-js-state="loaded">
+<a class="skip-navigation" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html#main" tabindex="0">
+跳到主要內容
+</a>
+<div class="page">
+<div class="bg-photo-overlay"></div>
+<div class="bg-photo-container">
+<div class="bg-photo"></div>
+</div>
+<div class="page_body">
+<div class="centered">
+<div class="centered-top-placeholder cloned"><div class="centered-top">
+<a class="return_link" href="http://hhtucode.blogspot.com/">
+<button class="svg-icon-24-button back-button rtl-reversible-icon flat-icon-button ripple">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_arrow_back_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</button>
+</a>
+<div class="search">
+<button aria-label="搜尋" class="search-expand touch-icon-button">
+<div class="flat-icon-button ripple">
+<svg class="svg-icon-24 search-expand-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_search_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</button>
+<div class="section" id="search_top" name="Search (Top)"><div class="widget BlogSearch" data-version="2" id="BlogSearch1">
+<h3 class="title">
+搜尋此網誌
+</h3>
+<div class="widget-content" role="search">
+<form action="http://hhtucode.blogspot.com/search" target="_top">
+<div class="search-input">
+<input aria-label="搜尋此網誌" autocomplete="off" name="q" placeholder="搜尋此網誌" value="">
+</div>
+<input class="search-action flat-button" type="submit" value="搜尋">
+</form>
+</div>
+</div></div>
+</div>
+<div class="clearboth"></div>
+<div class="blog-name container">
+<div class="container section" id="header" name="標頭"><div class="widget Header" data-version="2" id="Header1">
+<div class="header-widget">
+<div>
+<h1>
+<a href="http://hhtucode.blogspot.com/">
+HHtu's Code
+</a>
+</h1>
+</div>
+<p>
+</p>
+</div>
+</div></div>
+<nav role="navigation">
+<div class="clearboth no-items section" id="page_list_top" name="網頁清單 (頂端)">
+</div>
+</nav>
+</div>
+</div></div>
+
+<div>
+<div class="vertical-ad-container no-items section" id="ads" name="廣告">
+</div>
+<main class="centered-bottom" id="main" role="main" tabindex="-1">
+<div class="main section" id="page_body" name="頁面主體">
+<div class="widget Blog" data-version="2" id="Blog1">
+<div class="blog-posts hfeed container">
+<article class="post-outer-container">
+<div class="post-outer">
+<div class="post">
+<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://hhtucode.blogspot.com/2013/06/ml-random-forest.html"
+  },
+  "headline": "[ML] Random Forest","description": "終於來到我最喜歡的演算法 - Random Forest \n會喜歡的原因是, 他簡單, 直觀, 當然前提是你要知道甚麼是 Tree \n在看 Random Forest 之前最好先去了解一下 Tree, Link:&#160; Decision Tree , Link:&#160; CART \n假設你已經知道甚麼是 Tree, 那&#8230;","datePublished": "2013-06-25T15:36:00+08:00",
+  "dateModified": "2013-06-26T14:29:51+08:00","image": {
+    "@type": "ImageObject","url": "http://3.bp.blogspot.com/-SevR2YUQudc/Uck93cfSflI/AAAAAAAAA2M/TxGzbHXKYiE/w1200-h630-p-k-no-nu/RF.png",
+    "height": 630,
+    "width": 1200},"publisher": {
+    "@type": "Organization",
+    "name": "Blogger",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://lh3.googleusercontent.com/ULB6iBuCeTVvSjjjU1A-O8e9ZpVba6uvyhtiWRti_rBAs9yMYOFBujxriJRZ-A=h60",
+      "width": 206,
+      "height": 60
+    }
+  },"author": {
+    "@type": "Person",
+    "name": "hhtu"
+  }
+}</script>
+<a name="9156326499313916453"></a>
+<h3 class="post-title entry-title">
+[ML] Random Forest 
+</h3>
+<div class="post-share-buttons post-share-buttons-top">
+<div class="byline post-share-buttons goog-inline-block">
+<div aria-owns="sharing-popup-Blog1-byline-9156326499313916453" class="sharing" data-title="[ML] Random Forest ">
+<button aria-controls="sharing-popup-Blog1-byline-9156326499313916453" aria-label="分享" class="sharing-button touch-icon-button" id="sharing-button-Blog1-byline-9156326499313916453" role="button" aria-expanded="false" aria-haspopup="true">
+<div class="flat-icon-button ripple">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_share_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</button>
+<div class="share-buttons-container">
+<ul aria-hidden="true" aria-label="分享" class="share-buttons hidden" id="sharing-popup-Blog1-byline-9156326499313916453" role="menu">
+<li>
+<span aria-label="取得連結" class="sharing-platform-button sharing-element-link" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="取得連結">
+<svg class="svg-icon-24 touch-icon sharing-link">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_link_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">取得連結</span>
+</span>
+</li>
+<li>
+<span aria-label="分享到 Facebook" class="sharing-platform-button sharing-element-facebook" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=facebook" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享到 Facebook">
+<svg class="svg-icon-24 touch-icon sharing-facebook">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_facebook_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Facebook</span>
+</span>
+</li>
+<li>
+<span aria-label="分享到 Twitter" class="sharing-platform-button sharing-element-twitter" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=twitter" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享到 Twitter">
+<svg class="svg-icon-24 touch-icon sharing-twitter">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_twitter_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Twitter</span>
+</span>
+</li>
+<li>
+<span aria-label="分享到 Pinterest" class="sharing-platform-button sharing-element-pinterest" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=pinterest" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享到 Pinterest">
+<svg class="svg-icon-24 touch-icon sharing-pinterest">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_pinterest_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Pinterest</span>
+</span>
+</li>
+<li>
+<span aria-label="以電子郵件傳送" class="sharing-platform-button sharing-element-email" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=email" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="以電子郵件傳送">
+<svg class="svg-icon-24 touch-icon sharing-email">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_email_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">以電子郵件傳送</span>
+</span>
+</li>
+<li aria-hidden="true" class="hidden">
+<span aria-label="分享至其他應用程式" class="sharing-platform-button sharing-element-other" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享至其他應用程式">
+<svg class="svg-icon-24 touch-icon sharing-sharingOther">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_more_horiz_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">其他應用程式</span>
+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="post-header">
+<div class="post-header-line-1">
+<span class="byline post-timestamp">
+<meta content="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html">
+<a class="timestamp-link" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" rel="bookmark" title="permanent link">
+<time class="published" datetime="2013-06-25T15:36:00+08:00" title="2013-06-25T15:36:00+08:00">
+6月 25, 2013
+</time>
+</a>
+</span>
+</div>
+</div>
+<div class="post-body entry-content float-container" id="post-body-9156326499313916453">
+終於來到我最喜歡的演算法 - Random Forest<br>
+<br>
+會喜歡的原因是, 他簡單, 直觀, 當然前提是你要知道甚麼是 Tree<br>
+<br>
+在看 Random Forest 之前最好先去了解一下 Tree, Link:&nbsp;<a href="http://hhtucode.blogspot.tw/2013/06/ml-decision-tree.html" target="_blank">Decision Tree</a>, Link:&nbsp;<a href="http://hhtucode.blogspot.tw/2013/06/ml-classification-regression-trees-cart.html" target="_blank">CART</a><br>
+<br>
+假設你已經知道甚麼是 Tree, 那你也差不多沒幾步就可以完成 Random Forest 了!!<br>
+<br>
+在這之前先聽個故事...<br>
+<br>
+ptt 最喜歡惡搞的一個故事就是, 父親給兒子筷子, 然後一根很容易折斷<br>
+<br>
+兩根很容易折斷, 三根也很容易折斷...嗯...這兒子力量好強!!<br>
+<br>
+<strike>這應該叫他 SVM, 因為超強的XDDD</strike><br>
+<br>
+如果今天變成是, 給到第三跟筷子兒子折不斷, 那這時候就要跟他講團結的力量大XD<br>
+<br>
+其實 Random Forest 就是團結的力量 !!<br>
+<br>
+用一句話描述 Random Forest:<br>
+<br>
+<span style="color: red;">Random Forest 基本概念就是先 build 多棵 Decision Tree, 然後集合這些 Tree 的力量為一個 Forest, 再來做預測</span><br>
+<br>
+打完收工~~大~家~可~以~回~家~了!!<br>
+<br>
+當然...事情永遠不會那麼單純XD<br>
+<br>
+<a name="more"></a><div style="text-align: center;">
+<span style="font-size: x-large;"><b>Random Forest</b></span></div>
+<div>
+<br></div>
+<div>
+事實上, 跟前述的東西差不多, Random Forest 的確就差不多這些東西構成的<br>
+<div>
+<br>
+只是有些東西要來細部的探討一下<br>
+<br>
+首先是來歷: 由 Leo Breiman and Adele Cutler 在 2001 年發表在 Machine Learning Journal !!<br>
+<br>
+官網:&nbsp;<a href="http://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm">http://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm</a><br>
+<br>
+原始 paper:&nbsp;<a href="http://oz.berkeley.edu/~breiman/randomforest2001.pdf">http://oz.berkeley.edu/~breiman/randomforest2001.pdf</a><br>
+<br>
+如果英文不錯的其實官網就已經教學得很清楚了, 我只是用我自己的理解重新描述<br>
+<br>
+因為 Random Forest 我從來沒有在 ML 課學過, 完全是自學的<br>
+<br>
+那來把最上述的一句話我稍微展開一點:<br>
+<br>
+<span style="color: red;">在 training data 中, 從中取出一些 </span><span style="color: blue;">feature</span><span style="color: red;"> &amp; </span><span style="color: blue;">部份 data</span><span style="color: red;"> 產生出 Tree (通常是</span><span style="color: blue;">CART</span><span style="color: red;">)</span><br>
+<br>
+<span style="color: red;">並且重複這步驟</span><span style="color: blue;">多次</span><span style="color: red;">, 會產生出多棵 Tree 來</span><br>
+<span style="color: red;"><br></span>
+<span style="color: red;">最後利用 </span><span style="color: blue;">Ensemble (Majority Vote)</span><span style="color: red;"> 的方法, 結合所有 Tree, 就完成了 Random Forest</span><br>
+<div>
+<br></div>
+<div>
+首先故事是這樣的 Random Forest 其實是靠底下的 Tree 建立而成的</div>
+<div>
+<br></div>
+<div>
+而這些 Tree 的差異就是在組成所用的 data 跟 feature 都有點不一樣</div>
+<div>
+<br></div>
+<div>
+所以我們先從準備 training data 開始</div>
+<div>
+<br></div>
+<div>
+<span style="font-size: large;"><b>Bootstrap</b></span></div>
+<div>
+<br></div>
+<div>
+首先要建立一棵 Tree, 不會用全部的 training data 去 training 一棵&nbsp;Tree</div>
+<div>
+<br></div>
+<div>
+我們為甚麼不用全部的 training data 餵進去就好?</div>
+<div>
+<br></div>
+<div>
+如果全部都餵的話, 那我不管建立幾棵&nbsp;Tree, 結果都是一樣的, 那我乾脆就只要一棵就好了~</div>
+<div>
+<br></div>
+<div>
+所以為了讓每棵有所不同, 主要就是 training data 的採樣結果都會不太一樣</div>
+<div>
+<br></div>
+<div>
+這邊採樣的方式就是 Bagging</div>
+<div>
+<br></div>
+<hr>
+<div>
+<b>Bagging</b></div>
+<div>
+<br></div>
+<div>
+<div>
+一種採樣方式, 假設全體 training data 有N筆, 你要採集部分資料,&nbsp;</div>
+<div>
+<br></div>
+<div>
+但是又不想要採集到全體的資料 (那就不叫採集了), 要如何做?</div>
+<div>
+<br></div>
+<div>
+一般常見的方式為: 從 N 筆 data 挑資料, 一次挑一筆, 挑出的會再放回去, 最後計算的時候重複的會不算(with replacement), 假設最後為y, N &gt; y</div>
+<div>
+<br></div>
+<div>
+那 y 就是一次標準的 bagging sampling 樣本數, 當然也有人不 replacement, 但是較少人使用</div>
+</div>
+<div>
+<br></div>
+<div>
+wiki:&nbsp;<a href="http://www.wikipedia.com/wiki/Bootstrap_aggregating">http://www.wikipedia.com/wiki/Bootstrap_aggregating</a></div>
+<div>
+<br>
+<hr>
+<div>
+</div>
+</div>
+<div>
+<br>
+那因為是用 bagging on data, 所以每棵 Tree 在建立的時候, 都會是用不一樣的 data 去建立的<br>
+<br>
+除了 data 之外, 還有 feature, Random Forest 另外一個特點, 不只是 data 用 bagging<br>
+<br>
+甚至是 feature 也是bagging 的方式, 也就是連使用哪些 feature 去建立 Tree, 都是不固定的<br>
+(所以感覺到那股 Random 了沒有阿~~~)<br>
+<br>
+等於說, Random Forest 所建立的每棵 Tree, 在 data 跟 feature 上, 都有一定程度上的不同<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="./[ML] Random Forest_files/RF.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="./[ML] Random Forest_files/RF.png"></a></div>
+<br>
+<br>
+那其實這樣的結果會有一個狀況, 假設建立出 10 棵 Tree,<br>
+<br>
+有的 Tree 很多 Node, 有的 Tree 很少, 有的很 skew, 有的很 wide<br>
+<br>
+在 '08 年有一篇 paper, 探討 feature 的數量到底要如何決定, 不然差異太大, 可能結果會不甚良好<br>
+<br>
+Link:&nbsp;<a href="http://hal.archives-ouvertes.fr/docs/00/43/63/67/PDF/icic08.pdf">http://hal.archives-ouvertes.fr/docs/00/43/63/67/PDF/icic08.pdf</a><br>
+<br>
+那我個人實驗目前比較採用的方式是:<br>
+<br>
+<span style="color: red;">設定最少要 bagging 出 (k / 2) + 1 的 feature, 才比較有顯著結果, K 為原本的 feature 數量</span><br>
+<span style="color: red;"><br></span>
+<span style="color: red;">或者另外一個常見設定是 square(k)</span><br>
+<br>
+當然, feature 太少的當然就不太適合這樣做, square 的方式則是最好有夠多的 feature<br>
+<br>
+<span style="font-size: large;"><b>Build Tree</b></span><br>
+<br>
+這邊, 就沒什麼好說的了, 只要將前述的 data &amp; feature 準備好, 餵入 CART 就可以了<br>
+<br>
+唯一要注意的事情, Random Forest 不須要讓任何的 Tree 做 prune<br>
+<br>
+<span style="font-size: large;"><b>Ensemble</b></span><br>
+<br>
+最後一個步驟, 假設你 training 了 50 棵 Tree, 最後就是合體<br>
+<br>
+團結的力量是吧, 使用方式當然也就很單純, 給我一筆 data<br>
+<br>
+我會讓這 50 棵 Tree 分別去預估可能的 class, 最後全體投票, 多數決決定<br>
+<br>
+如果今天是用 Regression 的 RF, 則是加總起來除以總棵數, 就是預估的答案<br>
+<br>
+<b><span style="font-size: large;">Out Of Bag</span></b><br>
+<br>
+那要如何衡量可能的錯誤率? 可以這麼做<br>
+<br>
+因為重複採樣的關係, 平均來講, 每棵大約會有 1/3 training data 採樣不到<br>
+<br>
+所以收集這些 data, 最後等到 Forest 建立完成之後, 將這些 data 餵進去判斷, 最後得出錯誤率<br>
+<br>
+這方式稱為 Out-Of-Bag (OOB)<br>
+<br>
+其實 Random Forest 是一個很 heuristic 的演算法<br>
+<br>
+他還有很多需要被決定的參數, 像是, 我到底要用幾棵樹<br>
+<br>
+well, 笨一點的方式就是從 1棵, 2棵...到 n 棵, 棵一路建立上去<br>
+<br>
+然後計算他相對的 OOB, 要是發現 OOB 沒在下降, 那就差不多了<br>
+<br>
+不過不保證好用XD<br>
+<br>
+那有 paper 探討幾棵 Tree 比較實用, 可以參考下列這篇<br>
+<br>
+How Many Trees in a Random Forest?<br>
+<br>
+<a href="http://link.springer.com/chapter/10.1007%2F978-3-642-31537-4_13">http://link.springer.com/chapter/10.1007%2F978-3-642-31537-4_13</a><br>
+<br>
+可惜這要錢, 有學術網路的人可以參考這篇<br>
+<br>
+<hr>
+<br>
+那其實 Random Forest 在近代真的是很好用的演算法<br>
+<br>
+當然他變形也相當多, 有一個比 Random Forest 還要更 Random 的演算法為底下的 Tree 是用Extremely randomized trees 來建構<br>
+<br>
+或者是'09 年有一篇很紅的 paper: Online Random Forest<br>
+<br>
+Link:&nbsp;<a href="http://www.vision.ee.ethz.ch/~cleistne/papers/2009-OnlineRandomForests.pdf">http://www.vision.ee.ethz.ch/~cleistne/papers/2009-OnlineRandomForests.pdf</a><br>
+<br>
+這篇我有特別去實作, 效果棒, 不過參數需要選擇的更多, 而且會變成有需要做 prune<br>
+<br>
+有空的話再介紹這篇 Online Random Forest<br>
+<br>
+有時候寫 Blog 我會寫的掉東掉西的, 有錯請多多包涵, 有發現會馬上改正<br>
+<br>
+<br></div>
+</div>
+</div>
+</div>
+<div class="post-bottom">
+<div class="post-footer float-container">
+<div class="post-footer-line post-footer-line-1">
+</div>
+<div class="post-footer-line post-footer-line-2">
+<span class="byline post-labels">
+<span class="byline-label">
+</span>
+<a href="http://hhtucode.blogspot.com/search/label/Machine%20Learning" rel="tag">Machine Learning</a>
+<a href="http://hhtucode.blogspot.com/search/label/Supervised%20Learning" rel="tag">Supervised Learning</a>
+</span>
+</div>
+<div class="post-footer-line post-footer-line-3">
+</div>
+</div>
+<div class="post-share-buttons post-share-buttons-bottom">
+<div class="byline post-share-buttons goog-inline-block">
+<div aria-owns="sharing-popup-Blog1-byline-9156326499313916453" class="sharing" data-title="[ML] Random Forest ">
+<button aria-controls="sharing-popup-Blog1-byline-9156326499313916453" aria-label="分享" class="sharing-button touch-icon-button" id="sharing-button-Blog1-byline-9156326499313916453" role="button" aria-expanded="false" aria-haspopup="true">
+<div class="flat-icon-button ripple">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_share_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</button>
+<div class="share-buttons-container">
+<ul aria-hidden="true" aria-label="分享" class="share-buttons hidden" id="sharing-popup-Blog1-byline-9156326499313916453" role="menu">
+<li>
+<span aria-label="取得連結" class="sharing-platform-button sharing-element-link" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="取得連結">
+<svg class="svg-icon-24 touch-icon sharing-link">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_link_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">取得連結</span>
+</span>
+</li>
+<li>
+<span aria-label="分享到 Facebook" class="sharing-platform-button sharing-element-facebook" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=facebook" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享到 Facebook">
+<svg class="svg-icon-24 touch-icon sharing-facebook">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_facebook_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Facebook</span>
+</span>
+</li>
+<li>
+<span aria-label="分享到 Twitter" class="sharing-platform-button sharing-element-twitter" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=twitter" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享到 Twitter">
+<svg class="svg-icon-24 touch-icon sharing-twitter">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_twitter_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Twitter</span>
+</span>
+</li>
+<li>
+<span aria-label="分享到 Pinterest" class="sharing-platform-button sharing-element-pinterest" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=pinterest" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享到 Pinterest">
+<svg class="svg-icon-24 touch-icon sharing-pinterest">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_pinterest_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Pinterest</span>
+</span>
+</li>
+<li>
+<span aria-label="以電子郵件傳送" class="sharing-platform-button sharing-element-email" data-href="https://www.blogger.com/share-post.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;target=email" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="以電子郵件傳送">
+<svg class="svg-icon-24 touch-icon sharing-email">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_email_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">以電子郵件傳送</span>
+</span>
+</li>
+<li aria-hidden="true" class="hidden">
+<span aria-label="分享至其他應用程式" class="sharing-platform-button sharing-element-other" data-url="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" role="menuitem" tabindex="-1" title="分享至其他應用程式">
+<svg class="svg-icon-24 touch-icon sharing-sharingOther">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_more_horiz_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">其他應用程式</span>
+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="comments threaded" data-embed="true" data-num-comments="10" id="comments">
+<a name="comments"></a>
+<h3 class="title">留言</h3>
+<div class="comments-content">
+<script async="async" src="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html" type="text/javascript"></script>
+<script type="text/javascript">(function(){var g=function(h,E,k){var l=null;h&&0<h.length&&(l=parseInt(h[h.length-1].timestamp,10)+1);var c=null,t=null,x=void 0,y=null,u=(window.location.hash||"#").substring(1),z,A;/^comment-form_/.test(u)?z=u.substring(13):/^c[0-9]+$/.test(u)&&(A=u.substring(1));var F={id:k.postId,data:h,loadNext:function(e){if(l){var f=k.feed+"?alt=json&v=2&orderby=published&reverse=false&max-results=50";l&&(f+="&published-min="+(new Date(l)).toISOString());window.bloggercomments=function(v){l=null;var p=[];if(v&&v.feed&&
+v.feed.entry)for(var B=0,a;a=v.feed.entry[B];B++){var d={},b=/blog-(\d+).post-(\d+)/.exec(a.id.$t);d.id=b?b[2]:null;b=d;a:{var q=void 0;var C=a&&(a.content&&a.content.$t||a.summary&&a.summary.$t)||"";if(a&&a.gd$extendedProperty)for(q in a.gd$extendedProperty)if("blogger.contentRemoved"==a.gd$extendedProperty[q].name){q='<span class="deleted-comment">'+C+"</span>";break a}q=C}b.body=q;d.timestamp=Date.parse(a.published.$t)+"";a.author&&a.author.constructor===Array&&(b=a.author[0])&&(d.author={name:b.name?
+b.name.$t:void 0,profileUrl:b.uri?b.uri.$t:void 0,avatarUrl:b.gd$image?b.gd$image.src:void 0});a.link&&(a.link[2]&&(d.link=d.permalink=a.link[2].href),a.link[3]&&(b=/.*comments\/default\/(\d+)\?.*/.exec(a.link[3].href))&&b[1]&&(d.parentId=b[1]));d.deleteclass="item-control blog-admin";if(a.gd$extendedProperty)for(var w in a.gd$extendedProperty)"blogger.itemClass"==a.gd$extendedProperty[w].name?d.deleteclass+=" "+a.gd$extendedProperty[w].value:"blogger.displayTime"==a.gd$extendedProperty[w].name&&
+(d.displayTime=a.gd$extendedProperty[w].value);p.push(d)}l=50>p.length?null:parseInt(p[p.length-1].timestamp,10)+1;e(p);window.bloggercomments=null};var m=document.createElement("script");m.type="text/javascript";m.src=f+"&callback=bloggercomments";document.getElementsByTagName("head")[0].appendChild(m)}},hasMore:function(){return!!l},getMeta:function(e,f){return"iswriter"==e?f.author&&f.author.name==k.authorName&&f.author.profileUrl==k.authorUrl?"true":"":"deletelink"==e?k.baseUri+"/delete-comment.g?blogID="+
+k.blogId+"&postID="+f.id:"deleteclass"==e?f.deleteclass:""},onReply:function(e,f){null==c&&(c=document.getElementById("comment-editor"),null!=c&&(y=c.style.height,c.style.display="block",t=c.src.split("#")));if(c&&e&&e!==x){document.getElementById(f).insertBefore(c,null);var m=t[0]+(e?"&parentID="+e:"");t[1]&&(m=m+"#"+t[1]);c.src=m;c.style.height=y||c.style.height;x=e;c.removeAttribute("data-resized");c.dispatchEvent(new Event("iframeMoved"))}},rendered:!0,initComment:A,initReplyThread:z,config:{maxDepth:k.maxThreadDepth},
+messages:E};h=function(){window.goog&&window.goog.comments&&window.goog.comments.render(document.getElementById("comment-holder"),F)};window.goog&&window.goog.comments?h():(window.goog=window.goog||{},window.goog.comments=window.goog.comments||{},window.goog.comments.loadQueue=window.goog.comments.loadQueue||[],window.goog.comments.loadQueue.push(h))},n=["blogger","widgets","blog","initThreadedComments"],r=this||self;n[0]in r||"undefined"==typeof r.execScript||r.execScript("var "+n[0]);
+for(var D;n.length&&(D=n.shift());)n.length||void 0===g?r=r[D]&&r[D]!==Object.prototype[D]?r[D]:r[D]={}:r[D]=g;}).call(this);
+</script>
+<script type="text/javascript">
+    blogger.widgets.blog.initThreadedComments(
+        null,
+        null,
+        {});
+  </script>
+<div id="comment-holder">
+<div class="comment-thread toplevel-thread"><ol id="top-ra"><li class="comment" id="c5640833601180544798"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/photo.jpg" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/11396811755297247989" rel="nofollow">Atlas Hsu</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1378723074916#c5640833601180544798">2013年9月9日 下午6:37</a></span></div><p class="comment-content">前輩  可否請教一下<br>bootstrap'用'training data來去train一棵tree這是什麼意思<br><br>如何實做呢  &gt;  &lt;<br></p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="5640833601180544798" href="javascript:;">回覆</a><span class="item-control blog-admin blog-admin pid-859983311"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=5640833601180544798">刪除</a></span></span></div><div class="comment-replies"><div id="c5640833601180544798-rt" class="comment-thread inline-thread"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c5640833601180544798-ra" class="thread-chrome thread-expanded"><div><li class="comment" id="c1840054471133287333"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/unnamed.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/03827728059214605460" rel="nofollow">HHTu</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1378731969678#c1840054471133287333">2013年9月9日 下午9:06</a></span></div><p class="comment-content">痾, 你的問題我有點不是很確定, 首先 RF 是由很多 Tree 組成的, 那當然不會每棵樹都一樣, 不然就沒有意義了。 再來, 每棵樹的不一樣點在, 餵入的 training data 都不太一樣, 例如總共有 1000 筆 data, 我對他做 bagging with replacement, 也就是從 1000 筆隨機挑 800 筆(可能會有重複的), 最後挑完 800 筆之後, 篩選掉重複的, 假設剩下 600 筆, 就是其中一棵樹的 training data 了; 而這樣還沒完, 每筆資料只會選大約 k/2 左右的 feature 數量重新做成新的 training data, 這就是其中一顆 tree 的 training data(600筆), 整個流程你可以稱他為 bootstrap, 流程懂了要實作應該就沒那麼難了吧~?</p><span class="comment-actions secondary-text"><span class="item-control blog-admin blog-admin pid-233430723"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=1840054471133287333">刪除</a></span></span></div><div class="comment-replies"><div id="c1840054471133287333-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c1840054471133287333-ra" class="thread-chrome thread-expanded"><div></div><div id="c1840054471133287333-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="1840054471133287333" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c1840054471133287333-ce"></div></li><li class="comment" id="c3785969861613470444"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/photo(1).jpg" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/11396811755297247989" rel="nofollow">Atlas Hsu</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1378787040067#c3785969861613470444">2013年9月10日 下午12:24</a></span></div><p class="comment-content">謝謝您  大致上是瞭解了<br>有問題再請教您 ^ ^</p><span class="comment-actions secondary-text"><span class="item-control blog-admin blog-admin pid-859983311"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=3785969861613470444">刪除</a></span></span></div><div class="comment-replies"><div id="c3785969861613470444-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c3785969861613470444-ra" class="thread-chrome thread-expanded"><div></div><div id="c3785969861613470444-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="3785969861613470444" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c3785969861613470444-ce"></div></li><li class="comment" id="c2819907519594521169"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/blank(1).gif" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user">匿名</cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1382929023906#c2819907519594521169">2013年10月28日 上午10:57</a></span></div><p class="comment-content">我並沒實做過random forest過 所以了解的很淺 從我的理解裡 做完bootstrap (sample with replacement)後 不需要把重複的挑掉 不然就直接1000相異物挑600就好了<br><br>另外 在每個node裡 variable數 挑多少也是看情況 尤其在variable數很多的時候 不一定需要挑k/2 甚至可以只挑相對於variable數很少的變數 比方說square root of the number of variables 一點淺見 未必都是對的 望參考<br><br>你的blog做的非常好 很受益 謝謝</p><span class="comment-actions secondary-text"><span class="item-control blog-admin blog-admin pid-916646347"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=2819907519594521169">刪除</a></span></span></div><div class="comment-replies"><div id="c2819907519594521169-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c2819907519594521169-ra" class="thread-chrome thread-expanded"><div></div><div id="c2819907519594521169-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="2819907519594521169" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c2819907519594521169-ce"></div></li></div><div id="c5640833601180544798-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="5640833601180544798" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c5640833601180544798-ce"></div></li><li class="comment" id="c4033497768054853335"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/unnamed.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/00364509496838948570" rel="nofollow">太陽の西</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1411497327517#c4033497768054853335">2014年9月24日 上午2:35</a></span></div><p class="comment-content">不好意思我想問一下Ensemble整合的部分，這比較簡潔，我比較不太能了解是什麼意思。<br>怎麼可投票方式，還有什麼是預估的的答案，怎麼用Regression來看，不好意思真的不太懂</p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="4033497768054853335" href="javascript:;">回覆</a><span class="item-control blog-admin blog-admin pid-1131518675"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=4033497768054853335">刪除</a></span></span></div><div class="comment-replies"><div id="c4033497768054853335-rt" class="comment-thread inline-thread"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c4033497768054853335-ra" class="thread-chrome thread-expanded"><div><li class="comment" id="c4988587844839257459"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/photo(2).jpg" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/03827728059214605460" rel="nofollow">Tu Han-Hsing</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1411524940594#c4988587844839257459">2014年9月24日 上午10:15</a></span></div><p class="comment-content">舉個例子: 如果我手上有50棵樹, 假設他們今天要分辨一筆資料判斷颱風是否會來好了, 有13個人說會來, 37個人說不會來, 以多數決(選擇的演算法)的角度下就會是說不會來, 而這就是預估的答案, Regression 的話可以說預估明天溫度幾度好了, 大家都說一個數字, 你可以取平均(選擇的演算法)為預估值, 當然實際上不會只有這簡單, 只是背後基本原理是這樣, 至於最後選擇的演算法現在其實還是有一些研究怎樣選最好</p><span class="comment-actions secondary-text"><span class="item-control blog-admin blog-admin pid-233430723"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=4988587844839257459">刪除</a></span></span></div><div class="comment-replies"><div id="c4988587844839257459-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c4988587844839257459-ra" class="thread-chrome thread-expanded"><div></div><div id="c4988587844839257459-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="4988587844839257459" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c4988587844839257459-ce"></div></li></div><div id="c4033497768054853335-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="4033497768054853335" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c4033497768054853335-ce"></div></li><li class="comment" id="c5692517377295747813"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/blank(1).gif" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user">匿名</cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1440135078783#c5692517377295747813">2015年8月21日 下午1:31</a></span></div><p class="comment-content">您好 我想請問random forest適用於無法一次全部載入memory的大量資料嗎 謝謝</p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="5692517377295747813" href="javascript:;">回覆</a><span class="item-control blog-admin blog-admin pid-1527970975"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=5692517377295747813">刪除</a></span></span></div><div class="comment-replies"><div id="c5692517377295747813-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c5692517377295747813-ra" class="thread-chrome thread-expanded"><div></div><div id="c5692517377295747813-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="5692517377295747813" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c5692517377295747813-ce"></div></li><li class="comment" id="c709566551548131978"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/unnamed.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/06027115831417585627" rel="nofollow">鄧富宇</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1445934458260#c709566551548131978">2015年10月27日 下午4:27</a></span></div><p class="comment-content">1000 筆隨機挑 800 筆(可能會有重複的), 最後挑完 800 筆之後, 篩選掉重複的, 假設剩下 600 筆, 就是其中一棵樹的 training data 了; 而這樣還沒完, 每筆資料只會選大約 k/2 左右的 feature 數量重新做成新的 training data, 這就是其中一顆 tree 的 training data(600筆).....<br>所這樣是兩棵tree還是...都還在同一顆tree?? 最近剛了解到RF</p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="709566551548131978" href="javascript:;">回覆</a><span class="item-control blog-admin blog-admin pid-1874163911"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=709566551548131978">刪除</a></span></span></div><div class="comment-replies"><div id="c709566551548131978-rt" class="comment-thread inline-thread"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c709566551548131978-ra" class="thread-chrome thread-expanded"><div><li class="comment" id="c7656948086913071441"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/photo(2).jpg" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/03827728059214605460" rel="nofollow">Tu Han-Hsing</a></cite><span class="icon user blog-author"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1447751361264#c7656948086913071441">2015年11月17日 下午5:09</a></span></div><p class="comment-content">不好意思回覆晚了點, 這樣就只是一棵 tree</p><span class="comment-actions secondary-text"><span class="item-control blog-admin blog-admin pid-233430723"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=7656948086913071441">刪除</a></span></span></div><div class="comment-replies"><div id="c7656948086913071441-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c7656948086913071441-ra" class="thread-chrome thread-expanded"><div></div><div id="c7656948086913071441-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="7656948086913071441" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c7656948086913071441-ce"></div></li></div><div id="c709566551548131978-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="709566551548131978" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c709566551548131978-ce"></div></li><li class="comment" id="c4479581926549585233"><div class="avatar-image-container"><img src="./[ML] Random Forest_files/unnamed.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/06629658471940153447" rel="nofollow">Ke</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html?showComment=1475122043930#c4479581926549585233">2016年9月29日 下午12:07</a></span></div><p class="comment-content">您好：<br>請問再計算oob error時，是訓練完第k棵樹就只使用這第k棵樹去得到當次的oob data的預測值，還是是使用目前建造的整個森林去得到當次的oob data的預測值<br><br>若是只使用第k棵樹，則oob data的預測就沒有voting問題，因為只有一棵樹，預測為什麼就是什麼<br>若是用整個森林，那這次oob data中一定有很多的樣本是在之前建造的樹當中被當作訓練樣本的，這樣子的預測似乎就失去了testing的意義</p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="4479581926549585233" href="javascript:;">回覆</a><span class="item-control blog-admin blog-admin pid-2091806605"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=1099001297101871030&amp;postID=4479581926549585233">刪除</a></span></span></div><div class="comment-replies"><div id="c4479581926549585233-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">回覆</a></span></span><ol id="c4479581926549585233-ra" class="thread-chrome thread-expanded"><div></div><div id="c4479581926549585233-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="4479581926549585233" href="javascript:;">回覆</a></div></ol></div></div><div class="comment-replybox-single" id="c4479581926549585233-ce"></div></li></ol><div id="top-continue" class="continue hidden"><a class="comment-reply" target="_self" href="javascript:;">新增留言</a></div><div class="comment-replybox-thread" id="top-ce"><iframe allowtransparency="allowtransparency" class="blogger-iframe-colorize blogger-comment-from-post" frameborder="0" height="90px" id="comment-editor" name="comment-editor" src="./[ML] Random Forest_files/comment-iframe.html" width="100%" style="display: block;" data-resized="true"></iframe></div><div class="loadmore hidden" data-post-id="9156326499313916453"><a target="_self">載入更多…</a></div></div>
+</div>
+</div>
+<p class="comment-footer">
+</p><div class="comment-form">
+<a name="comment-form"></a>
+<h4 id="comment-post-message">張貼留言</h4>
+<a href="https://www.blogger.com/comment-iframe.g?blogID=1099001297101871030&amp;postID=9156326499313916453&amp;skin=contempo&amp;blogspotRpcToken=3265730" id="comment-editor-src"></a>
+
+<script src="./[ML] Random Forest_files/1646370754-comment_from_post_iframe.js.下載" type="text/javascript"></script>
+<script type="text/javascript">
+      BLOG_CMT_createIframe('https://www.blogger.com/rpc_relay.html');
+    </script>
+</div>
+<p></p>
+</section>
+</article>
+</div>
+</div><div class="widget PopularPosts" data-version="2" id="PopularPosts1">
+<h3 class="title">
+這個網誌中的熱門文章
+</h3>
+<div class="widget-content">
+<div role="feed">
+<article class="post" role="article">
+<h3 class="post-title"><a href="http://hhtucode.blogspot.com/2013/03/python-simple-socket-server.html">[Python] Simple Socket Server</a></h3>
+<div class="post-header">
+<div class="post-header-line-1">
+<span class="byline post-timestamp">
+<meta content="http://hhtucode.blogspot.com/2013/03/python-simple-socket-server.html">
+<a class="timestamp-link" href="http://hhtucode.blogspot.com/2013/03/python-simple-socket-server.html" rel="bookmark" title="permanent link">
+<time class="published" datetime="2013-03-15T15:08:00+08:00" title="2013-03-15T15:08:00+08:00">
+3月 15, 2013
+</time>
+</a>
+</span>
+</div>
+</div>
+<div class="item-content float-container">
+<div class="popular-posts-snippet snippet-container r-snippet-container">
+<div class="snippet-item r-snippetized">
+最近要利用Python來monitor一些東西, 需要做個telnet daemon<br><br>
+特地寫一下如何用 python 做一個 socket server<br><br>
+這個我當初到是真的花了不少時間找尋資料, 發現有兩種方法, 一種是比較傳統的 socket<br><br>
+然而 python 也有做一個 module - SocketServer, 可以簡化不少自己用 socket 做 server 的麻煩<br><br>
+不過 client 端當然還是要用 socket 自己做<br><br>
+官方文件 Socket:&nbsp;<a href="http://docs.python.org/2/howto/sockets.html">http://docs.python.org/2/howto/sockets.html</a><br><br>
+網路上有很多教學, 這裡到是有一個不錯的英文教學:&nbsp;<a href="http://www.binarytides.com/python-socket-programming-tutorial/">http://www.binarytides.com/python-socket-programming-tutorial/</a><br><br>
+</div>
+<a class="snippet-fade r-snippet-fade" href="http://hhtucode.blogspot.com/2013/03/python-simple-socket-server.html"></a>
+</div>
+<div class="jump-link flat-button ripple">
+<a href="http://hhtucode.blogspot.com/2013/03/python-simple-socket-server.html#more" title="[Python] Simple Socket Server">
+閱讀完整內容
+</a>
+</div>
+</div>
+</article>
+<article class="post" role="article">
+<h3 class="post-title"><a href="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html">[ML] Classification &amp; Regression Trees (CART) </a></h3>
+<div class="post-header">
+<div class="post-header-line-1">
+<span class="byline post-timestamp">
+<meta content="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html">
+<a class="timestamp-link" href="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html" rel="bookmark" title="permanent link">
+<time class="published" datetime="2013-06-25T12:10:00+08:00" title="2013-06-25T12:10:00+08:00">
+6月 25, 2013
+</time>
+</a>
+</span>
+</div>
+</div>
+<div class="item-content float-container">
+<div class="item-thumbnail">
+<a href="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html">
+<img alt="圖片" sizes="72px" src="./[ML] Random Forest_files/gini_index.png" srcset="http://1.bp.blogspot.com/-9dmfiiaecBw/UcgCJHIE_wI/AAAAAAAAA1Q/5vqpGlijN5o/w72-h72-p-k-no-nu/gini_index.png 72w, http://1.bp.blogspot.com/-9dmfiiaecBw/UcgCJHIE_wI/AAAAAAAAA1Q/5vqpGlijN5o/w144-h144-p-k-no-nu/gini_index.png 144w">
+</a>
+</div>
+<div class="popular-posts-snippet snippet-container r-snippet-container">
+<div class="snippet-item r-snippetized">
+上次提到了一個很簡單的 Decision Tree, 應該大多數人都可以很輕易理解<br><br> 
+不過其實 Decision Tree 有相當多種變化, 這次來提一個也很常見的 Tree <br> 
+Classification &amp; Regression Trees (CART)&nbsp; <br> 
+西元1984年, 由 Breiman, Friedman, Olshen, and Stone 等人發表的演算法 <br> 
+是一個比我還老的演算法....Orz <br> 
+Breiman (1928 - 2005) 是個很強的教授, Random Forest (2001) 也是他發表的其中之一演算法 <br> 
+之後應該也會再寫個 Random Forest ~!!
+</div>
+<a class="snippet-fade r-snippet-fade" href="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html"></a>
+</div>
+<div class="jump-link flat-button ripple">
+<a href="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html#more" title="[ML] Classification &amp; Regression Trees (CART) ">
+閱讀完整內容
+</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+</div></div>
+</main>
+</div>
+<footer class="footer section" id="footer" name="頁尾"><div class="widget Attribution" data-version="2" id="Attribution1">
+<div class="widget-content">
+<div class="blogger">
+<a href="https://www.blogger.com/" rel="nofollow">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_post_blogger_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+技術提供：Blogger
+</a>
+</div>
+<div class="image-attribution">
+主題圖片來源：<a href="http://www.offset.com/photos/394244">Michael Elkan</a>
+</div>
+</div>
+</div></footer>
+</div>
+</div>
+</div>
+<aside class="sidebar-container container sidebar-invisible" role="complementary">
+<div class="navigation">
+<button class="svg-icon-24-button flat-icon-button ripple sidebar-back">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_arrow_back_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</button>
+</div>
+<div class="sidebar_top_wrapper">
+<div class="sidebar_top section" id="sidebar_top" name="側欄 (頂端)"><div class="widget Profile" data-version="2" id="Profile1">
+<div class="wrapper solo">
+<div class="widget-content individual">
+<a href="https://www.blogger.com/profile/03827728059214605460" rel="nofollow">
+<div class="default-avatar-wrapper">
+<svg class="svg-icon-24 avatar-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_person_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</a>
+<div class="profile-info">
+<dl class="profile-datablock">
+<dt class="profile-data">
+<a class="profile-link g-profile" href="https://www.blogger.com/profile/03827728059214605460" rel="author nofollow">
+hhtu
+</a>
+</dt>
+</dl>
+<a class="profile-link visit-profile pill-button" href="https://www.blogger.com/profile/03827728059214605460" rel="author">
+瀏覽簡介
+</a>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="sidebar_bottom section" id="sidebar_bottom" name="側欄 (底部)"><div class="widget BlogArchive" data-version="2" id="BlogArchive1">
+<details class="collapsible extendable">
+<summary>
+<div class="collapsible-title">
+<h3 class="title">
+封存
+</h3>
+<svg class="svg-icon-24 chevron-down">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_expand_more_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<svg class="svg-icon-24 chevron-up">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_expand_less_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</summary>
+<div class="widget-content">
+<div id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<div class="first-items">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2015/">
+2015
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2015/08/">
+八月
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="remaining-items">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2014/">
+2014
+<span class="post-count">3</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2014/09/">
+九月
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2014/08/">
+八月
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2014/04/">
+四月
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/">
+2013
+<span class="post-count">52</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/12/">
+十二月
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/10/">
+十月
+<span class="post-count">3</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/08/">
+八月
+<span class="post-count">2</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/07/">
+七月
+<span class="post-count">9</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/06/">
+六月
+<span class="post-count">4</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="posts hierarchy">
+<li>
+<a href="http://hhtucode.blogspot.com/2013/06/ml-random-forest.html">[ML] Random Forest</a>
+</li>
+<li>
+<a href="http://hhtucode.blogspot.com/2013/06/ml-classification-regression-trees-cart.html">[ML] Classification &amp; Regression Trees (CART)</a>
+</li>
+<li>
+<a href="http://hhtucode.blogspot.com/2013/06/ml-k-means-algorithm.html">[ML] K-means algorithm (revision 1)</a>
+</li>
+<li>
+<a href="http://hhtucode.blogspot.com/2013/06/ml-decision-tree.html">[ML] Decision Tree (revision 3)</a>
+</li>
+</ul>
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/05/">
+五月
+<span class="post-count">2</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/04/">
+四月
+<span class="post-count">9</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/03/">
+三月
+<span class="post-count">17</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://hhtucode.blogspot.com/2013/02/">
+二月
+<span class="post-count">5</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<span class="show-more pill-button">顯示更多</span>
+<span class="show-less hidden pill-button">顯示較少</span>
+</div>
+</div>
+</div>
+</details>
+</div><div class="widget Label" data-version="2" id="Label1">
+<details class="collapsible extendable">
+<summary>
+<div class="collapsible-title">
+<h3 class="title">
+標籤
+</h3>
+<svg class="svg-icon-24 chevron-down">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_expand_more_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<svg class="svg-icon-24 chevron-up">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_expand_less_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</summary>
+<div class="widget-content list-label-widget-content">
+<div class="first-items">
+<ul>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Algorithm">Algorithm</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Beamer">Beamer</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/C">C</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/C%2B%2B">C++</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Couchbase">Couchbase</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Crypto">Crypto</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/IP">IP</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Javascript">Javascript</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Latex">Latex</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Linux">Linux</a></li>
+</ul>
+</div>
+<div class="remaining-items">
+<ul>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Log">Log</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Machine%20Learning">Machine Learning</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/NodeJS">NodeJS</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/NoSQL">NoSQL</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/PHP">PHP</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Python">Python</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Shell%20Script">Shell Script</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Socket">Socket</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/SQL">SQL</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Sqlite3">Sqlite3</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Supervised%20Learning">Supervised Learning</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Tutorial">Tutorial</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Ubuntu">Ubuntu</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Unsupervised%20Learning">Unsupervised Learning</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Vim">Vim</a></li>
+<li><a class="label-name" href="http://hhtucode.blogspot.com/search/label/Virus">Virus</a></li>
+</ul>
+</div>
+<span class="show-more pill-button">顯示更多</span>
+<span class="show-less hidden pill-button">顯示較少</span>
+</div>
+</details>
+</div><div class="widget ReportAbuse" data-version="2" id="ReportAbuse1">
+<h3 class="title">
+<a class="report_abuse" href="https://www.blogger.com/go/report-abuse" rel="noopener nofollow" target="_blank">
+檢舉濫用情形
+</a>
+</h3>
+</div>
+</div>
+</aside>
+<script type="text/javascript" src="./[ML] Random Forest_files/949372517-indie_compiled.js.下載" async="true"></script>
+
+<script type="text/javascript" src="./[ML] Random Forest_files/3680708148-widgets.js.下載"></script>
+<script type="text/javascript">
+window['__wavt'] = 'AOuZoY6vaZCB9XZvOs4Oj0VNWRs_bJocSA:1566228485873';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d1099001297101871030','//hhtucode.blogspot.com/2013/06/ml-random-forest.html','1099001297101871030');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '1099001297101871030', 'title': 'HHtu\x27s Code', 'url': 'http://hhtucode.blogspot.com/2013/06/ml-random-forest.html', 'canonicalUrl': 'http://hhtucode.blogspot.com/2013/06/ml-random-forest.html', 'homepageUrl': 'http://hhtucode.blogspot.com/', 'searchUrl': 'http://hhtucode.blogspot.com/search', 'canonicalHomepageUrl': 'http://hhtucode.blogspot.com/', 'blogspotFaviconUrl': 'http://hhtucode.blogspot.com/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': false, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': '', 'encoding': 'UTF-8', 'locale': 'zh-TW', 'localeUnderscoreDelimited': 'zh_tw', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22HHtu\x26#39;s Code - Atom\x22 href\x3d\x22http://hhtucode.blogspot.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22HHtu\x26#39;s Code - RSS\x22 href\x3d\x22http://hhtucode.blogspot.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22HHtu\x26#39;s Code - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/1099001297101871030/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22HHtu\x26#39;s Code - Atom\x22 href\x3d\x22http://hhtucode.blogspot.com/feeds/9156326499313916453/comments/default\x22 /\x3e\n', 'meTag': '', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/2df76443987ae0d9', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'disableGComments': true, 'sharing': {'platforms': [{'name': '取得連結', 'key': 'link', 'shareMessage': '取得連結', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': '分享到 Facebook', 'target': 'facebook'}, {'name': 'BlogThis&#65281;', 'key': 'blogThis', 'shareMessage': 'BlogThis&#65281;', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': '分享到 Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': '分享到 Pinterest', 'target': 'pinterest'}, {'name': '以電子郵件傳送', 'key': 'email', 'shareMessage': '以電子郵件傳送', 'target': 'email'}], 'disableGooglePlus': true, 'googlePlusShareButtonWidth': 300, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27zh_TW\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': '閱讀完整內容', 'pageType': 'item', 'postId': '9156326499313916453', 'postImageThumbnailUrl': 'http://3.bp.blogspot.com/-SevR2YUQudc/Uck93cfSflI/AAAAAAAAA2M/TxGzbHXKYiE/s72-c/RF.png', 'postImageUrl': 'http://3.bp.blogspot.com/-SevR2YUQudc/Uck93cfSflI/AAAAAAAAA2M/TxGzbHXKYiE/s1600/RF.png', 'pageName': '[ML] Random Forest ', 'pageTitle': 'HHtu\x27s Code: [ML] Random Forest '}}, {'name': 'features', 'data': {'sharing_get_link_dialog': 'true', 'sharing_native': 'false'}}, {'name': 'messages', 'data': {'edit': '編輯', 'linkCopiedToClipboard': '已將連結複製到剪貼簿&#65281;', 'ok': '確定', 'postLink': '文章連結'}}, {'name': 'template', 'data': {'name': 'Contempo', 'localizedName': 'Contempo', 'isResponsive': true, 'isAlternateRendering': false, 'isCustom': false, 'variant': 'indie_light', 'variantId': 'indie_light'}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': '[ML] Random Forest ', 'description': '終於來到我最喜歡的演算法 - Random Forest   會喜歡的原因是, 他簡單, 直觀, 當然前提是你要知道甚麼是 Tree   在看 Random Forest 之前最好先去了解一下 Tree, Link:&#160; Decision Tree , Link:&#160; CART   ...', 'featuredImage': 'http://3.bp.blogspot.com/-SevR2YUQudc/Uck93cfSflI/AAAAAAAAA2M/TxGzbHXKYiE/s1600/RF.png', 'url': 'http://hhtucode.blogspot.com/2013/06/ml-random-forest.html', 'type': 'item', 'isSingleItem': true, 'isMultipleItems': false, 'isError': false, 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isLabelSearch': false, 'postId': 9156326499313916453}}, {'name': 'widgets', 'data': [{'title': '搜尋此網誌', 'type': 'BlogSearch', 'sectionId': 'search_top', 'id': 'BlogSearch1'}, {'title': 'HHtu\x27s Code (標頭)', 'type': 'Header', 'sectionId': 'header', 'id': 'Header1'}, {'title': '', 'type': 'FeaturedPost', 'sectionId': 'page_body', 'id': 'FeaturedPost1', 'postId': '3686194213646569135'}, {'title': '網誌文章', 'type': 'Blog', 'sectionId': 'page_body', 'id': 'Blog1', 'posts': [{'id': '9156326499313916453', 'title': '[ML] Random Forest ', 'featuredImage': 'http://3.bp.blogspot.com/-SevR2YUQudc/Uck93cfSflI/AAAAAAAAA2M/TxGzbHXKYiE/s1600/RF.png', 'showInlineAds': false}], 'headerByline': {'regionName': 'header1', 'items': [{'name': 'share', 'label': ''}, {'name': 'timestamp', 'label': ''}]}, 'footerBylines': [{'regionName': 'footer1', 'items': [{'name': 'comments', 'label': '意見'}, {'name': 'icons', 'label': ''}]}, {'regionName': 'footer2', 'items': [{'name': 'labels', 'label': ''}]}, {'regionName': 'footer3', 'items': [{'name': 'location', 'label': '位置&#65306;'}]}], 'allBylineItems': [{'name': 'share', 'label': ''}, {'name': 'timestamp', 'label': ''}, {'name': 'comments', 'label': '意見'}, {'name': 'icons', 'label': ''}, {'name': 'labels', 'label': ''}, {'name': 'location', 'label': '位置&#65306;'}]}, {'title': '', 'type': 'PopularPosts', 'sectionId': 'page_body', 'id': 'PopularPosts1', 'posts': [{'title': '[Python] Simple Socket Server', 'id': 8051284129307831084}, {'title': '[ML] Random Forest ', 'id': 9156326499313916453}, {'title': '[ML] Classification \x26 Regression Trees (CART) ', 'id': 3581664262099257908}]}, {'type': 'Attribution', 'sectionId': 'footer', 'id': 'Attribution1'}, {'title': '關於我自己', 'type': 'Profile', 'sectionId': 'sidebar_top', 'id': 'Profile1'}, {'title': '', 'type': 'BlogArchive', 'sectionId': 'sidebar_bottom', 'id': 'BlogArchive1'}, {'title': '標籤', 'type': 'Label', 'sectionId': 'sidebar_bottom', 'id': 'Label1'}, {'title': '', 'type': 'ReportAbuse', 'sectionId': 'sidebar_bottom', 'id': 'ReportAbuse1'}]}]);
+_WidgetManager._RegisterWidget('_BlogSearchView', new _WidgetInfo('BlogSearch1', 'search_top', document.getElementById('BlogSearch1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeaturedPostView', new _WidgetInfo('FeaturedPost1', 'page_body', document.getElementById('FeaturedPost1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'page_body', document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/1105065863-lbx__zh_tw.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'page_body', document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'footer', document.getElementById('Attribution1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ProfileView', new _WidgetInfo('Profile1', 'sidebar_top', document.getElementById('Profile1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar_bottom', document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': '載入中\x26hellip;'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebar_bottom', document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ReportAbuseView', new _WidgetInfo('ReportAbuse1', 'sidebar_bottom', document.getElementById('ReportAbuse1'), {}, 'displayModeFull'));
+</script>
+
+<div class="dim-overlay hidden" id="subscribe-dim-overlay"></div><div class="dim-overlay hidden"></div><link type="text/css" rel="stylesheet" href="./[ML] Random Forest_files/368954415-lightbox_bundle.css"><script type="text/javascript" src="./[ML] Random Forest_files/1105065863-lbx__zh_tw.js.下載"></script><header class="centered-top-container sticky animating" role="banner" style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
+<div class="centered-top">
+<a class="return_link" href="http://hhtucode.blogspot.com/">
+<button class="svg-icon-24-button back-button rtl-reversible-icon flat-icon-button ripple">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_arrow_back_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</button>
+</a>
+<div class="search">
+<button aria-label="搜尋" class="search-expand touch-icon-button">
+<div class="flat-icon-button ripple">
+<svg class="svg-icon-24 search-expand-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_search_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</button>
+<div class="section" id="search_top" name="Search (Top)"><div class="widget BlogSearch" data-version="2" id="BlogSearch1">
+<h3 class="title">
+搜尋此網誌
+</h3>
+<div class="widget-content" role="search">
+<form action="http://hhtucode.blogspot.com/search" target="_top">
+<div class="search-input">
+<input aria-label="搜尋此網誌" autocomplete="off" name="q" placeholder="搜尋此網誌" value="">
+</div>
+<input class="search-action flat-button" type="submit" value="搜尋" disabled="">
+</form>
+</div>
+</div></div>
+<div class="dim-overlay hidden"></div></div>
+<div class="clearboth"></div>
+<div class="blog-name container">
+<div class="container section" id="header" name="標頭"><div class="widget Header" data-version="2" id="Header1">
+<div class="header-widget">
+<div>
+<h1>
+<a href="http://hhtucode.blogspot.com/">
+HHtu's Code
+</a>
+</h1>
+</div>
+<p>
+</p>
+</div>
+</div></div>
+<nav role="navigation">
+<div class="clearboth no-items section" id="page_list_top" name="網頁清單 (頂端)">
+</div>
+</nav>
+</div>
+</div>
+</header></body></html>

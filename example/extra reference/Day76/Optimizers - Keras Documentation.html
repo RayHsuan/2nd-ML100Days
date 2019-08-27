@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)https://keras.io/optimizers/ -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="http://keras.io/optimizers/">
+  <link rel="shortcut icon" href="https://keras.io/img/favicon.ico">
+  <title>Optimizers - Keras Documentation</title>
+  <link href="./Optimizers - Keras Documentation_files/css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="./Optimizers - Keras Documentation_files/theme.css" type="text/css">
+  <link rel="stylesheet" href="./Optimizers - Keras Documentation_files/theme_extra.css" type="text/css">
+  <link rel="stylesheet" href="./Optimizers - Keras Documentation_files/github.min.css">
+  
+  <script async="" src="./Optimizers - Keras Documentation_files/analytics.js.下載"></script><script>
+    // Current page data
+    var mkdocs_page_name = "Optimizers";
+    var mkdocs_page_input_path = "optimizers.md";
+    var mkdocs_page_url = "/optimizers/";
+  </script>
+  
+  <script src="./Optimizers - Keras Documentation_files/jquery-2.1.1.min.js.下載" defer=""></script>
+  <script src="./Optimizers - Keras Documentation_files/modernizr-2.8.3.min.js.下載" defer=""></script>
+  <script src="./Optimizers - Keras Documentation_files/highlight.min.js.下載"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61785484-1', 'keras.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <a href="https://keras.io/optimizers/">
+        <div class="keras-logo">
+          <img src="./Optimizers - Keras Documentation_files/keras-logo-small.jpg" class="keras-logo-img">
+          Keras Documentation
+        </div>
+      </a>
+
+      <div class="wy-side-nav-search">
+        <div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://keras.io/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here">
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/why-use-keras/">Why use Keras</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/getting-started/sequential-model-guide/">Guide to the Sequential model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/getting-started/functional-api-guide/">Guide to the Functional API</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/getting-started/faq/">FAQ</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Models</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/models/about-keras-models/">About Keras models</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/models/sequential/">Sequential</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/models/model/">Model (functional API)</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Layers</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/about-keras-layers/">About Keras layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/core/">Core Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/convolutional/">Convolutional Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/pooling/">Pooling Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/local/">Locally-connected Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/recurrent/">Recurrent Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/embeddings/">Embedding Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/merge/">Merge Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/advanced-activations/">Advanced Activations Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/normalization/">Normalization Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/noise/">Noise layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/wrappers/">Layer wrappers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/writing-your-own-keras-layers/">Writing your own Keras layers</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Preprocessing</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/preprocessing/sequence/">Sequence Preprocessing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/preprocessing/text/">Text Preprocessing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/preprocessing/image/">Image Preprocessing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/losses/">Losses</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/metrics/">Metrics</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="https://keras.io/optimizers/"><span class="toctree-expand"></span>Optimizers</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/activations/">Activations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/callbacks/">Callbacks</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/datasets/">Datasets</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/applications/">Applications</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/backend/">Backend</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/initializers/">Initializers</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/regularizers/">Regularizers</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/constraints/">Constraints</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/visualization/">Visualization</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/scikit-learn-api/">Scikit-learn API</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/utils/">Utils</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/contributing/">Contributing</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Examples</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/addition_rnn/">Addition RNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/babi_rnn/">Baby RNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/babi_memnn/">Baby MemNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_cnn/">CIFAR-10 CNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_cnn_capsule/">CIFAR-10 CNN-Capsule</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_cnn_tfaugment2d/">CIFAR-10 CNN with augmentation (TF)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_resnet/">CIFAR-10 ResNet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/conv_filter_visualization/">Convolution filter visualization</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="https://keras.io/">Keras Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="https://keras.io/">Docs</a> »</li>
+    
+      
+    
+    <li>Optimizers</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/keras-team/keras/tree/master/docs" class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="usage-of-optimizers">Usage of optimizers</h2>
+<p>An optimizer is one of the two arguments required for compiling a Keras model:</p>
+<pre><code class="python hljs"><span class="hljs-keyword">from</span> keras <span class="hljs-keyword">import</span> optimizers
+
+model = Sequential()
+model.add(Dense(<span class="hljs-number">64</span>, kernel_initializer=<span class="hljs-string">'uniform'</span>, input_shape=(<span class="hljs-number">10</span>,)))
+model.add(Activation(<span class="hljs-string">'softmax'</span>))
+
+sgd = optimizers.SGD(lr=<span class="hljs-number">0.01</span>, decay=<span class="hljs-number">1e-6</span>, momentum=<span class="hljs-number">0.9</span>, nesterov=<span class="hljs-keyword">True</span>)
+model.compile(loss=<span class="hljs-string">'mean_squared_error'</span>, optimizer=sgd)
+</code></pre>
+
+<p>You can either instantiate an optimizer before passing it to <code>model.compile()</code> , as in the above example, or you can call it by its name. In the latter case, the default parameters for the optimizer will be used.</p>
+<pre><code class="python hljs"><span class="hljs-comment"># pass optimizer by name: default parameters will be used</span>
+model.compile(loss=<span class="hljs-string">'mean_squared_error'</span>, optimizer=<span class="hljs-string">'sgd'</span>)
+</code></pre>
+
+<hr>
+<h2 id="parameters-common-to-all-keras-optimizers">Parameters common to all Keras optimizers</h2>
+<p>The parameters <code>clipnorm</code> and <code>clipvalue</code> can be used with all optimizers to control gradient clipping:</p>
+<pre><code class="python hljs"><span class="hljs-keyword">from</span> keras <span class="hljs-keyword">import</span> optimizers
+
+<span class="hljs-comment"># All parameter gradients will be clipped to</span>
+<span class="hljs-comment"># a maximum norm of 1.</span>
+sgd = optimizers.SGD(lr=<span class="hljs-number">0.01</span>, clipnorm=<span class="hljs-number">1.</span>)
+</code></pre>
+
+<pre><code class="python hljs"><span class="hljs-keyword">from</span> keras <span class="hljs-keyword">import</span> optimizers
+
+<span class="hljs-comment"># All parameter gradients will be clipped to</span>
+<span class="hljs-comment"># a maximum value of 0.5 and</span>
+<span class="hljs-comment"># a minimum value of -0.5.</span>
+sgd = optimizers.SGD(lr=<span class="hljs-number">0.01</span>, clipvalue=<span class="hljs-number">0.5</span>)
+</code></pre>
+
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L157">[source]</a></span></p>
+<h3 id="sgd">SGD</h3>
+<pre><code class="python hljs">keras.optimizers.SGD(lr=<span class="hljs-number">0.01</span>, momentum=<span class="hljs-number">0.0</span>, decay=<span class="hljs-number">0.0</span>, nesterov=<span class="hljs-keyword">False</span>)
+</code></pre>
+
+<p>Stochastic gradient descent optimizer.</p>
+<p>Includes support for momentum,
+learning rate decay, and Nesterov momentum.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Learning rate.</li>
+<li><strong>momentum</strong>: float &gt;= 0. Parameter that accelerates SGD
+    in the relevant direction and dampens oscillations.</li>
+<li><strong>decay</strong>: float &gt;= 0. Learning rate decay over each update.</li>
+<li><strong>nesterov</strong>: boolean. Whether to apply Nesterov momentum.</li>
+</ul>
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L220">[source]</a></span></p>
+<h3 id="rmsprop">RMSprop</h3>
+<pre><code class="python hljs">keras.optimizers.RMSprop(lr=<span class="hljs-number">0.001</span>, rho=<span class="hljs-number">0.9</span>, epsilon=<span class="hljs-keyword">None</span>, decay=<span class="hljs-number">0.0</span>)
+</code></pre>
+
+<p>RMSProp optimizer.</p>
+<p>It is recommended to leave the parameters of this optimizer
+at their default values
+(except the learning rate, which can be freely tuned).</p>
+<p>This optimizer is usually a good choice for recurrent
+neural networks.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Learning rate.</li>
+<li><strong>rho</strong>: float &gt;= 0.</li>
+<li><strong>epsilon</strong>: float &gt;= 0. Fuzz factor. If <code>None</code>, defaults to <code>K.epsilon()</code>.</li>
+<li><strong>decay</strong>: float &gt;= 0. Learning rate decay over each update.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf">rmsprop: Divide the gradient by a running average of its recent magnitude
+   </a></li>
+</ul>
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L288">[source]</a></span></p>
+<h3 id="adagrad">Adagrad</h3>
+<pre><code class="python hljs">keras.optimizers.Adagrad(lr=<span class="hljs-number">0.01</span>, epsilon=<span class="hljs-keyword">None</span>, decay=<span class="hljs-number">0.0</span>)
+</code></pre>
+
+<p>Adagrad optimizer.</p>
+<p>Adagrad is an optimizer with parameter-specific learning rates,
+which are adapted relative to how frequently a parameter gets
+updated during training. The more updates a parameter receives,
+the smaller the learning rate.</p>
+<p>It is recommended to leave the parameters of this optimizer
+at their default values.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Initial learning rate.</li>
+<li><strong>epsilon</strong>: float &gt;= 0. If <code>None</code>, defaults to <code>K.epsilon()</code>.</li>
+<li><strong>decay</strong>: float &gt;= 0. Learning rate decay over each update.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf">Adaptive Subgradient Methods for Online Learning and Stochastic
+   Optimization</a></li>
+</ul>
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L353">[source]</a></span></p>
+<h3 id="adadelta">Adadelta</h3>
+<pre><code class="python hljs">keras.optimizers.Adadelta(lr=<span class="hljs-number">1.0</span>, rho=<span class="hljs-number">0.95</span>, epsilon=<span class="hljs-keyword">None</span>, decay=<span class="hljs-number">0.0</span>)
+</code></pre>
+
+<p>Adadelta optimizer.</p>
+<p>Adadelta is a more robust extension of Adagrad
+that adapts learning rates based on a moving window of gradient updates,
+instead of accumulating all past gradients. This way, Adadelta continues
+learning even when many updates have been done. Compared to Adagrad, in the
+original version of Adadelta you don't have to set an initial learning
+rate. In this version, initial learning rate and decay factor can
+be set, as in most other Keras optimizers.</p>
+<p>It is recommended to leave the parameters of this optimizer
+at their default values.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Initial learning rate, defaults to 1.
+    It is recommended to leave it at the default value.</li>
+<li><strong>rho</strong>: float &gt;= 0. Adadelta decay factor, corresponding to fraction of
+    gradient to keep at each time step.</li>
+<li><strong>epsilon</strong>: float &gt;= 0. Fuzz factor. If <code>None</code>, defaults to <code>K.epsilon()</code>.</li>
+<li><strong>decay</strong>: float &gt;= 0. Initial learning rate decay.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://arxiv.org/abs/1212.5701">Adadelta - an adaptive learning rate method</a></li>
+</ul>
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L436">[source]</a></span></p>
+<h3 id="adam">Adam</h3>
+<pre><code class="python hljs">keras.optimizers.Adam(lr=<span class="hljs-number">0.001</span>, beta_1=<span class="hljs-number">0.9</span>, beta_2=<span class="hljs-number">0.999</span>, epsilon=<span class="hljs-keyword">None</span>, decay=<span class="hljs-number">0.0</span>, amsgrad=<span class="hljs-keyword">False</span>)
+</code></pre>
+
+<p>Adam optimizer.</p>
+<p>Default parameters follow those provided in the original paper.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Learning rate.</li>
+<li><strong>beta_1</strong>: float, 0 &lt; beta &lt; 1. Generally close to 1.</li>
+<li><strong>beta_2</strong>: float, 0 &lt; beta &lt; 1. Generally close to 1.</li>
+<li><strong>epsilon</strong>: float &gt;= 0. Fuzz factor. If <code>None</code>, defaults to <code>K.epsilon()</code>.</li>
+<li><strong>decay</strong>: float &gt;= 0. Learning rate decay over each update.</li>
+<li><strong>amsgrad</strong>: boolean. Whether to apply the AMSGrad variant of this
+    algorithm from the paper "On the Convergence of Adam and
+    Beyond".</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://arxiv.org/abs/1412.6980v8">Adam - A Method for Stochastic Optimization</a></li>
+<li><a href="https://openreview.net/forum?id=ryQu7f-RZ">On the Convergence of Adam and Beyond</a></li>
+</ul>
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L527">[source]</a></span></p>
+<h3 id="adamax">Adamax</h3>
+<pre><code class="python hljs">keras.optimizers.Adamax(lr=<span class="hljs-number">0.002</span>, beta_1=<span class="hljs-number">0.9</span>, beta_2=<span class="hljs-number">0.999</span>, epsilon=<span class="hljs-keyword">None</span>, decay=<span class="hljs-number">0.0</span>)
+</code></pre>
+
+<p>Adamax optimizer from Adam paper's Section 7.</p>
+<p>It is a variant of Adam based on the infinity norm.
+Default parameters follow those provided in the paper.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Learning rate.</li>
+<li><strong>beta_1</strong>: floats, 0 &lt; beta &lt; 1. Generally close to 1.</li>
+<li><strong>beta_2</strong>: floats, 0 &lt; beta &lt; 1. Generally close to 1.</li>
+<li><strong>epsilon</strong>: float &gt;= 0. Fuzz factor. If <code>None</code>, defaults to <code>K.epsilon()</code>.</li>
+<li><strong>decay</strong>: float &gt;= 0. Learning rate decay over each update.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://arxiv.org/abs/1412.6980v8">Adam - A Method for Stochastic Optimization</a></li>
+</ul>
+<hr>
+<p><span style="float:right;"><a href="https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L606">[source]</a></span></p>
+<h3 id="nadam">Nadam</h3>
+<pre><code class="python hljs">keras.optimizers.Nadam(lr=<span class="hljs-number">0.002</span>, beta_1=<span class="hljs-number">0.9</span>, beta_2=<span class="hljs-number">0.999</span>, epsilon=<span class="hljs-keyword">None</span>, schedule_decay=<span class="hljs-number">0.004</span>)
+</code></pre>
+
+<p>Nesterov Adam optimizer.</p>
+<p>Much like Adam is essentially RMSprop with momentum,
+Nadam is Adam RMSprop with Nesterov momentum.</p>
+<p>Default parameters follow those provided in the paper.
+It is recommended to leave the parameters of this optimizer
+at their default values.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>lr</strong>: float &gt;= 0. Learning rate.</li>
+<li><strong>beta_1</strong>: floats, 0 &lt; beta &lt; 1. Generally close to 1.</li>
+<li><strong>beta_2</strong>: floats, 0 &lt; beta &lt; 1. Generally close to 1.</li>
+<li><strong>epsilon</strong>: float &gt;= 0. Fuzz factor. If <code>None</code>, defaults to <code>K.epsilon()</code>.</li>
+<li><strong>schedule_decay</strong>: floats, 0 &lt; schedule_decay &lt; 1.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="http://cs229.stanford.edu/proj2015/054_report.pdf">Nadam report</a></li>
+<li><a href="http://www.cs.toronto.edu/~fritz/absps/momentum.pdf">On the importance of initialization and momentum in deep learning</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="https://keras.io/activations/" class="btn btn-neutral float-right" title="Activations">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="https://keras.io/metrics/" class="btn btn-neutral" title="Metrics"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="http://github.com/keras-team/keras/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="https://keras.io/metrics/" style="color: #fcfcfc;">« Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="https://keras.io/activations/" style="color: #fcfcfc">Next »</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="./Optimizers - Keras Documentation_files/theme.js.下載" defer=""></script>
+      <script src="./Optimizers - Keras Documentation_files/main.js.下載" defer=""></script>
+    <script type="text/javascript" defer="">
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+
+
+</body></html>

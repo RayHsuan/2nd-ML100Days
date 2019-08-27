@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/b5d6aea838d6d305c8731f36ee60b4bd -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>plot_loss_change.py – Medium</title><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./1ccc124ea7829c3b2896659a96b892a7.js.下載" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-4ac6018bcc05457cde2f66d2e7299d11.css"><div id="gist82994054" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-plot_loss_change-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-plot_loss_change-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-plot_loss_change-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">plot_loss_change</span>(<span class="pl-smi">sched</span>, <span class="pl-smi">sma</span><span class="pl-k">=</span><span class="pl-c1">1</span>, <span class="pl-smi">n_skip</span><span class="pl-k">=</span><span class="pl-c1">20</span>, <span class="pl-smi">y_lim</span><span class="pl-k">=</span>(<span class="pl-k">-</span><span class="pl-c1">0.01</span>,<span class="pl-c1">0.01</span>)):</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-plot_loss_change-py-LC2" class="blob-code blob-code-inner js-file-line">    <span class="pl-s"><span class="pl-pds">"""</span></span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-plot_loss_change-py-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Plots rate of change of the loss function.</span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-plot_loss_change-py-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    Parameters:</span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-plot_loss_change-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        sched - learning rate scheduler, an instance of LR_Finder class.</span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-plot_loss_change-py-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        sma - number of batches for simple moving average to smooth out the curve.</span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-plot_loss_change-py-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        n_skip - number of batches to skip on the left.</span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-plot_loss_change-py-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-s">        y_lim - limits for the y axis.</span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-plot_loss_change-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-s">    <span class="pl-pds">"""</span></span></td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-plot_loss_change-py-LC10" class="blob-code blob-code-inner js-file-line">    derivatives <span class="pl-k">=</span> [<span class="pl-c1">0</span>] <span class="pl-k">*</span> (sma <span class="pl-k">+</span> <span class="pl-c1">1</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-plot_loss_change-py-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">1</span> <span class="pl-k">+</span> sma, <span class="pl-c1">len</span>(learn.sched.lrs)):</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-plot_loss_change-py-LC12" class="blob-code blob-code-inner js-file-line">        derivative <span class="pl-k">=</span> (learn.sched.losses[i] <span class="pl-k">-</span> learn.sched.losses[i <span class="pl-k">-</span> sma]) <span class="pl-k">/</span> sma</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-plot_loss_change-py-LC13" class="blob-code blob-code-inner js-file-line">        derivatives.append(derivative)</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-plot_loss_change-py-LC14" class="blob-code blob-code-inner js-file-line">        </td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-plot_loss_change-py-LC15" class="blob-code blob-code-inner js-file-line">    plt.ylabel(<span class="pl-s"><span class="pl-pds">"</span>d/loss<span class="pl-pds">"</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-plot_loss_change-py-LC16" class="blob-code blob-code-inner js-file-line">    plt.xlabel(<span class="pl-s"><span class="pl-pds">"</span>learning rate (log scale)<span class="pl-pds">"</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-plot_loss_change-py-LC17" class="blob-code blob-code-inner js-file-line">    plt.plot(learn.sched.lrs[n_skip:], derivatives[n_skip:])</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-plot_loss_change-py-LC18" class="blob-code blob-code-inner js-file-line">    plt.xscale(<span class="pl-s"><span class="pl-pds">'</span>log<span class="pl-pds">'</span></span>)</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-plot_loss_change-py-LC19" class="blob-code blob-code-inner js-file-line">    plt.ylim(y_lim)</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-plot_loss_change-py-LC20" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-plot_loss_change-py-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-plot_loss_change-py-LC21" class="blob-code blob-code-inner js-file-line">plot_loss_change(learn.sched, <span class="pl-v">sma</span><span class="pl-k">=</span><span class="pl-c1">20</span>)</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/surmenok/1ccc124ea7829c3b2896659a96b892a7/raw/13771f35572b646538c09e781c687777730afd26/plot_loss_change.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/surmenok/1ccc124ea7829c3b2896659a96b892a7#file-plot_loss_change-py">plot_loss_change.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script></body></html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)https://chtseng.wordpress.com/2016/12/05/opencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96/ -->
+<html class="js wf-notosans-n4-active wf-karla-n4-active wf-karla-i4-active wf-karla-n7-active wf-karla-i7-active wf-active" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://chtseng.wordpress.com/xmlrpc.php">
+<title>OpenCV – Histograms直方圖 – CH.Tseng</title>
+<script async="" type="text/javascript" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/mhead.js.下載"></script><script src="./OpenCV – Histograms直方圖 – CH.Tseng_files/webfont.js.下載" type="text/javascript" async=""></script><script type="text/javascript">
+  WebFontConfig = {"google":{"families":["Noto+Sans:r:latin,latin-ext","Karla:r,i,b,bi:latin,latin-ext"]}};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://s0.wp.com/wp-content/plugins/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active html{font-family:"Karla",sans-serif}.wf-active body, .wf-active button, .wf-active input, .wf-active select, .wf-active textarea{font-family:"Karla",sans-serif}.wf-active pre{font-family:"Karla",sans-serif}.wf-active code, .wf-active kbd, .wf-active tt, .wf-active var{font-family:"Karla",sans-serif}.wf-active button, .wf-active input[type="button"], .wf-active input[type="reset"], .wf-active input[type="submit"]{font-family:"Karla",sans-serif}.wf-active body{font-family:"Karla",sans-serif}.wf-active .site-description{font-family:"Karla",sans-serif}.wf-active .comment-content h5, .wf-active .entry-content h5{font-family:"Karla",sans-serif}.wf-active .comment-content h6, .wf-active .entry-content h6{font-family:"Karla",sans-serif}.wf-active .comment-content address, .wf-active .entry-content address{font-family:"Karla",sans-serif}.wf-active .comment-content blockquote, .wf-active .entry-content blockquote{font-family:"Karla",sans-serif}.wf-active .comment-content q, .wf-active .entry-content q{font-family:"Karla",sans-serif}.wf-active .comment-content cite, .wf-active .entry-content cite{font-family:"Karla",sans-serif}.wf-active #infinite-handle span button{font-family:"Karla",sans-serif}.wf-active #infinite-handle span button:active, .wf-active #infinite-handle span button:focus, .wf-active #infinite-handle span button:hover{font-family:"Karla",sans-serif}.wf-active .site-main .comment-navigation, .wf-active .site-main .post-navigation{font-family:"Karla",sans-serif}@media screen and (min-width: 881px){.wf-active .site-main .post-navigation .meta-nav-title{font-family:"Karla",sans-serif}}@media screen and (min-width: 881px){.wf-active .no-comments{font-family:"Karla",sans-serif}}.wf-active .comment .comment-reply-title a{font-family:"Karla",sans-serif}.wf-active .site-footer .site-info{font-family:"Karla",sans-serif}.wf-active h1{font-style:normal;font-weight:400}.wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active h1{font-style:normal;font-weight:400}.wf-active h2{font-style:normal;font-weight:400}.wf-active h3{font-style:normal;font-weight:400}.wf-active h4, .wf-active h5, .wf-active h6{font-style:normal;font-weight:400}.wf-active .site-title{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}@media screen and (min-width: 881px){.wf-active .site-title{font-style:normal;font-weight:400}}.wf-active .entry-title{font-style:normal;font-weight:400}.wf-active .comment-content thead th, .wf-active .entry-content thead th{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active .site-feature .entry-header .entry-title{font-style:normal;font-weight:400}@media screen and (min-width: 881px){.wf-active .site-feature .entry-header .entry-title{font-style:normal;font-weight:400}}.wf-active .author-box h3{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active .single .hentry .entry-title{font-style:normal;font-weight:400}@media screen and (min-width: 881px){.wf-active .single .hentry .entry-title{font-style:normal;font-weight:400}}.wf-active .page .page .entry-title{font-style:normal;font-weight:400}@media screen and (min-width: 881px){.wf-active .page .page .entry-title{font-style:normal;font-weight:400}}.wf-active .archive .page-header .page-title, .wf-active .search .page-header .page-title{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active .card .entry-title{font-style:normal;font-weight:400}.wf-active .error404 .page-title{font-style:normal;font-weight:400}.wf-active .wp-caption .wp-caption-text{font-style:normal;font-weight:400}.wf-active .gallery-caption{font-style:normal;font-weight:400}.wf-active .widget-title{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active .widget_calendar thead th, .wf-active .top_rated .pd_top_rated_holder_posts #top_posts a, .wf-active .widget_goodreads div[class^="gr_custom_title"]{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active div.sharedaddy h3.sd-title, .wf-active .sd-rating h3.sd-title{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active div#jp-relatedposts h3.jp-relatedposts-headline em{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}.wf-active div#jp-relatedposts div.jp-relatedposts-items-visual h4.jp-relatedposts-post-title, .wf-active div#jp-relatedposts div.jp-relatedposts-items-visual h4.jp-relatedposts-post-title a{font-family:"Noto Sans",sans-serif;font-weight:400;font-style:normal}</style>
+<script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+<link rel="dns-prefetch" href="https://s2.wp.com/">
+<link rel="dns-prefetch" href="https://s1.wp.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="alternate" type="application/rss+xml" title="訂閱 CH.Tseng »" href="https://chtseng.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="訂閱 CH.Tseng » 迴響" href="https://chtseng.wordpress.com/comments/feed/">
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s2.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1556893897h&ver=5.2.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./OpenCV – Histograms直方圖 – CH.Tseng_files/wp-emoji-release.min.js.下載" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="all-css-0-1" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" id="rebalance-fonts-css" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="all-css-2-1" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/saved_resource(2)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-3-1" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/global-print.css" type="text/css" media="print">
+<link rel="stylesheet" id="all-css-4-1" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/saved_resource(3)" type="text/css" media="all">
+<script type="text/javascript" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/saved_resource(4)"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://chtseng.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="OpenCV – more on contours #2" href="https://chtseng.wordpress.com/2016/12/05/opencv-more-on-contours-2/">
+<link rel="next" title="OPENCV – 連結物件標記" href="https://chtseng.wordpress.com/2016/12/12/opencv-%e9%80%a3%e7%b5%90%e7%89%a9%e4%bb%b6%e6%a8%99%e8%a8%98/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96/">
+<link rel="shortlink" href="https://wp.me/p4eZlw-K9">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%25e7%259b%25b4%25e6%2596%25b9%25e5%259c%2596%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%25e7%259b%25b4%25e6%2596%25b9%25e5%259c%2596%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV – Histograms直方圖">
+<meta property="og:url" content="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96/">
+<meta property="og:description" content="Histograms是直方圖的意思，在攝影領域一般稱為曝光直方圖，主要用以分析一張照片的曝光是否正確。應用在電…">
+<meta property="article:published_time" content="2016-12-05T13:42:11+00:00">
+<meta property="article:modified_time" content="2016-12-05T13:42:11+00:00">
+<meta property="og:site_name" content="CH.Tseng">
+<meta property="og:image" content="https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=1200">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="861">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:text:title" content="OpenCV – Histograms直方圖">
+<meta name="twitter:image" content="https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="shortcut icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s2.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://chtseng.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://chtseng.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://chtseng.wordpress.com/osd.xml" title="CH.Tseng">
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+				<script type="text/javascript">
+		function __ATA_CC() {var v = document.cookie.match('(^|;) ?personalized-ads-consent=([^;]*)(;|$)');return v ? 1 : 0;}
+		var __ATA_PP = { pt: 1, ht: 0, tn: 'rebalance', amp: false, siteid: 8982, blogid: 62677754, consent: __ATA_CC(), flag: 2 };
+		</script>
+		<script type="text/javascript">
+        !function(){var e=document.createElement("script");e.async=!0,e.type="text/javascript";var t=window.__ATA_PP||{},n=["r="+(new Date).getTime()];for(var r in t)t.hasOwnProperty(r)&&("amp"===r&&(t[r]=Number(t[r])),n.push(r+"="+encodeURIComponent(t[r])));e.src="//s.pubmine.com/mhead.js?"+n.join("&");var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(e,a)}();
+        </script><meta name="application-name" content="CH.Tseng"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="IT &amp; Photography"><meta name="msapplication-task" content="name=訂閱;action-uri=https://chtseng.wordpress.com/feed/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=註冊免費網誌;action-uri=http://wordpress.com/signup/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com 支援團隊;action-uri=http://support.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com 論壇;action-uri=http://forums.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="description" content="Histograms是直方圖的意思，在攝影領域一般稱為曝光直方圖，主要用以分析一張照片的曝光是否正確。應用在電…">
+<link rel="amphtml" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96/amp/"><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/hovercard.min.css"><link rel="stylesheet" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/css(1)" media="all"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./OpenCV – Histograms直方圖 – CH.Tseng_files/services.min.css"></head>
+
+<body class="post-template-default single single-post postid-2861 single-format-standard wp-embed-responsive mp6 customizer-styles-applied has-custom-header highlander-enabled highlander-light" style="opacity: 1;">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96/#content">直接觀看文章</a>
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="col-width header-wrap">
+							<a href="https://chtseng.wordpress.com/" class="site-header-image-link" title="CH.Tseng" rel="home">
+					<img src="./OpenCV – Histograms直方圖 – CH.Tseng_files/beach1.jpg" class="site-header-image" width="1140" height="223" alt="">
+				</a>
+						<div class="site-heading">
+				<div class="site-branding">
+																<p class="site-title"><a href="https://chtseng.wordpress.com/" rel="home">CH.Tseng</a></p>
+									</div><!-- .site-branding -->
+							</div><!-- .site-heading -->
+		</div>
+		<div class="col-width sub-header-wrap">
+
+							<p class="site-description">IT &amp; Photography</p>
+			
+						<nav id="site-navigation" class="main-navigation" role="navigation">
+				<button class="menu-toggle" aria-controls="header-menu" data-close-text="關閉">選單</button>
+				<div class="menu-%e4%b8%bb%e5%b7%a6%e5%81%b4%e9%81%b8%e5%96%ae-container"><ul class="nav-menu nav-menu-0"><li id="menu-item-3009" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3009"><a href="https://chtseng.wordpress.com/category/%e5%89%b5%e5%ae%a2maker/">創客Maker</a></li><li id="menu-item-3013" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3013"><a href="https://chtseng.wordpress.com/category/%e5%bf%83%e5%be%97-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92/">心得-機器學習</a></li><li id="menu-item-3015" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3015"><a href="https://chtseng.wordpress.com/category/%e5%bf%83%e5%be%97-%e5%bd%b1%e5%83%8f%e5%88%86%e6%9e%90/">心得-影像分析</a></li><li id="menu-item-3012" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3012"><a href="https://chtseng.wordpress.com/category/%e7%89%a9%e8%81%af%e7%b6%b2%e5%a4%a7%e6%95%b8%e6%93%9a/">物聯網/大數據</a></li></ul><ul class="nav-menu nav-menu-1"><li id="menu-item-3011" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3011"><a href="https://chtseng.wordpress.com/category/%e9%9b%b2%e7%ab%af%e9%81%8b%e7%ae%97/">雲端運算</a></li><li id="menu-item-3014" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3014"><a href="https://chtseng.wordpress.com/category/coding/">Coding</a></li><li id="menu-item-3016" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3016"><a href="https://chtseng.wordpress.com/category/%e9%96%8b%e7%ae%b1%e8%a9%a6%e7%94%a8/">開箱試用</a></li><li id="menu-item-3017" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3017"><a href="https://chtseng.wordpress.com/category/%e7%a0%94%e8%a8%8e%e6%9c%83/">研討會</a></li></ul><ul class="nav-menu nav-menu-2"><li id="menu-item-3018" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3018"><a href="https://chtseng.wordpress.com/category/%e6%94%9d%e5%bd%b1/">攝影</a></li><li id="menu-item-3248" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3248"><a href="https://chtseng.wordpress.com/category/%e9%87%8d%e9%bb%9e%e6%95%b4%e7%90%86/">重點整理</a></li><li id="menu-item-3010" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3010"><a href="https://chtseng.wordpress.com/category/others/">Others</a></li></ul></div>			</nav><!-- #site-navigation -->
+			
+		</div><!-- .col-width -->
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content clear">
+		<div class="col-width">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-2861" class="post-2861 post type-post status-publish format-standard has-post-thumbnail hentry category-552622786 clear-fix  fallback-thumbnail">
+
+	<header class="entry-header">
+		<h1 class="entry-title">OpenCV – Histograms直方圖</h1>
+		<div class="entry-meta">
+			<span class="author vcard"><a class="url fn n" href="https://chtseng.wordpress.com/author/chtseng/">chtseng</a></span><span class="entry-tags-date"><a href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96/" rel="bookmark"><time class="entry-date published updated" datetime="2016-12-05T21:42:11+08:00">2016 年 12 月 05 日</time></a></span><span class="entry-categories"><a href="https://chtseng.wordpress.com/category/%e5%bf%83%e5%be%97-%e5%bd%b1%e5%83%8f%e5%88%86%e6%9e%90/" rel="tag">心得-影像分析</a></span>		</div><!-- .entry-meta -->
+
+		
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">文章分頁導航</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://chtseng.wordpress.com/2016/12/05/opencv-more-on-contours-2/" rel="prev"><span class="meta-nav" aria-hidden="true">上一個</span></a></div><div class="nav-next"><a href="https://chtseng.wordpress.com/2016/12/12/opencv-%e9%80%a3%e7%b5%90%e7%89%a9%e4%bb%b6%e6%a8%99%e8%a8%98/" rel="next"><span class="meta-nav" aria-hidden="true">下一步</span></a></div></div>
+	</nav>	</header><!-- .entry-header -->
+
+		<div class="post-hero-image clear-fix">
+		<figure class="entry-image">
+			<img width="1140" height="818" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_ge0exfeqzq.png" class="attachment-full size-full wp-post-image" alt="" srcset="https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=1140&amp;h=818 1140w, https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=150&amp;h=108 150w, https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=300&amp;h=215 300w, https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=768&amp;h=551 768w, https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=1024&amp;h=735 1024w, https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png 1260w" sizes="(max-width: 1140px) 100vw, 1140px" data-attachment-id="2871" data-permalink="https://chtseng.wordpress.com/2861_ge0exfeqzq/" data-orig-file="https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png" data-orig-size="1260,904" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="2861_ge0exfeqzq" data-image-description="" data-medium-file="https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=300" data-large-file="https://chtseng.files.wordpress.com/2016/12/2861_ge0exfeqzq.png?w=1024">		</figure>
+	</div><!-- .post-hero-image -->
+	
+	<div class="entry-content">
+		<p>Histograms是直方圖的意思，在攝影領域一般稱為曝光直方圖，主要用以分析一張照片的曝光是否正確。應用在電腦視覺則主要利用它來判斷白平衡、處理<span style="color:#212121;">thresholding</span>（閥值，請參考之前的文章OPENCV – more on contours #2），也可用於物體追蹤（例如CamShift演算法即使用彩色直方圖的變化達到跟蹤目的），另外也可用於圖像檢索目的（例如Bag-of-words詞袋演算法）、或應用於機器學習運算…等等。因為Histograms為我們統計出各像素強度頻率的資訊來呈現整張相片的色彩分佈情況，因此我們得以透過此資訊來猜測該圖片的物件及特性。</p>
+<h1>灰階直方圖</h1>
+<p><span style="color:#212121;">下圖是一張相片的灰階直方圖，</span>表示了所有像素強度從0至255的分佈情形，Ｘ軸強度值為0代表全黑，255為全白。<span style="color:#212121;">我們可以從中看到什麼訊息呢？</span></p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:588.84px;height:437.81px;"><img style="width:588.84px;height:437.81px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_0psb-zlwrq.png" alt=""></span></p>
+<p><span style="font-weight:bold;">我們可以看出：</span></p>
+<ul>
+<li style="line-height:1.15;"><span style="font-weight:400;font-size:12pt;">這直方圖當中有三個比較明顯的山峰，第一個主要集中在x=20附近，因此我們可以猜測圖片中應該有個顏色相當深的物體。</span></li>
+<li style="line-height:1.15;"><span style="font-weight:400;font-size:12pt;">第二個山峰較為低矮平滑且範圍較廣，約從X=50緩步上升X=90處開始下降至120左右，色彩偏暗，這部份很有可能是圖片中的背景部份。</span></li>
+<li style="line-height:1.15;"><span style="font-weight:400;font-size:12pt;">大量的像素集中在第三個山峰X=220至245之間，不過我們暫時無法確定該區域是什麼，但能確定的是，圖片中肯定有一大片白色的區域。</span></li>
+</ul>
+<p>因此從該直方圖中，我們雖無法明確的知道有什麼物體，但卻可以掌握圖片的特性，例如明暗、對比、色溫、像素強度分布等，此外，我們還可以從一堆圖片中指認出那些是屬於該直方圖特色的圖片。</p>
+<p><span style="font-weight:bold;color:#000000;">產生直方圖資訊 :</span></p>
+<p>使用cv2.calcHist可產生指定圖片的直方圖資訊。</p>
+<p>cv2.calcHist(images, channels, mask, histSize, ranges)</p>
+<ul>
+<li style="line-height:1.15;"><span style="font-size:12pt;font-weight:bold;">imaages：</span><span style="font-weight:400;font-size:12pt;">要分析的圖片檔</span></li>
+<li style="line-height:1.15;"><span style="font-size:12pt;font-weight:bold;">channels：</span><span style="font-weight:400;font-size:12pt;">產生的直方圖類型。例：[0]</span><span style="font-weight:400;font-size:12pt;">→</span><span style="font-weight:400;font-size:12pt;">灰階，[0, 1, 2]</span><span style="font-weight:400;font-size:12pt;">→</span><span style="font-weight:400;font-size:12pt;">RGB三色。</span></li>
+<li style="line-height:1.15;"><span style="font-size:12pt;font-weight:bold;">mask：</span><span style="font-weight:400;font-size:12pt;">optional，若有提供則僅計算mask的部份。</span></li>
+<li style="line-height:1.15;"><span style="font-weight:bold;font-size:12pt;">histSize：</span><span style="font-weight:400;font-size:12pt;">要切分的像素強度值範圍，預設為256。每個channel皆可指定一個範圍。例如，[32,32,32] 表示RGB三個channels皆切分為32區段。 </span></li>
+<li style="line-height:1.15;"><span style="font-size:12pt;font-weight:bold;">ranges：</span><span style="font-weight:400;font-size:12pt;">X軸(像素強度)的範圍，預設為[0,256]（非筆誤，calcHist函式的要求，最後那個值是表示&lt;256）。</span></li>
+</ul>
+<p><span style="color:#000000;">下方程式示範如何產生圖片的直方圖資訊並繪製出來：</span></p>
+<p><span style="font-size:10.5pt;color:#76923c;"># 匯入相關模組</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">from matplotlib import pyplot as plt</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">import argparse</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">import cv2</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">&nbsp;</span></p>
+<p><span style="font-size:10.5pt;color:#76923c;"># 取得傳入的相片檔名</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">ap = argparse.ArgumentParser()</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">ap.add_argument(“-i", “–image", required=True, help="Path to the image")</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">args = vars(ap.parse_args())</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">&nbsp;</span></p>
+<p><span style="font-size:10.5pt;color:#76923c;"># 讀取相片</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">image = cv2.imread(args[“image"]</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) </span><span style="font-size:10.5pt;color:#76923c;">&nbsp;# </span><span style="font-size:10.5pt;color:#76923c;">←</span><span style="font-size:10.5pt;color:#76923c;">轉為灰階</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">cv2.imshow(“Original", image)</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">&nbsp;</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">hist = cv2.calcHist([image], [0], None, [256], [0, 256])</span><span style="font-size:10.5pt;color:#76923c;">&nbsp; # </span><span style="font-size:10.5pt;color:#76923c;">←</span><span style="font-size:10.5pt;color:#76923c;">計算直方圖資訊</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">&nbsp;</span></p>
+<p><span style="font-size:10.5pt;color:#76923c;">#使用MatPlot繪出 histogram</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">plt.figure()</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">plt.title(“Grayscale Histogram")</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">plt.xlabel(“Bins")</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">plt.ylabel(“# of Pixels")</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">plt.plot(hist)</span></p>
+<p><span style="color:#000000;font-size:10.5pt;">plt.xlim([0, 256])</span></p>
+<p>以下面兩張相片為例，左側是其灰階圖形，後兩張曲線圖是其像素分佈的直方圖，最右側曲線圖差異在於其是normalized的直方圖，兩者在Y軸呈現方式不同，一個是像素數目，一個是像素比例，事實上，右側normalized過的直方圖，其資訊對我們比較有意義。</p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:647.17px;height:153.71px;"><img style="width:647.17px;height:153.71px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_dyssx287ma.png" alt=""></span></p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:648.03px;height:159.01px;"><img style="width:648.03px;height:159.01px;margin-left:0;margin-top:0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_haohi8mrqa.png" alt=""></span></p>
+<p>下方的第二張相片由於少了白襯衫，因此原本亮度接近200的尖峰稍微往左移動，並減少到0.016以下，空出來的黑色椅墊使得30~40左右強度的像素增加。</p>
+<p style="text-align:center;"><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:588.68px;height:465.5px;"><img style="width:588.68px;height:465.5px;margin-left:0;margin-top:0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_coyifww1va.png" alt=""></span></p>
+<h1>彩色直方圖</h1>
+<p>上面是針對灰階圖片（只有1 channel）的直方圖，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果是擁有3個channels的彩色直方圖呢？我們加個for迴圈便可以了。</p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">chans = cv2.split(image) &nbsp;</span><span style="font-size:10pt;color:#76923c;"># 將讀取的image檔split為channels</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">colors = (“b", “g", “r") &nbsp; </span><span style="font-size:10pt;color:#76923c;"># 定義一colors數組，注意openCV split後的channels排序為BGR</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.figure()</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.title(“‘Flattened’ Color Histogram")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.xlabel(“Bins")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.ylabel(“# of Pixels")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;color:#76923c;"># 依次取出chans及colors的B,G,R值繪製直方圖</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">for (chan, color) in zip(chans, colors):</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# create a histogram for the current channel and plot it</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hist = cv2.calcHist([chan], [0], None, [256], [0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.plot(hist, color = color)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plt.xlim([0, 256])</span></p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:611px;height:483px;"><img style="width:611px;height:483px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_9mqq3gdoqq.png" alt=""></span></p>
+<p>我們看到RGB三個channels皆各有一相當突出的山峰位於170至200之間的區域，這是因為相片中有一大片佔了相當大比例的灰白色地板。</p>
+<p>第二張相片Ｇ與Ｂ在強度70~80左右佔的比例增加，可能是多出的地板面積緣故（可使用Photoshop探知該區的RGB數值）。而原本第一張中的Ｒ channel在120~130區域是一小山峰，但人員離開後的空座位少了手和臉部的膚色，因此在第二張圖中反而呈現下凹現象，而人員離開後多出的地板，其RGB值介於70~130之間，故第二張圖中此部份的比例上升。</p>
+<p>因此，當我們比較兩張相片的normalized直方圖時，大致上看起來可能差不多，但是某些物件的增減會使得各像素強度比例在某些區域有些變化，這些差異資訊未來或許可以導入Scikit-learn進行學習。</p>
+<h1>2D直方圖</h1>
+<p>上例的灰階與彩色histogram皆屬於一維直方圖，另外我們也經常使用所謂的多維直方圖進行分析判斷，例如我們想要瞭解Red=10且Green=30時的pixels數目有多少？或某兩個channels的值互為多少時其像素有多少？此時就是使用二維直方圖的時機。</p>
+<p>二維直方圖就像一張由上而下俯視的地形圖，不同顏色代表不同高度（像素的數目），深藍色最低矮深紅色最高聳。RGB三色可分別組合成三種G+B、G+R、B+R的二維直方圖，下圖分別為有人與無人的辦公室所產生的2D直方圖，深紅色區域為最高點，深藍色則最低緩。</p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:611.73px;height:468.73px;"><img style="width:611.73px;height:468.73px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_wnbzzxcugg.png" alt=""></span></p>
+<p>在上圖及下方的程式中，你會發現Ｘ軸不是0~255而是0~15，這是因為基於運算效率考量。如果我們將像素強度維持256階，那麼一張VGA尺寸相片的2D直方圖，電腦需要處理的資訊將有256 x 256（X軸 x Y軸），再乘上三倍（GB+GR+BR三種組合），最後再乘上高度（相片的總像素），總共就會有60,397,977,600個像素資訊需要處理。實際上，我們在進行電腦視覺時也不需要細到每個像素，而只需要by區域進行判斷即可，因此，將256階縮小為32或16是可行的作法。</p>
+<p><span style="font-weight:bold;">程式：</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">fig = plt.figure()</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;color:#76923c;"># 繪製Green和Blue的2D直方圖，我們將256種像素強度僅分成16個範圍。</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">ax = fig.add_subplot(131)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">hist = cv2.calcHist([chans[1], chans[0]], [0, 1], None, [16, 16], [0, 256, 0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">p = ax.imshow(hist, interpolation="nearest")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">ax.set_title(“2D Color Histogram for G and B")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.colorbar(p)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;color:#76923c;"># 繪製Green和Red的2D直方圖，我們將256種像素強度僅分成16個範圍。</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">ax = fig.add_subplot(132)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">hist = cv2.calcHist([chans[1], chans[2]], [0, 1], None, [16, 16], [0, 256, 0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">p = ax.imshow(hist, interpolation="nearest")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">ax.set_title(“2D Color Histogram for G and R")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.colorbar(p)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">&nbsp;</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;color:#76923c;"># 繪製Blue和Red的2D直方圖，我們將256種像素強度僅分成16個範圍。</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">ax = fig.add_subplot(133)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">hist = cv2.calcHist([chans[0], chans[2]], [0, 1], None, [16, 16], [0, 256, 0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">p = ax.imshow(hist, interpolation="nearest")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">ax.set_title(“2D Color Histogram for B and R")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:10pt;">plt.colorbar(p)</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;圖中這條斜向的一條正比例直線是由相片中由淺而深的大片灰白色地板及桌面所構成的。透過二維直方圖資訊，我們發現它比起一維直方圖來說更容易看出明顯的顏色異動，因此這種表達方式可以更清楚的反映物件異動對於畫面顏色與像素強度的影響。</p>
+<h1>加上MASK去除不必要區域</h1>
+<p>有時候，相片中僅有一部份區域是我們關心的，其它部份可省略不看，那麼在處理過程中可以在圖像上加入MASK來排除不需要的區域。</p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:611.73px;height:152.2px;"><img style="width:611.73px;height:152.2px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_yle3u6ompa.png" alt=""></span></p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:611.73px;height:152.2px;"><img style="width:611.73px;height:152.2px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_jzaeh0eurg.png" alt=""></span></p>
+<p>可以發現加入MASK後，直方圖的變化資訊更為明顯： （有人office→無人office）</p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:573.98px;height:210.21px;"><img style="width:573.98px;height:210.21px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_nuzwavfc-a.png" alt=""></span></p>
+<p><span style="overflow:hidden;display:inline-block;margin:0;border:0 solid #000000;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);width:574.99px;height:412.49px;"><img style="width:574.99px;height:412.49px;margin-left:-0;margin-top:-0;transform:rotate(0.00rad) translateZ(0px);-webkit-transform:rotate(0.00rad) translateZ(0px);" title="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2861_ge0exfeqzq(1).png" alt=""></span></p>
+<p><span style="font-weight:bold;">程式：</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">from matplotlib import pyplot as plt</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">import numpy as np</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">import cv2</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#繪製一維直方圖的function</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">def plot_histogram(image, title, mask=None):</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; chans = cv2.split(image)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; colors = (“b", “g", “r")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.figure()</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.title(title)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.xlabel(“Bins")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.ylabel(“# of Pixels")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; for (chan, color) in zip(chans, colors):</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; &nbsp; &nbsp; hist = cv2.calcHist([chan], [0], mask, [256], [0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; &nbsp; &nbsp; plt.plot(hist, color=color)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; &nbsp; &nbsp; plt.xlim([0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#繪製2D直方圖的function</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">def plot_2d(image, title, mask=None):</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; chans = cv2.split(image)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; colors = (“b", “g", “r")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; fig = plt.figure()</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; ax = fig.add_subplot(131)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; hist = cv2.calcHist([chans[1], chans[0]], [0, 1], mask, [16, 16], [0, 256, 0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; p = ax.imshow(hist, interpolation="nearest")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; ax.set_title(“2D Color Histogram for G and B")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.colorbar(p)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; ax = fig.add_subplot(132)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; hist = cv2.calcHist([chans[1], chans[2]], [0, 1], mask, [16, 16], [0, 256, 0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; p = ax.imshow(hist, interpolation="nearest")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; ax.set_title(“2D Color Histogram for G and R")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.colorbar(p)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; ax = fig.add_subplot(133)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; hist = cv2.calcHist([chans[0], chans[2]], [0, 1], mask, [16, 16], [0, 256, 0, 256])</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; p = ax.imshow(hist, interpolation="nearest")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; ax.set_title(“2D Color Histogram for B and R")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">&nbsp; &nbsp; plt.colorbar(p)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#讀入相片</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">image = cv2.imread(“p3.jpg")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">cv2.imshow(“Original", image)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#繪製一維直方圖</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">plot_histogram(image, “Histogram for Original Image")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#繪製2D直方圖</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">plot_2d(image, “Histogram for Original Image")</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;"># 產生mask，白色區域為保留區。</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">mask = np.zeros(image.shape[:2], dtype="uint8″)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">cv2.rectangle(mask, (0, 0), (320, 208), 255, -1)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">cv2.imshow(“Mask", mask)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#此行不一定需要，主要是用於預覽mask後的圖形</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">masked = cv2.bitwise_and(image, image, mask=mask)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">cv2.imshow(“Applying the Mask", masked)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#繪製一維直方圖</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">plot_histogram(image, “Histogram for Masked Image", mask=mask)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;color:#4f6228;">#繪製2D直方圖</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">plot_2d(image, “Histogram for Masked Image", mask=mask)</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">plt.show()</span></p>
+<p style="line-height:1.0833333333333;"><span style="font-size:11pt;">cv2.waitKey(0)</span></p>
+<p id="h.gjdgxs">到目前為止，除了之前所介紹的邊緣edge及輪廓contour之外，本文的直方圖histogram也是電腦視覺經常使用到的技術，未來將會在更多的實例中應用到它們。</p>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<div class="entry-meta">
+					</div>
+	<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-2861" class="share-twitter sd-button share-icon" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96/?share=twitter&amp;nb=1" target="_blank" title="分享到 Twitter"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-2861" class="share-facebook sd-button share-icon" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-62677754-2861-5d5c198623de9" data-src="//widgets.wp.com/likes/index.html?ver=20190321#blog_id=62677754&amp;post_id=2861&amp;origin=chtseng.wordpress.com&amp;obj_id=62677754-2861-5d5c198623de9" data-name="like-post-frame-62677754-2861-5d5c198623de9"><h3 class="sd-title">請按讚：</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>讚</span></span> <span class="loading">載入中...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-62677754-2861-5d5c198623de9" height="55px" width="100%" frameborder="0" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/index.html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div></div></footer><!-- .entry-footer -->
+
+</article><!-- #post-## -->
+
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">文章分頁導航</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://chtseng.wordpress.com/2016/12/05/opencv-more-on-contours-2/" rel="prev"><span class="meta-nav" aria-hidden="true">上一個</span> <span class="meta-nav-title">OpenCV – more on contours&nbsp;#2</span></a></div><div class="nav-next"><a href="https://chtseng.wordpress.com/2016/12/12/opencv-%e9%80%a3%e7%b5%90%e7%89%a9%e4%bb%b6%e6%a8%99%e8%a8%98/" rel="next"><span class="meta-nav" aria-hidden="true">下一步</span> <span class="meta-nav-title">OPENCV – 連結物件標記</span> </a></div></div>
+	</nav>	<div class="entry-author author-avatar-show">
+				<div class="author-avatar">
+			<img alt="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/2f59a2b9dc63fa4e2d72e7bcbba1a023" class="avatar avatar-111 grav-hashed grav-hijack" height="111" width="111" id="grav-2f59a2b9dc63fa4e2d72e7bcbba1a023-0">		</div><!-- .author-avatar -->
+		
+		<div class="author-heading">
+			<h2 class="author-title">發表者：<span class="author-name">chtseng</span></h2>
+		</div><!-- .author-heading -->
+
+		<p class="author-bio">
+						<a class="author-link" href="https://chtseng.wordpress.com/author/chtseng/" rel="author">
+				檢視 chtseng 的所有文章			</a>
+		</p><!-- .author-bio -->
+	</div><!-- .entry-auhtor -->
+
+			
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area" role="complementary">
+	<aside id="flickr-9" class="widget widget_flickr"><h2 class="widget-title">Flickr 相片</h2><!-- Start of Flickr Widget -->
+<div class="flickr-wrapper flickr-size-thumbnail">
+	<div class="flickr-images">
+		<a href="https://www.flickr.com/photos/tsengphotos/48019884336/"><img src="./OpenCV – Histograms直方圖 – CH.Tseng_files/48019884336_1f5a80b3ef_s.jpg" alt="DSC_5920" title="DSC_5920"></a><a href="https://www.flickr.com/photos/tsengphotos/48019901108/"><img src="./OpenCV – Histograms直方圖 – CH.Tseng_files/48019901108_2f3da2fd40_s.jpg" alt="DSC_5923" title="DSC_5923"></a><a href="https://www.flickr.com/photos/tsengphotos/48019977872/"><img src="./OpenCV – Histograms直方圖 – CH.Tseng_files/48019977872_4e9a2a391a_s.jpg" alt="DSC_5926" title="DSC_5926"></a>	</div>
+
+			<a class="flickr-more" href="https://www.flickr.com/photos/tsengphotos/">
+			更多相片		</a>
+	</div>
+<!-- End of Flickr Widget -->
+</aside></div><!-- #secondary -->
+
+			<footer id="colophon" class="site-footer" role="contentinfo">
+				<div class="site-info">
+					<a href="https://wordpress.com/?ref=footer_custom_svg" title="Create a website or blog at WordPress.com"><svg style="fill: currentColor; position: relative; top: 1px;" width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img">
+				<desc id="title">Create a website or blog at WordPress.com</desc>
+				<path d="M12.5225848,4.97949746 C13.0138466,5.87586309 13.2934037,6.90452431 13.2934037,7.99874074 C13.2934037,10.3205803 12.0351007,12.3476807 10.1640538,13.4385638 L12.0862862,7.88081544 C12.4453251,6.98296834 12.5648813,6.26504621 12.5648813,5.62667922 C12.5648813,5.39497674 12.549622,5.17994084 12.5225848,4.97949746 L12.5225848,4.97949746 Z M7.86730089,5.04801561 C8.24619178,5.02808979 8.58760099,4.98823815 8.58760099,4.98823815 C8.9267139,4.94809022 8.88671369,4.44972248 8.54745263,4.46957423 C8.54745263,4.46957423 7.52803983,4.54957381 6.86996227,4.54957381 C6.25158863,4.54957381 5.21247202,4.46957423 5.21247202,4.46957423 C4.87306282,4.44972248 4.83328483,4.96816418 5.17254589,4.98823815 C5.17254589,4.98823815 5.49358462,5.02808979 5.83269753,5.04801561 L6.81314716,7.73459399 L5.43565839,11.8651647 L3.14394256,5.04801561 C3.52312975,5.02808979 3.86416859,4.98823815 3.86416859,4.98823815 C4.20305928,4.94809022 4.16305906,4.44972248 3.82394616,4.46957423 C3.82394616,4.46957423 2.80475558,4.54957381 2.14660395,4.54957381 C2.02852925,4.54957381 1.88934333,4.54668493 1.74156477,4.54194422 C2.86690406,2.83350881 4.80113651,1.70529256 6.99996296,1.70529256 C8.638342,1.70529256 10.1302017,2.33173369 11.2498373,3.35765419 C11.222726,3.35602457 11.1962815,3.35261718 11.1683554,3.35261718 C10.5501299,3.35261718 10.1114609,3.89113285 10.1114609,4.46957423 C10.1114609,4.98823815 10.4107217,5.42705065 10.7296864,5.94564049 C10.969021,6.36482346 11.248578,6.90326506 11.248578,7.68133501 C11.248578,8.21992476 11.0413918,8.84503256 10.7696866,9.71584277 L10.1417574,11.8132391 L7.86730089,5.04801561 Z M6.99996296,14.2927074 C6.38218192,14.2927074 5.78595654,14.2021153 5.22195356,14.0362644 L7.11048207,8.54925635 L9.04486267,13.8491542 C9.05760348,13.8802652 9.07323319,13.9089317 9.08989995,13.9358945 C8.43574834,14.1661896 7.73285573,14.2927074 6.99996296,14.2927074 L6.99996296,14.2927074 Z M0.706448182,7.99874074 C0.706448182,7.08630113 0.902152921,6.22015756 1.25141403,5.43749503 L4.25357806,13.6627848 C2.15393732,12.6427902 0.706448182,10.4898387 0.706448182,7.99874074 L0.706448182,7.99874074 Z M6.99996296,0.999 C3.14016476,0.999 0,4.13905746 0,7.99874074 C0,11.8585722 3.14016476,14.999 6.99996296,14.999 C10.8596871,14.999 14,11.8585722 14,7.99874074 C14,4.13905746 10.8596871,0.999 6.99996296,0.999 L6.99996296,0.999 Z" id="wordpress-logo-simplified-cmyk" stroke="none" fill="“currentColor”" fill-rule="evenodd"></path>
+			</svg></a>
+					<br>
+									</div><!-- .site-info -->
+			</footer><!-- #colophon -->
+
+		</div><!-- .col-width -->
+	</div><!-- #content -->
+
+</div><!-- #page -->
+
+<!--  -->
+<script type="text/javascript" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/gprofiles.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/wpgroho.js.下載"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-2f59a2b9dc63fa4e2d72e7bcbba1a023">
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/chtseng.wordpress.com\/2016\/12\/05\/opencv-histograms%e7%9b%b4%e6%96%b9%e5%9c%96\/":2861};
+	</script>
+				<script type="text/javascript">
+/* <![CDATA[ */
+var rebalanceScreenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var Rebalance = {"is_rtl":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"62677754","siteName":"CH.Tseng","siteURL":"http:\/\/chtseng.wordpress.com","icon":"<img alt='' src='https:\/\/s2.wp.com\/i\/logo\/wpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' \/>","canManageOptions":"","canCustomizeSite":"","isFollowing":"","themeSlug":"pub\/rebalance","signupURL":"https:\/\/wordpress.com\/start\/","loginURL":"https:\/\/wordpress.com\/log-in?redirect_to=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96%2F&signup_flow=account","themeURL":"https:\/\/wordpress.com\/theme\/rebalance\/","xhrURL":"https:\/\/chtseng.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"05a62e8630","isSingular":"1","isFolded":"","isLoggedIn":"","isMobile":"","subscribeNonce":"<input type=\"hidden\" id=\"_wpnonce\" name=\"_wpnonce\" value=\"43dd602410\" \/>","referer":"https:\/\/chtseng.wordpress.com\/2016\/12\/05\/opencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96\/","canFollow":"1","feedID":"16999757","statusMessage":"","customizeLink":"https:\/\/chtseng.wordpress.com\/wp-admin\/customize.php?url=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%25E7%259B%25B4%25E6%2596%25B9%25E5%259C%2596%2F","postID":"2861","shortlink":"https:\/\/wp.me\/p4eZlw-K9","canEditPost":"","editLink":"https:\/\/wordpress.com\/post\/chtseng.wordpress.com\/2861","statsLink":"https:\/\/wordpress.com\/stats\/post\/2861\/chtseng.wordpress.com","i18n":{"view":"\u6aa2\u8996\u7db2\u7ad9","follow":"\u95dc\u6ce8","following":"\u6b63\u5728\u95dc\u6ce8","edit":"\u7de8\u8f2f","login":"\u767b\u5165","signup":"\u8a3b\u518a","customize":"\u81ea\u8a02","report":"\u56de\u5831\u6b64\u5167\u5bb9","themeInfo":"\u53d6\u5f97\u4f48\u666f\u4e3b\u984c: Rebalance","shortlink":"\u8907\u88fd\u77ed\u7db2\u5740","copied":"\u5df2\u8907\u88fd","followedText":"\u6b64\u7db2\u7ad9\u7684\u65b0\u6587\u7ae0\u5c07\u986f\u793a\u65bc\u4f60\u7684<a href=\"https:\/\/wordpress.com\/\">\u95b1\u8b80\u5668<\/a>\u4e2d","foldBar":"\u6536\u5408\u6b64\u5217","unfoldBar":"\u5c55\u958b\u6b64\u5217","editSubs":"\u7ba1\u7406\u8a02\u95b1","viewReader":"\u5728\u8b80\u53d6\u5668\u4e2d\u6aa2\u8996\u7db2\u7ad9","viewReadPost":"View post in Reader","subscribe":"\u6211\u8981\u8a3b\u518a","enterEmail":"\u8f38\u5165\u4f60\u7684\u96fb\u5b50\u90f5\u4ef6\u5730\u5740","followers":"\u52a0\u5165\u5176\u4ed6 51 \u4f4d\u95dc\u6ce8\u8005","alreadyUser":"\u5df2\u7d93\u6709 WordPress.com \u5e33\u865f\u4e86\uff1f<a href=\"https:\/\/wordpress.com\/log-in?redirect_to=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96%2F&signup_flow=account\">\u7acb\u5373\u767b\u5165\u3002<\/a>","stats":"\u7d71\u8a08"}};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/saved_resource(5)"></script><div class="widget widget_eu_cookie_law_widget" style="display: block;"><div class="hide-on-button ads-active" data-hide-timeout="30" data-consent-expiration="180" id="eu-cookie-law">
+	<form method="post">
+		<input type="submit" value="關閉並接受" class="accept">
+
+		隱私權與 Cookie：此網站可使用 Cookie。繼續使用此網站即表示你同意使用 Cookie。<br>
+若要瞭解更多資訊，包括如何控制 Cookie，請參閱此處：
+		<a href="https://automattic.com/cookies">
+			Cookie 政策		</a>
+ </form>
+</div>
+</div><div id="actionbar" class="actnbr-pub-rebalance actnbr-has-follow actnbr-hidden"><ul><li class="actnbr-btn actnbr-hidden"> 			    	<a class="actnbr-action actnbr-actn-follow" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96/"><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>關注</span></a> 			    	<div class="actnbr-popover tip tip-top-left actnbr-notice"> 			    		<div class="tip-arrow"></div> 			    		<div class="tip-inner actnbr-follow-bubble"></div> 			    	</div> 			    </li><li class="actnbr-ellipsis actnbr-hidden"> 			  <svg class="gridicon gridicon__ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><circle cx="5" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle></g></svg> 			  <div class="actnbr-popover tip tip-top-left actnbr-more"> 			  	<div class="tip-arrow"></div> 			  	<div class="tip-inner"> 				  <ul> 				    <li class="actnbr-sitename actnbr-hidden"><a href="http://chtseng.wordpress.com/"><img alt="" src="./OpenCV – Histograms直方圖 – CH.Tseng_files/wpcom-gray-white.png" class="avatar avatar-50" height="50" width="50"> CH.Tseng</a></li> 				   	<li class="actnbr-folded-customize actnbr-hidden"><a href="https://chtseng.wordpress.com/wp-admin/customize.php?url=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%25E7%259B%25B4%25E6%2596%25B9%25E5%259C%2596%2F"><svg class="gridicon gridicon__customize" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M2 6c0-1.505.78-3.08 2-4 0 .845.69 2 2 2 1.657 0 3 1.343 3 3 0 .386-.08.752-.212 1.09.74.594 1.476 1.19 2.19 1.81L8.9 11.98c-.62-.716-1.214-1.454-1.807-2.192C6.753 9.92 6.387 10 6 10c-2.21 0-4-1.79-4-4zm12.152 6.848l1.34-1.34c.607.304 1.283.492 2.008.492 2.485 0 4.5-2.015 4.5-4.5 0-.725-.188-1.4-.493-2.007L18 9l-2-2 3.507-3.507C18.9 3.188 18.225 3 17.5 3 15.015 3 13 5.015 13 7.5c0 .725.188 1.4.493 2.007L3 20l2 2 6.848-6.848c1.885 1.928 3.874 3.753 5.977 5.45l1.425 1.148 1.5-1.5-1.15-1.425c-1.695-2.103-3.52-4.092-5.448-5.977z" data-reactid=".2.1.1:0.1b.0"></path></g></svg><span>自訂<span></span></span></a></li> 				    <li class="actnbr-folded-follow actnbr-hidden"><a class="actnbr-action actnbr-actn-follow" href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96/"><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>關注</span></a></li> 					<li class="actnbr-signup actnbr-hidden"><a href="https://wordpress.com/start/">註冊</a></li> 				    <li class="actnbr-login actnbr-hidden"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fchtseng.wordpress.com%2F2016%2F12%2F05%2Fopencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96%2F&amp;signup_flow=account">登入</a></li> 				     				    <li class="actnbr-shortlink actnbr-hidden"><a href="https://wp.me/p4eZlw-K9">複製短網址</a></li> 				    <li class="flb-report actnbr-hidden"><a href="http://en.wordpress.com/abuse/">回報此內容</a></li> 				     				     				    <li class="actnbr-subs actnbr-hidden"><a href="https://subscribe.wordpress.com/">管理訂閱</a></li> 				    <li class="actnbr-fold actnbr-hidden"><a href="https://chtseng.wordpress.com/2016/12/05/opencv-histograms%E7%9B%B4%E6%96%B9%E5%9C%96/">收合此列</a></li> 			      </ul> 			    </div> 		      </div> 		    </li> 	      </ul></div>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>		<iframe src="./OpenCV – Histograms直方圖 – CH.Tseng_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> 位部落客按了讚：</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+<script src="./OpenCV – Histograms直方圖 – CH.Tseng_files/w.js.下載" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'62677754','blog_tz':'8','user_lang':'zh-tw','blog_lang':'zh-tw','user_id':'0'}]);
+_stq.push(['view', {'blog':'62677754','v':'wpcom','tz':'8','user_id':'0','post':'2861','subd':'chtseng'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE0/bU8yQkx3RTR3RmZTSndoTltKYUtEYz9mTHN3MlJ2cWh3ZmwzZGYubUxraS83bFJ8by9SUXlTXWIrWEkxPVl5S2tlM05KVkJjRlYmZmtQQ0Uwc19tWnBsMXprRXpnWitfQyssTUZxMG1xLnolcTlQM0xMX3ZqMXBGK34zQlpdOXF6eC09bFM0YUx8WlhxV1Yzck90TkY9QXQzRmpGV0JFSndyVHYuR1NyekJ8RTFhM0pkeW13NDhoLTRaZUtYVj89LHpXLTY4JS5LT21PZm9VJVE3OTU0VXNWazhfcUR8MUcmb3l8YnldYkZhciZFcHYmWWpCYi8wSUY0PSw1c3NYVyt+fnUxRXxzTnZpVEo0MUYuRkRaY1pTbm5NK3kzNVVHXSxfMVouLHU='}]);
+_stq.push([ 'clickTrackerInit', '62677754', '2861' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<img src="./OpenCV – Histograms直方圖 – CH.Tseng_files/g.gif" alt=":)" id="wpstats"></body></html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html -->
+<html lang="zh-Hant"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        
+        <title>線性迴歸 Linear Regression · 資料科學・機器・人</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Jimmy Lin">
+        
+        
+    
+    <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/player.css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/plugin(1).css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="./線性迴歸 Linear Regression · 資料科學・機器・人_files/website(1).css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://brohrer.mcknote.com/gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="https://brohrer.mcknote.com/gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/deep_learning_demystified.html">
+    
+    
+    <link rel="prev" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/">
+    
+
+    </head>
+    <body>
+        
+  <script type="text/javascript" id="www-widgetapi-script" src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/www-widgetapi.js.下載" async=""></script><script async="" src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/analytics.js.下載"></script><script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/iframe_api"></script><script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  </script>
+  
+<div class="book without-animation with-summary font-size-2 font-family-1">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋">
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.gitbook.com/book/mcknote/brohrer" target="_blank" class="custom-link">資料科學・機器・人</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/">
+            
+                    
+                    首頁：Data Science and Robots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../switching_between_simplified_and_traditional_mandarin.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/switching_between_simplified_and_traditional_mandarin.html">
+            
+                    
+                    中文簡繁轉換說明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/">
+            
+                    
+                    機器學習如何運作
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="how_linear_regression_works.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html">
+            
+                    
+                    線性迴歸 Linear Regression
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="deep_learning_demystified.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/deep_learning_demystified.html">
+            
+                    
+                    深度學習 Deep Learning
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="how_neural_networks_work.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_neural_networks_work.html">
+            
+                    
+                    神經網路 Neural Networks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="how_backpropagation_work.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_backpropagation_work.html">
+            
+                    
+                    反向傳播 Backpropagation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="how_convolutional_neural_networks_work.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_convolutional_neural_networks_work.html">
+            
+                    
+                    卷積神經網路 Convolutional Neural Networks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="how_rnns_lstm_work.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_rnns_lstm_work.html">
+            
+                    
+                    遞歸神經網路和長短期記憶模型 RNN &amp; LSTM
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../using_machine_learning/">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/using_machine_learning/">
+            
+                    
+                    使用機器學習
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../using_machine_learning/five_questions_data_science_answers.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/using_machine_learning/five_questions_data_science_answers.html">
+            
+                    
+                    機器學習可以回答的問題有哪些
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../using_machine_learning/find_the_right_algorithm.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/using_machine_learning/find_the_right_algorithm.html">
+            
+                    
+                    如何找出合適的機器學習演算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../using_data/">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/using_data/">
+            
+                    
+                    利用資料
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../using_data/make_data_science_work_for_you.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/using_data/make_data_science_work_for_you.html">
+            
+                    
+                    如何獲得高品質的資料
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../statistics/">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/statistics/">
+            
+                    
+                    統計學
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../statistics/how_bayesian_inference_works.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/statistics/how_bayesian_inference_works.html">
+            
+                    
+                    貝葉斯推斷和各類機率 Bayesian Inference
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../advice/">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/advice/">
+            
+                    
+                    一些建議
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../advice/one_step_program_become_data_scientist.html">
+            
+                <a href="https://brohrer.mcknote.com/zh-Hant/advice/one_step_program_become_data_scientist.html">
+            
+                    
+                    如何成為資料科學家
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com/" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <a class="btn pull-left js-toolbar-action" aria-label="" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#"><i class="fa fa-align-justify"></i></a><div class="dropdown pull-left language-picker js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Change language" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#"><i class="fa fa-globe"></i></a><div class="dropdown-menu dropdown-right"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div></div></div><div class="dropdown pull-right js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Share" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#"><i class="fa fa-share-alt"></i></a><div class="dropdown-menu dropdown-left"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-5 ">Facebook</button><button class="button size-5 ">Google+</button><button class="button size-5 ">Twitter</button><button class="button size-5 ">Weibo</button><button class="button size-5 ">Instapaper</button></div></div></div><a class="btn pull-right js-toolbar-action" aria-label="" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#"><i class="fa fa-facebook"></i></a><a class="btn pull-right js-toolbar-action" aria-label="" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#"><i class="fa fa-twitter"></i></a><div class="dropdown pull-left font-settings js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Font Settings" href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#"><i class="fa fa-font"></i></a><div class="dropdown-menu dropdown-right"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-2 font-reduce">A</button><button class="button size-2 font-enlarge">A</button></div><div class="buttons"><button class="button size-2 ">Serif</button><button class="button size-2 ">Sans</button></div><div class="buttons"><button class="button size-3 ">White</button><button class="button size-3 ">Sepia</button><button class="button size-3 ">Night</button></div></div></div><h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="https://brohrer.mcknote.com/zh-Hant/">線性迴歸 Linear Regression</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="線性迴歸的運作原理">線性迴歸的運作原理</h1>
+<p>原文連結：<a href="https://brohrer.github.io/how_linear_regression_works.html" target="_blank"><strong>How linear regression works</strong></a></p>
+<p>Translated from Brandon Rohrer's Blog by Jimmy Lin</p>
+<p></p><div class="youtubexDiv">   <iframe class="youtubex" id="fE0bnkNX77A" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="100%" src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/fE0bnkNX77A.html"></iframe></div><p></p>
+<p><strong>線性迴歸</strong>（linear regression）是在資料點中找出規律、畫出一條直線的專業說法，以下我將透過選購鑽石的例子說明其運作原理。</p>
+<p>故事是這樣的：我的奶奶曾經留給我一只戒指。這個戒指上有個 1.35 克拉大小的鑲台（setting），可惜上面沒有安任何鑽石。某天，我萌生了修復這只戒指的念頭，所以我找了一間珠寶行詢價，以了解我需要準備多少錢。</p>
+<p>到了珠寶行以後，我發現店裡既沒有 1.35 克拉的鑽石，也沒有價格。但我沒有因此打退堂鼓。我拿起了紙跟筆，把店裡所有其他鑽石的尺寸跟價格都抄了下來。</p>
+<a href="https://youtu.be/fE0bnkNX77A" target="_blank"><figure id="fig1.3.1.1"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_1.png" alt="" title="左邊是鑽石的克拉數，右邊是價格"><figcaption>圖說：左邊是鑽石的克拉數，右邊是價格</figcaption></figure></a>
+<p>我發現絕大部分的鑽石都在 2 克拉以下，所以我畫了一條橫軸以紀錄鑽石的重量。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=1m10s" target="_blank"><figure id="fig1.3.1.2"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_2.png" alt="" title="紀錄鑽石克拉數的橫軸"><figcaption>圖說：紀錄鑽石克拉數的橫軸</figcaption></figure></a>
+<p>接下來我畫了一條用來記錄價格的縱軸。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=1m24s" target="_blank"><figure id="fig1.3.1.3"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_3.png" alt="" title="加上紀錄價格的縱軸"><figcaption>圖說：加上紀錄價格的縱軸</figcaption></figure></a>
+<p>於是上圖就有了座標系的兩軸。在一座像曼哈頓有著網格道路系統（gridded streets）的城市裡，讀者可以循著南北向、東西向道路找出任何交叉路口；同理，在一個座標系裡，讀者可以利用橫軸和縱軸上的位置鎖定任何點。所以我們可以先根據鑽石的重量，從紀錄克拉數的橫軸往上畫一條直線，再根據鑽石的價格，從紀錄價格的縱軸往右畫另一條直線。兩條直線的交點，就是第一個鑽石的資料。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=1m39s" target="_blank"><figure id="fig1.3.1.4"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_4.png" alt="" title="利用橫軸跟縱軸鎖定資料點"><figcaption>圖說：利用橫軸跟縱軸鎖定資料點</figcaption></figure></a>
+<p>用同樣的方法，我們可以把所有鑽石畫在這個座標系上。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=2m08s" target="_blank"><figure id="fig1.3.1.5"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_5.png" alt="" title="把所有鑽石畫在這個座標系上"><figcaption>圖說：把所有鑽石畫在這個座標系上</figcaption></figure></a>
+<p>於是一開始的表格變成了一張散點圖。到目前為止，我沒有增加或捨棄任何資訊，我只是換了另一種表達方式，也就是散點圖。從圖片裡我們可以看出一個明顯的形狀，好像有條很寬的直線往右上方延伸。所以我的下一步是在這個範圍內將這條直線畫出來。當這條直線穿過資料時，在它的上下兩側會分佈著差不多數量的資料點。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=3m25s" target="_blank"><figure id="fig1.3.1.6"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_6.png" alt="" title="將貫穿資料點的直線畫出來"><figcaption>圖說：將貫穿資料點的直線畫出來</figcaption></figure></a>
+<p>將這條直線畫出來是很關鍵的一步。雖然這條線在我們看來很明顯，但這是因為我們早就具備了媲美超級電腦、擅長辨認特徵的神經運算能力。在畫這條線的時候，我們將原本的資料提煉成了更簡單的形式，就像將真實的影像化約為簡單的漫畫（線條）。雖然在這一步，我確實捨棄了一些資訊，但我也能利用這個簡化模型回答前面的問題。找出符合資料規律的直線，就叫線性迴歸（<a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#%E8%AD%AF%E8%A8%BB">譯註一</a>）。</p>
+<p>有了線性模型以後，我終於可以回答前面的問題：「1.35 克拉的鑽石多少錢？」要回答這個問題，我只需要用看的，先從橫軸上的 1.35 克拉對到模型上，再從模型對到縱軸上，就能知道價格大約是 8,000 元。問題解決！</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=5m24s" target="_blank"><figure id="fig1.3.1.7"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_7.png" alt="" title="輕鬆看出 1.35 克拉的鑽石賣 8,000 元"><figcaption>圖說：輕鬆看出 1.35 克拉的鑽石賣 8,000 元</figcaption></figure></a>
+<p>為了讓這個估計值更符合現實情形，我注意到大部分的觀測值並不直接落在模型的線上，這代表我要買的 1.35 克拉鑽石大概也不會剛好是 8,000 元。所以一個很明顯的問題是「實際價格會多接近 8,000 元？」為了瞭解這點，我在直線的兩側畫了涵蓋大部分（差不多 95%）觀測值的範圍。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=6m00s" target="_blank"><figure id="fig1.3.1.8"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_8.png" alt="" title="包含大約 95% 觀測值的價格範圍"><figcaption>圖說：包含大約 95% 觀測值的價格範圍</figcaption></figure></a>
+<p>如此一來，我可以說我有（大約 95% 的）信心認為未來任何鑽石的價格和重量都會落在這個範圍內。為了瞭解這和我要找的鑽石有什麼關係，我又沿著 1.35 克拉的垂直線，從價格範圍的上下兩端多看了兩條水平線。</p>
+<a href="https://youtu.be/fE0bnkNX77A?t=6m44s" target="_blank"><figure id="fig1.3.1.9"><img src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/linear_regression_9.png" alt="" title="1.35 克拉鑽石的價格範圍"><figcaption>圖說：1.35 克拉鑽石的價格範圍</figcaption></figure></a>
+<p>現在我滿有自信地說：「我要找的鑽石，價格不會低於 5,800，但也不會超出 10,200。」了解了這點以後，我就可以開始規劃要花多久，定期從薪水中存入一筆「奶奶的鑽戒修復基金」。</p>
+<p>藉著這個例子，我希望說明線性迴歸至少在觀念上是個很簡單的方法。任何人都可以用一支筆、一張餐巾紙和雙眼完成線性迴歸分析，而不一定要使用電腦或數學知識。不過實務上具備數學知識還是很有用的。</p>
+<p>在鑽石的例子裡，如果我搜集更多資訊，例如顏色、淨度、切割和內含物數量，此時資料的維度會從原本的兩個增加為六個，也就更難化為圖形。這時數學知識就能幫助我們在六個維度中「畫出」一條直線（<a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/how_linear_regression_works.html#%E8%AD%AF%E8%A8%BB">譯註二</a>）。</p>
+<p>另一方面，如果上面的資料不只有 17 筆，而是 1,700 甚至 1,700 萬筆，就算是最厲害的藝術家也很難從中畫出直線，這時電腦就派上用場了。</p>
+<p>Brandon，於 2016 年 12 月 20 日</p>
+<h2 id="譯註">譯註</h2>
+<ol>
+<li><p>「找出符合資料規律的直線，就叫線性迴歸」的原文為 <em>Finding the curve that best fits your data is called regression, and when that curve is a straight line, it's called linear regression.</em> 雖然我以前學的說法是「只要因變量為自變量的<strong>線性組合</strong>，就可以稱作線性迴歸」，這代表就算線條不是直的，也可能是線性迴歸；但如果將包括多項式的迴歸細分作 <a href="https://en.wikipedia.org/wiki/Polynomial_regression" target="_blank">polynomial regression</a>，將作者說法算作 <a href="https://en.wikipedia.org/wiki/Simple_linear_regression" target="_blank">simple linear regression</a> 也沒錯。</p>
+</li>
+<li><p>這邊的數學知識應該以<strong>線性代數</strong>（linear algebra）為主，所使用的工具為矩陣（matrix）運算。</p>
+</li>
+</ol>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/" class="navigation navigation-prev " aria-label="Previous page: 機器學習如何運作">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="https://brohrer.mcknote.com/zh-Hant/how_machine_learning_works/deep_learning_demystified.html" class="navigation navigation-next " aria-label="Next page: 深度學習 Deep Learning" style="margin-right: 17px;">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"線性迴歸 Linear Regression","level":"1.3.1","depth":2,"next":{"title":"深度學習 Deep Learning","level":"1.3.2","depth":2,"path":"how_machine_learning_works/deep_learning_demystified.md","ref":"how_machine_learning_works/deep_learning_demystified.md","articles":[]},"previous":{"title":"機器學習如何運作","level":"1.3","depth":1,"path":"how_machine_learning_works/README.md","ref":"how_machine_learning_works/README.md","articles":[{"title":"線性迴歸 Linear Regression","level":"1.3.1","depth":2,"path":"how_machine_learning_works/how_linear_regression_works.md","ref":"how_machine_learning_works/how_linear_regression_works.md","articles":[]},{"title":"深度學習 Deep Learning","level":"1.3.2","depth":2,"path":"how_machine_learning_works/deep_learning_demystified.md","ref":"how_machine_learning_works/deep_learning_demystified.md","articles":[]},{"title":"神經網路 Neural Networks","level":"1.3.3","depth":2,"path":"how_machine_learning_works/how_neural_networks_work.md","ref":"how_machine_learning_works/how_neural_networks_work.md","articles":[]},{"title":"反向傳播 Backpropagation","level":"1.3.4","depth":2,"path":"how_machine_learning_works/how_backpropagation_work.md","ref":"how_machine_learning_works/how_backpropagation_work.md","articles":[]},{"title":"卷積神經網路 Convolutional Neural Networks","level":"1.3.5","depth":2,"path":"how_machine_learning_works/how_convolutional_neural_networks_work.md","ref":"how_machine_learning_works/how_convolutional_neural_networks_work.md","articles":[]},{"title":"遞歸神經網路和長短期記憶模型 RNN & LSTM","level":"1.3.6","depth":2,"path":"how_machine_learning_works/how_rnns_lstm_work.md","ref":"how_machine_learning_works/how_rnns_lstm_work.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["ga","custom-favicon","youtubex","image-captions","sitemap-general","katex","language-picker","comment"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"language-picker":{"grid-columns":2},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sitemap-general":{"prefix":"https://brohrer.mcknote.com/"},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"images/favicon.ico","youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"custom-favicon":{},"ga":{"configuration":"auto","token":"UA-75181285-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"comment":{"highlightCommented":true},"image-captions":{"caption":"圖說：_CAPTION_","variable_name":"_pictures"}},"github":"mcknote/brohrer.mcknote.com","theme":"default","author":"Jimmy Lin","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.1","level":"1.3.1","list_caption":"Figure: 左邊是鑽石的克拉數，右邊是價格","alt":"","nro":1,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_1.png","index":1,"caption_template":"圖說：_CAPTION_","label":"左邊是鑽石的克拉數，右邊是價格","attributes":{},"title":"左邊是鑽石的克拉數，右邊是價格","skip":false,"key":"1.3.1.1"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.2","level":"1.3.1","list_caption":"Figure: 紀錄鑽石克拉數的橫軸","alt":"","nro":2,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_2.png","index":2,"caption_template":"圖說：_CAPTION_","label":"紀錄鑽石克拉數的橫軸","attributes":{},"title":"紀錄鑽石克拉數的橫軸","skip":false,"key":"1.3.1.2"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.3","level":"1.3.1","list_caption":"Figure: 加上紀錄價格的縱軸","alt":"","nro":3,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_3.png","index":3,"caption_template":"圖說：_CAPTION_","label":"加上紀錄價格的縱軸","attributes":{},"title":"加上紀錄價格的縱軸","skip":false,"key":"1.3.1.3"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.4","level":"1.3.1","list_caption":"Figure: 利用橫軸跟縱軸鎖定資料點","alt":"","nro":4,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_4.png","index":4,"caption_template":"圖說：_CAPTION_","label":"利用橫軸跟縱軸鎖定資料點","attributes":{},"title":"利用橫軸跟縱軸鎖定資料點","skip":false,"key":"1.3.1.4"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.5","level":"1.3.1","list_caption":"Figure: 把所有鑽石畫在這個座標系上","alt":"","nro":5,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_5.png","index":5,"caption_template":"圖說：_CAPTION_","label":"把所有鑽石畫在這個座標系上","attributes":{},"title":"把所有鑽石畫在這個座標系上","skip":false,"key":"1.3.1.5"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.6","level":"1.3.1","list_caption":"Figure: 將貫穿資料點的直線畫出來","alt":"","nro":6,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_6.png","index":6,"caption_template":"圖說：_CAPTION_","label":"將貫穿資料點的直線畫出來","attributes":{},"title":"將貫穿資料點的直線畫出來","skip":false,"key":"1.3.1.6"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.7","level":"1.3.1","list_caption":"Figure: 輕鬆看出 1.35 克拉的鑽石賣 8,000 元","alt":"","nro":7,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_7.png","index":7,"caption_template":"圖說：_CAPTION_","label":"輕鬆看出 1.35 克拉的鑽石賣 8,000 元","attributes":{},"title":"輕鬆看出 1.35 克拉的鑽石賣 8,000 元","skip":false,"key":"1.3.1.7"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.8","level":"1.3.1","list_caption":"Figure: 包含大約 95% 觀測值的價格範圍","alt":"","nro":8,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_8.png","index":8,"caption_template":"圖說：_CAPTION_","label":"包含大約 95% 觀測值的價格範圍","attributes":{},"title":"包含大約 95% 觀測值的價格範圍","skip":false,"key":"1.3.1.8"},{"backlink":"how_machine_learning_works/how_linear_regression_works.html#fig1.3.1.9","level":"1.3.1","list_caption":"Figure: 1.35 克拉鑽石的價格範圍","alt":"","nro":9,"url":"https://brohrer.github.io/images/linear_regression/linear_regression_9.png","index":9,"caption_template":"圖說：_CAPTION_","label":"1.35 克拉鑽石的價格範圍","attributes":{},"title":"1.35 克拉鑽石的價格範圍","skip":false,"key":"1.3.1.9"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.1","level":"1.3.5","list_caption":"Figure: CNN 和圈圈叉叉","alt":"","nro":10,"url":"http://brohrer.github.io/images/cnn1.png","index":1,"caption_template":"圖說：_CAPTION_","label":"CNN 和圈圈叉叉","attributes":{},"title":"CNN 和圈圈叉叉","skip":false,"key":"1.3.5.1"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.2","level":"1.3.5","list_caption":"Figure: 直接比對的問題","alt":"","nro":11,"url":"http://brohrer.github.io/images/cnn2.png","index":2,"caption_template":"圖說：_CAPTION_","label":"直接比對的問題","attributes":{},"title":"直接比對的問題","skip":false,"key":"1.3.5.2"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.3","level":"1.3.5","list_caption":"Figure: 局部比對特徵","alt":"","nro":12,"url":"http://brohrer.github.io/images/cnn3.png","index":3,"caption_template":"圖說：_CAPTION_","label":"局部比對特徵","attributes":{},"title":"局部比對特徵","skip":false,"key":"1.3.5.3"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.4","level":"1.3.5","list_caption":"Figure: 一張圖片裡的每個特徵","alt":"","nro":13,"url":"http://brohrer.github.io/images/cnn4.png","index":4,"caption_template":"圖說：_CAPTION_","label":"一張圖片裡的每個特徵","attributes":{},"title":"一張圖片裡的每個特徵","skip":false,"key":"1.3.5.4"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.5","level":"1.3.5","list_caption":"Figure: 對應像素的乘積","alt":"","nro":14,"url":"http://brohrer.github.io/images/cnn5.png","index":5,"caption_template":"圖說：_CAPTION_","label":"對應像素的乘積","attributes":{},"title":"對應像素的乘積","skip":false,"key":"1.3.5.5"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.6","level":"1.3.5","list_caption":"Figure: 不同位置的卷積","alt":"","nro":15,"url":"http://brohrer.github.io/images/cnn6.png","index":6,"caption_template":"圖說：_CAPTION_","label":"不同位置的卷積","attributes":{},"title":"不同位置的卷積","skip":false,"key":"1.3.5.6"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.7","level":"1.3.5","list_caption":"Figure: 不同特徵的卷積圖","alt":"","nro":16,"url":"http://brohrer.github.io/images/cnn7.png","index":7,"caption_template":"圖說：_CAPTION_","label":"不同特徵的卷積圖","attributes":{},"title":"不同特徵的卷積圖","skip":false,"key":"1.3.5.7"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.8","level":"1.3.5","list_caption":"Figure: 池化的運作方式","alt":"","nro":17,"url":"http://brohrer.github.io/images/cnn8.png","index":8,"caption_template":"圖說：_CAPTION_","label":"池化的運作方式","attributes":{},"title":"池化的運作方式","skip":false,"key":"1.3.5.8"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.9","level":"1.3.5","list_caption":"Figure: 池化後的結果","alt":"","nro":18,"url":"http://brohrer.github.io/images/cnn9.png","index":9,"caption_template":"圖說：_CAPTION_","label":"池化後的結果","attributes":{},"title":"池化後的結果","skip":false,"key":"1.3.5.9"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.10","level":"1.3.5","list_caption":"Figure: 線性整流單元將負數化為 0","alt":"","nro":19,"url":"http://brohrer.github.io/images/cnn10.png","index":10,"caption_template":"圖說：_CAPTION_","label":"線性整流單元將負數化為 0","attributes":{},"title":"線性整流單元將負數化為 0","skip":false,"key":"1.3.5.10"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.11","level":"1.3.5","list_caption":"Figure: 線性整流後的結果","alt":"","nro":20,"url":"http://brohrer.github.io/images/cnn11.png","index":11,"caption_template":"圖說：_CAPTION_","label":"線性整流後的結果","attributes":{},"title":"線性整流後的結果","skip":false,"key":"1.3.5.11"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.12","level":"1.3.5","list_caption":"Figure: 深度學習的流程","alt":"","nro":21,"url":"http://brohrer.github.io/images/cnn12.png","index":12,"caption_template":"圖說：_CAPTION_","label":"深度學習的流程","attributes":{},"title":"深度學習的流程","skip":false,"key":"1.3.5.12"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.13","level":"1.3.5","list_caption":"Figure: 高低階層所能辨認出的特徵","alt":"","nro":22,"url":"https://brohrer.github.io/images/cnn18.png","index":13,"caption_template":"圖說：_CAPTION_","label":"高低階層所能辨認出的特徵","attributes":{},"title":"高低階層所能辨認出的特徵","skip":false,"key":"1.3.5.13"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.14","level":"1.3.5","list_caption":"Figure: 在全連結層內進行的投票","alt":"","nro":23,"url":"https://brohrer.github.io/images/cnn13.png","index":14,"caption_template":"圖說：_CAPTION_","label":"在全連結層內進行的投票","attributes":{},"title":"在全連結層內進行的投票","skip":false,"key":"1.3.5.14"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.15","level":"1.3.5","list_caption":"Figure: 從低階層到全連結層","alt":"","nro":24,"url":"https://brohrer.github.io/images/cnn14.png","index":15,"caption_template":"圖說：_CAPTION_","label":"從低階層到全連結層","attributes":{},"title":"從低階層到全連結層","skip":false,"key":"1.3.5.15"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.16","level":"1.3.5","list_caption":"Figure: 反向傳播","alt":"","nro":25,"url":"https://brohrer.github.io/images/cnn15.png","index":16,"caption_template":"圖說：_CAPTION_","label":"反向傳播","attributes":{},"title":"反向傳播","skip":false,"key":"1.3.5.16"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.17","level":"1.3.5","list_caption":"Figure: 聲音訊號的「圖片」","alt":"","nro":26,"url":"https://brohrer.github.io/images/cnn16.png","index":17,"caption_template":"圖說：_CAPTION_","label":"聲音訊號的「圖片」","attributes":{},"title":"聲音訊號的「圖片」","skip":false,"key":"1.3.5.17"},{"backlink":"how_machine_learning_works/how_convolutional_neural_networks_work.html#fig1.3.5.18","level":"1.3.5","list_caption":"Figure: 不適用 CNN 的顧客資料","alt":"","nro":27,"url":"https://brohrer.github.io/images/cnn17.png","index":18,"caption_template":"圖說：_CAPTION_","label":"不適用 CNN 的顧客資料","attributes":{},"title":"不適用 CNN 的顧客資料","skip":false,"key":"1.3.5.18"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.1","level":"1.3.6","list_caption":"Figure: 遞歸神經網路和長短期記憶模型的運作原理","alt":"","nro":28,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide1.png","index":1,"caption_template":"圖說：_CAPTION_","label":"遞歸神經網路和長短期記憶模型的運作原理","attributes":{},"title":"遞歸神經網路和長短期記憶模型的運作原理","skip":false,"key":"1.3.6.1"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.2","level":"1.3.6","list_caption":"Figure: 晚餐要吃什麼？","alt":"","nro":29,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide2.png","index":2,"caption_template":"圖說：_CAPTION_","label":"晚餐要吃什麼？","attributes":{},"title":"晚餐要吃什麼？","skip":false,"key":"1.3.6.2"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.3","level":"1.3.6","list_caption":"Figure: 神經網路的運作原理","alt":"","nro":30,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/CNNs.png","index":3,"caption_template":"圖說：_CAPTION_","label":"神經網路的運作原理","attributes":{},"title":"神經網路的運作原理","skip":false,"key":"1.3.6.3"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.4","level":"1.3.6","list_caption":"Figure: 晚餐出現的循環","alt":"","nro":31,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide3.png","index":4,"caption_template":"圖說：_CAPTION_","label":"晚餐出現的循環","attributes":{},"title":"晚餐出現的循環","skip":false,"key":"1.3.6.4"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.5","level":"1.3.6","list_caption":"Figure: 根據昨天的歷史或預測結果預測","alt":"","nro":32,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide4.png","index":5,"caption_template":"圖說：_CAPTION_","label":"根據昨天的歷史或預測結果預測","attributes":{},"title":"根據昨天的歷史或預測結果預測","skip":false,"key":"1.3.6.5"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.6","level":"1.3.6","list_caption":"Figure: 包含天氣資訊的向量","alt":"","nro":33,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide5.png","index":6,"caption_template":"圖說：_CAPTION_","label":"包含天氣資訊的向量","attributes":{},"title":"包含天氣資訊的向量","skip":false,"key":"1.3.6.6"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.7","level":"1.3.6","list_caption":"Figure: 使用 one-hot 編碼的向量","alt":"","nro":34,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide6.png","index":7,"caption_template":"圖說：_CAPTION_","label":"使用 one-hot 編碼的向量","attributes":{},"title":"使用 one-hot 編碼的向量","skip":false,"key":"1.3.6.7"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.8","level":"1.3.6","list_caption":"Figure: 將晚餐選擇轉為 one-hot 向量","alt":"","nro":35,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide7.png","index":8,"caption_template":"圖說：_CAPTION_","label":"將晚餐選擇轉為 one-hot 向量","attributes":{},"title":"將晚餐選擇轉為 one-hot 向量","skip":false,"key":"1.3.6.8"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.9","level":"1.3.6","list_caption":"Figure: 輸入因素和輸出因素間的關聯","alt":"","nro":36,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide9.png","index":9,"caption_template":"圖說：_CAPTION_","label":"輸入因素和輸出因素間的關聯","attributes":{},"title":"輸入因素和輸出因素間的關聯","skip":false,"key":"1.3.6.9"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.10","level":"1.3.6","list_caption":"Figure: 輸入因素和輸出因素間的關聯","alt":"","nro":37,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide10.png","index":10,"caption_template":"圖說：_CAPTION_","label":"輸入因素和輸出因素間的關聯","attributes":{},"title":"輸入因素和輸出因素間的關聯","skip":false,"key":"1.3.6.10"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.11","level":"1.3.6","list_caption":"Figure: 延伸後的預測結果","alt":"","nro":38,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide12.png","index":11,"caption_template":"圖說：_CAPTION_","label":"延伸後的預測結果","attributes":{},"title":"延伸後的預測結果","skip":false,"key":"1.3.6.11"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.12","level":"1.3.6","list_caption":"Figure: 寫一本童書","alt":"","nro":39,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide13.png","index":12,"caption_template":"圖說：_CAPTION_","label":"寫一本童書","attributes":{},"title":"寫一本童書","skip":false,"key":"1.3.6.12"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.13","level":"1.3.6","list_caption":"Figure: 前後關聯的單字預測","alt":"","nro":40,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide14.png","index":13,"caption_template":"圖說：_CAPTION_","label":"前後關聯的單字預測","attributes":{},"title":"前後關聯的單字預測","skip":false,"key":"1.3.6.13"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.14","level":"1.3.6","list_caption":"Figure: 單字之間的關聯（一）","alt":"","nro":41,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide15.png","index":14,"caption_template":"圖說：_CAPTION_","label":"單字之間的關聯（一）","attributes":{},"title":"單字之間的關聯（一）","skip":false,"key":"1.3.6.14"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.15","level":"1.3.6","list_caption":"Figure: 單字之間的關聯（二）","alt":"","nro":42,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide16.png","index":15,"caption_template":"圖說：_CAPTION_","label":"單字之間的關聯（二）","attributes":{},"title":"單字之間的關聯（二）","skip":false,"key":"1.3.6.15"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.16","level":"1.3.6","list_caption":"Figure: 單字之間的關聯（三）","alt":"","nro":43,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide17.png","index":16,"caption_template":"圖說：_CAPTION_","label":"單字之間的關聯（三）","attributes":{},"title":"單字之間的關聯（三）","skip":false,"key":"1.3.6.16"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.17","level":"1.3.6","list_caption":"Figure: 簡化後的 RNN 模型","alt":"","nro":44,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide18.png","index":17,"caption_template":"圖說：_CAPTION_","label":"簡化後的 RNN 模型","attributes":{},"title":"簡化後的 RNN 模型","skip":false,"key":"1.3.6.17"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.18","level":"1.3.6","list_caption":"Figure: 擠壓函數（雙曲正切函數）","alt":"","nro":45,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide19.png","index":18,"caption_template":"圖說：_CAPTION_","label":"擠壓函數（雙曲正切函數）","attributes":{},"title":"擠壓函數（雙曲正切函數）","skip":false,"key":"1.3.6.18"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.19","level":"1.3.6","list_caption":"Figure: 擠壓函數上的數值對應（一）","alt":"","nro":46,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide22.png","index":19,"caption_template":"圖說：_CAPTION_","label":"擠壓函數上的數值對應（一）","attributes":{},"title":"擠壓函數上的數值對應（一）","skip":false,"key":"1.3.6.19"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.20","level":"1.3.6","list_caption":"Figure: 擠壓函數上的數值對應（二）","alt":"","nro":47,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide25.png","index":20,"caption_template":"圖說：_CAPTION_","label":"擠壓函數上的數值對應（二）","attributes":{},"title":"擠壓函數上的數值對應（二）","skip":false,"key":"1.3.6.20"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.21","level":"1.3.6","list_caption":"Figure: 當前模型可能出現的錯誤","alt":"","nro":48,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide27.png","index":21,"caption_template":"圖說：_CAPTION_","label":"當前模型可能出現的錯誤","attributes":{},"title":"當前模型可能出現的錯誤","skip":false,"key":"1.3.6.21"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.22","level":"1.3.6","list_caption":"Figure: 準備擴充的 RNN","alt":"","nro":49,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide29.png","index":22,"caption_template":"圖說：_CAPTION_","label":"準備擴充的 RNN","attributes":{},"title":"準備擴充的 RNN","skip":false,"key":"1.3.6.22"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.23","level":"1.3.6","list_caption":"Figure: 加入記憶／遺忘路徑後的 RNN","alt":"","nro":50,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide30.png","index":23,"caption_template":"圖說：_CAPTION_","label":"加入記憶／遺忘路徑後的 RNN","attributes":{},"title":"加入記憶／遺忘路徑後的 RNN","skip":false,"key":"1.3.6.23"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.24","level":"1.3.6","list_caption":"Figure: 逐元素相加","alt":"","nro":51,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide31.png","index":24,"caption_template":"圖說：_CAPTION_","label":"逐元素相加","attributes":{},"title":"逐元素相加","skip":false,"key":"1.3.6.24"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.25","level":"1.3.6","list_caption":"Figure: 逐元素相乘","alt":"","nro":52,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide32.png","index":25,"caption_template":"圖說：_CAPTION_","label":"逐元素相乘","attributes":{},"title":"逐元素相乘","skip":false,"key":"1.3.6.25"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.26","level":"1.3.6","list_caption":"Figure: 逐元素相乘和閘門","alt":"","nro":53,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide33.png","index":26,"caption_template":"圖說：_CAPTION_","label":"逐元素相乘和閘門","attributes":{},"title":"逐元素相乘和閘門","skip":false,"key":"1.3.6.26"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.27","level":"1.3.6","list_caption":"Figure: 擠壓函數（邏輯函數）","alt":"","nro":54,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide34.png","index":27,"caption_template":"圖說：_CAPTION_","label":"擠壓函數（邏輯函數）","attributes":{},"title":"擠壓函數（邏輯函數）","skip":false,"key":"1.3.6.27"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.28","level":"1.3.6","list_caption":"Figure: 記憶／遺忘路徑","alt":"","nro":55,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide35.png","index":28,"caption_template":"圖說：_CAPTION_","label":"記憶／遺忘路徑","attributes":{},"title":"記憶／遺忘路徑","skip":false,"key":"1.3.6.28"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.29","level":"1.3.6","list_caption":"Figure: 多了篩選路徑的 RNN","alt":"","nro":56,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide36.png","index":29,"caption_template":"圖說：_CAPTION_","label":"多了篩選路徑的 RNN","attributes":{},"title":"多了篩選路徑的 RNN","skip":false,"key":"1.3.6.29"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.30","level":"1.3.6","list_caption":"Figure: 多了忽視路徑的 RNN","alt":"","nro":57,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide37.png","index":30,"caption_template":"圖說：_CAPTION_","label":"多了忽視路徑的 RNN","attributes":{},"title":"多了忽視路徑的 RNN","skip":false,"key":"1.3.6.30"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.31","level":"1.3.6","list_caption":"Figure: 「珍看見小點（句號），道格⋯⋯」","alt":"","nro":58,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide38.png","index":31,"caption_template":"圖說：_CAPTION_","label":"「珍看見小點（句號），道格⋯⋯」","attributes":{},"title":"「珍看見小點（句號），道格⋯⋯」","skip":false,"key":"1.3.6.31"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.32","level":"1.3.6","list_caption":"Figure: 初步預測結果：「看見」和「非道格」","alt":"","nro":59,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide40.png","index":32,"caption_template":"圖說：_CAPTION_","label":"初步預測結果：「看見」和「非道格」","attributes":{},"title":"初步預測結果：「看見」和「非道格」","skip":false,"key":"1.3.6.32"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.33","level":"1.3.6","list_caption":"Figure: 通過篩選路徑前的「看見」和「非道格」","alt":"","nro":60,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide42.png","index":33,"caption_template":"圖說：_CAPTION_","label":"通過篩選路徑前的「看見」和「非道格」","attributes":{},"title":"通過篩選路徑前的「看見」和「非道格」","skip":false,"key":"1.3.6.33"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.34","level":"1.3.6","list_caption":"Figure: 從「看見」開始的新循環","alt":"","nro":61,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide46.png","index":34,"caption_template":"圖說：_CAPTION_","label":"從「看見」開始的新循環","attributes":{},"title":"從「看見」開始的新循環","skip":false,"key":"1.3.6.34"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.35","level":"1.3.6","list_caption":"Figure: 準備和「非道格」抵銷的初步預測","alt":"","nro":62,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide50.png","index":35,"caption_template":"圖說：_CAPTION_","label":"準備和「非道格」抵銷的初步預測","attributes":{},"title":"準備和「非道格」抵銷的初步預測","skip":false,"key":"1.3.6.35"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.36","level":"1.3.6","list_caption":"Figure: 抵銷後剩下「珍」和「小點」","alt":"","nro":63,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide51.png","index":36,"caption_template":"圖說：_CAPTION_","label":"抵銷後剩下「珍」和「小點」","attributes":{},"title":"抵銷後剩下「珍」和「小點」","skip":false,"key":"1.3.6.36"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.37","level":"1.3.6","list_caption":"Figure: 「珍」和「小點」成為最終預測結果","alt":"","nro":64,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide52.png","index":37,"caption_template":"圖說：_CAPTION_","label":"「珍」和「小點」成為最終預測結果","attributes":{},"title":"「珍」和「小點」成為最終預測結果","skip":false,"key":"1.3.6.37"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.38","level":"1.3.6","list_caption":"Figure: 帶序列性的資料","alt":"","nro":65,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide53.png","index":38,"caption_template":"圖說：_CAPTION_","label":"帶序列性的資料","attributes":{},"title":"帶序列性的資料","skip":false,"key":"1.3.6.38"},{"backlink":"how_machine_learning_works/how_rnns_lstm_work.html#fig1.3.6.39","level":"1.3.6","list_caption":"Figure: Wikipedia 上 RNN 的介紹","alt":"","nro":66,"url":"https://elham-khanche.github.io/blog/assets/img/RNN/Slide54.png","index":39,"caption_template":"圖說：_CAPTION_","label":"Wikipedia 上 RNN 的介紹","attributes":{},"title":"Wikipedia 上 RNN 的介紹","skip":false,"key":"1.3.6.39"},{"backlink":"using_machine_learning/find_the_right_algorithm.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: Azure 演算法秘笈","alt":"","nro":67,"url":"https://brohrer.github.io/images/cheat_sheet.png","index":1,"caption_template":"圖說：_CAPTION_","label":"Azure 演算法秘笈","attributes":{},"title":"Azure 演算法秘笈","skip":false,"key":"1.4.2.1"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.1","level":"1.6.1","list_caption":"Figure: 整間電影院裡的男女、長短髮人口","alt":"","nro":68,"url":"http://brohrer.github.io/images/bayesian_11.png","index":1,"caption_template":"圖說：_CAPTION_","label":"整間電影院裡的男女、長短髮人口","attributes":{},"title":"整間電影院裡的男女、長短髮人口","skip":false,"key":"1.6.1.1"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.2","level":"1.6.1","list_caption":"Figure: 男性洗手間隊伍裡的男女、長短髮人口","alt":"","nro":69,"url":"http://brohrer.github.io/images/bayesian_12.png","index":2,"caption_template":"圖說：_CAPTION_","label":"男性洗手間隊伍裡的男女、長短髮人口","attributes":{},"title":"男性洗手間隊伍裡的男女、長短髮人口","skip":false,"key":"1.6.1.2"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.3","level":"1.6.1","list_caption":"Figure: 在整間電影院裡，遇到男或女、長或短髮觀眾的機率","alt":"","nro":70,"url":"http://brohrer.github.io/images/bayesian_13.png","index":3,"caption_template":"圖說：_CAPTION_","label":"在整間電影院裡，遇到男或女、長或短髮觀眾的機率","attributes":{},"title":"在整間電影院裡，遇到男或女、長或短髮觀眾的機率","skip":false,"key":"1.6.1.3"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.4","level":"1.6.1","list_caption":"Figure: 在男性洗手間隊伍裡，遇到男或女、長或短髮觀眾的機率","alt":"","nro":71,"url":"http://brohrer.github.io/images/bayesian_14.png","index":4,"caption_template":"圖說：_CAPTION_","label":"在男性洗手間隊伍裡，遇到男或女、長或短髮觀眾的機率","attributes":{},"title":"在男性洗手間隊伍裡，遇到男或女、長或短髮觀眾的機率","skip":false,"key":"1.6.1.4"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.5","level":"1.6.1","list_caption":"Figure: 在任何場景的女性中，遇到長或短髮觀眾的機率","alt":"","nro":72,"url":"http://brohrer.github.io/images/bayesian_15.png","index":5,"caption_template":"圖說：_CAPTION_","label":"在任何場景的女性中，遇到長或短髮觀眾的機率","attributes":{},"title":"在任何場景的女性中，遇到長或短髮觀眾的機率","skip":false,"key":"1.6.1.5"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.6","level":"1.6.1","list_caption":"Figure: 在任何場景的男性中，遇到長或短髮觀眾的機率","alt":"","nro":73,"url":"http://brohrer.github.io/images/bayesian_17.png","index":6,"caption_template":"圖說：_CAPTION_","label":"在任何場景的男性中，遇到長或短髮觀眾的機率","attributes":{},"title":"在任何場景的男性中，遇到長或短髮觀眾的機率","skip":false,"key":"1.6.1.6"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.7","level":"1.6.1","list_caption":"Figure: 在整間電影院裡，遇到短髮女性的機率","alt":"","nro":74,"url":"http://brohrer.github.io/images/bayesian_19.png","index":7,"caption_template":"圖說：_CAPTION_","label":"在整間電影院裡，遇到短髮女性的機率","attributes":{},"title":"在整間電影院裡，遇到短髮女性的機率","skip":false,"key":"1.6.1.7"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.8","level":"1.6.1","list_caption":"Figure: 在男性洗手間隊伍裡，遇到長或短髮男性的機率","alt":"","nro":75,"url":"http://brohrer.github.io/images/bayesian_23.png","index":8,"caption_template":"圖說：_CAPTION_","label":"在男性洗手間隊伍裡，遇到長或短髮男性的機率","attributes":{},"title":"在男性洗手間隊伍裡，遇到長或短髮男性的機率","skip":false,"key":"1.6.1.8"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.9","level":"1.6.1","list_caption":"Figure: 在男性洗手間隊伍裡，遇到長髮觀眾的機率","alt":"","nro":76,"url":"http://brohrer.github.io/images/bayesian_26.png","index":9,"caption_template":"圖說：_CAPTION_","label":"在男性洗手間隊伍裡，遇到長髮觀眾的機率","attributes":{},"title":"在男性洗手間隊伍裡，遇到長髮觀眾的機率","skip":false,"key":"1.6.1.9"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.10","level":"1.6.1","list_caption":"Figure: 貝氏定理中的四個部分","alt":"","nro":77,"url":"http://brohrer.github.io/images/Bayes_Theorem.gif","index":10,"caption_template":"圖說：_CAPTION_","label":"貝氏定理中的四個部分","attributes":{},"title":"貝氏定理中的四個部分","skip":false,"key":"1.6.1.10"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.11","level":"1.6.1","list_caption":"Figure: 均勻分布的事前機率","alt":"","nro":78,"url":"http://brohrer.github.io/images/Bayesian_uniform_prior.gif","index":11,"caption_template":"圖說：_CAPTION_","label":"均勻分布的事前機率","attributes":{},"title":"均勻分布的事前機率","skip":false,"key":"1.6.1.11"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.12","level":"1.6.1","list_caption":"Figure: 我們所相信的事前機率","alt":"","nro":79,"url":"http://brohrer.github.io/images/bayesian_84.png","index":12,"caption_template":"圖說：_CAPTION_","label":"我們所相信的事前機率","attributes":{},"title":"我們所相信的事前機率","skip":false,"key":"1.6.1.12"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.13","level":"1.6.1","list_caption":"Figure: 非均勻分布的事前機率","alt":"","nro":80,"url":"http://brohrer.github.io/images/Bayesian_nonuniform_prior.gif","index":13,"caption_template":"圖說：_CAPTION_","label":"非均勻分布的事前機率","attributes":{},"title":"非均勻分布的事前機率","skip":false,"key":"1.6.1.13"},{"backlink":"statistics/how_bayesian_inference_works.html#fig1.6.1.14","level":"1.6.1","list_caption":"Figure: 貝氏和非貝氏估計結果","alt":"","nro":81,"url":"http://brohrer.github.io/images/bayesian_93.png","index":14,"caption_template":"圖說：_CAPTION_","label":"貝氏和非貝氏估計結果","attributes":{},"title":"貝氏和非貝氏估計結果","skip":false,"key":"1.6.1.14"}]},"title":"資料科學・機器・人","language":"zh-Hant","links":{"sidebar":{"資料科學・機器・人":"https://www.gitbook.com/book/mcknote/brohrer"},"gitbook":true},"gitbook":"*","description":"Data Science and Robots 的中文站。英文站由資料科學家 Brandon Rohrer 撰寫，包含許多機器學習相關的淺顯說明和寶貴經驗。"},"file":{"path":"how_machine_learning_works/how_linear_regression_works.md","mtime":"2018-01-24T04:06:33.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-24T04:11:52.062Z"},"basePath":"..","book":{"language":"zh-Hant"}});
+        });
+    </script>
+</div>
+
+
+        
+    <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/gitbook.js.下載"></script>
+    <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/theme.js.下載"></script>
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/plugin.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/player.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/plugin.js(1).下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/plugin.js(2).下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/search-engine.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/search.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/lunr.min.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/search-lunr.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/buttons.js.下載"></script>
+        
+    
+        
+        <script src="./線性迴歸 Linear Regression · 資料科學・機器・人_files/fontsettings.js.下載"></script>
+        
+    
+
+    
+
+
+</body></html>

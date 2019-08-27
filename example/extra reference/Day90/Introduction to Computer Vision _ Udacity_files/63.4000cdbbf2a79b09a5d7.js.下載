@@ -1,0 +1,340 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[63],{
+
+/***/ "../../libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.ngfactory.js":
+/*!**************************************************************************************************************************************************!*\
+  !*** /home/circleci/iridium/libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.ngfactory.js ***!
+  \**************************************************************************************************************************************************/
+/*! exports provided: RenderType_RequestSyllabusModalComponent, View_RequestSyllabusModalComponent_0, View_RequestSyllabusModalComponent_Host_0, RequestSyllabusModalComponentNgFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderType_RequestSyllabusModalComponent", function() { return RenderType_RequestSyllabusModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_RequestSyllabusModalComponent_0", function() { return View_RequestSyllabusModalComponent_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_RequestSyllabusModalComponent_Host_0", function() { return View_RequestSyllabusModalComponent_Host_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestSyllabusModalComponentNgFactory", function() { return RequestSyllabusModalComponentNgFactory; });
+/* harmony import */ var _request_syllabus_modal_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request-syllabus-modal.component.scss.shim.ngstyle */ "../../libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.scss.shim.ngstyle.js");
+/* harmony import */ var _notify_me_modal_notify_me_modal_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../notify-me-modal/notify-me-modal.component.scss.shim.ngstyle */ "../../libs/routes/nanodegree-overview/src/lib/shared/notify-me-modal/notify-me-modal.component.scss.shim.ngstyle.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_src_lib_privacy_policy_consent_privacy_policy_consent_component_ngfactory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../shared/src/lib/privacy-policy-consent/privacy-policy-consent.component.ngfactory */ "../../libs/shared/src/lib/privacy-policy-consent/privacy-policy-consent.component.ngfactory.js");
+/* harmony import */ var _shared_src_lib_privacy_policy_consent_privacy_policy_consent_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../shared/src/lib/privacy-policy-consent/privacy-policy-consent.component */ "../../libs/shared/src/lib/privacy-policy-consent/privacy-policy-consent.component.ts");
+/* harmony import */ var _core_src_lib_services_geo_geo_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../core/src/lib/services/geo/geo.service */ "../../libs/core/src/lib/services/geo/geo.service.ts");
+/* harmony import */ var _environments_src_lib_environment_token__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../environments/src/lib/environment.token */ "../../libs/environments/src/lib/environment.token.ts");
+/* harmony import */ var _shared_src_lib_modal_modal_component_ngfactory__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../shared/src/lib/modal/modal.component.ngfactory */ "../../libs/shared/src/lib/modal/modal.component.ngfactory.js");
+/* harmony import */ var _shared_src_lib_modal_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../../shared/src/lib/modal/modal.component */ "../../libs/shared/src/lib/modal/modal.component.ts");
+/* harmony import */ var _request_syllabus_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./request-syllabus-modal.component */ "../../libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.ts");
+/* harmony import */ var _core_src_lib_services_analytics_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../../core/src/lib/services/analytics.service */ "../../libs/core/src/lib/services/analytics.service.ts");
+/* harmony import */ var _core_src_lib_services_signup_no_password_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../../core/src/lib/services/signup_no_password.service */ "../../libs/core/src/lib/services/signup_no_password.service.ts");
+/* harmony import */ var _core_src_lib_services_student_profile_user_account_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../../core/src/lib/services/student-profile/user-account.service */ "../../libs/core/src/lib/services/student-profile/user-account.service.ts");
+/* harmony import */ var _core_src_lib_services_authentication_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../../core/src/lib/services/authentication.service */ "../../libs/core/src/lib/services/authentication.service.ts");
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */
+/** PURE_IMPORTS_START _request_syllabus_modal.component.scss.shim.ngstyle,_notify_me_modal_notify_me_modal.component.scss.shim.ngstyle,_angular_core,_angular_common,_angular_forms,_.._.._.._.._.._shared_src_lib_privacy_policy_consent_privacy_policy_consent.component.ngfactory,_.._.._.._.._.._shared_src_lib_privacy_policy_consent_privacy_policy_consent.component,_.._.._.._.._.._core_src_lib_services_geo_geo.service,_.._.._.._.._.._environments_src_lib_environment.token,_.._.._.._.._.._shared_src_lib_modal_modal.component.ngfactory,_.._.._.._.._.._shared_src_lib_modal_modal.component,_request_syllabus_modal.component,_.._.._.._.._.._core_src_lib_services_analytics.service,_.._.._.._.._.._core_src_lib_services_signup_no_password.service,_.._.._.._.._.._core_src_lib_services_student_profile_user_account.service,_.._.._.._.._.._core_src_lib_services_authentication.service PURE_IMPORTS_END */
+/** PURE_IMPORTS_START _request_syllabus_modal.component.scss.shim.ngstyle,_notify_me_modal_notify_me_modal.component.scss.shim.ngstyle,_angular_core,_angular_common,_angular_forms,_.._.._.._.._.._shared_src_lib_privacy_policy_consent_privacy_policy_consent.component.ngfactory,_.._.._.._.._.._shared_src_lib_privacy_policy_consent_privacy_policy_consent.component,_.._.._.._.._.._core_src_lib_services_geo_geo.service,_.._.._.._.._.._environments_src_lib_environment.token,_.._.._.._.._.._shared_src_lib_modal_modal.component.ngfactory,_.._.._.._.._.._shared_src_lib_modal_modal.component,_request_syllabus_modal.component,_.._.._.._.._.._core_src_lib_services_analytics.service,_.._.._.._.._.._core_src_lib_services_signup_no_password.service,_.._.._.._.._.._core_src_lib_services_student_profile_user_account.service,_.._.._.._.._.._core_src_lib_services_authentication.service PURE_IMPORTS_END */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var styles_RequestSyllabusModalComponent = [_request_syllabus_modal_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"], _notify_me_modal_notify_me_modal_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_1__["styles"]];
+var RenderType_RequestSyllabusModalComponent = /*@__PURE__*/ /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵcrt"]({ encapsulation: 0, styles: styles_RequestSyllabusModalComponent, data: {} });
+
+function View_RequestSyllabusModalComponent_1(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 16777216, null, null, 1, null, null, null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](1, 540672, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgTemplateOutlet"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"]], { ngTemplateOutlet: [0, "ngTemplateOutlet"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](0, null, null, 0))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.headerTemplate; _ck(_v, 1, 0, currVal_0); }, null); }
+function View_RequestSyllabusModalComponent_2(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 0, null, null, 6, null, null, null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](1, 0, null, null, 1, "h5", [["class", "h2 modal-header--desktop"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, [" Request detailed syllabus "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](3, 0, null, null, 1, "h5", [["class", "h2 modal-header--mobile"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, [" Request syllabus "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](5, 0, null, null, 1, "p", [["class", "text-left header-info"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, [" Fill in the form to receive more information about the course. "]))], null, null); }
+function View_RequestSyllabusModalComponent_3(_l) {
+    return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 0, null, null, 14, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](1, 0, null, null, 13, "div", [["class", "input-container"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](2, 0, null, null, 1, "label", [["class", "hidden"], ["for", "notifyMe-phone"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, ["Phone No"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](4, 0, null, null, 10, "input", [["formControlName", "phone"], ["id", "notifyMe-phone"], ["maxlength", "11"], ["minlength", "10"], ["name", "phone"], ["pattern", "[0-9]*"], ["placeholder", "Phone*"], ["required", ""], ["type", "tel"]], [[1, "required", 0], [1, "minlength", 0], [1, "maxlength", 0], [1, "pattern", 0], [2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], [[null, "input"], [null, "blur"], [null, "compositionstart"], [null, "compositionend"]], function (_v, en, $event) {
+            var ad = true;
+            if (("input" === en)) {
+                var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 5)._handleInput($event.target.value) !== false);
+                ad = (pd_0 && ad);
+            }
+            if (("blur" === en)) {
+                var pd_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 5).onTouched() !== false);
+                ad = (pd_1 && ad);
+            }
+            if (("compositionstart" === en)) {
+                var pd_2 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 5)._compositionStart() !== false);
+                ad = (pd_2 && ad);
+            }
+            if (("compositionend" === en)) {
+                var pd_3 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 5)._compositionEnd($event.target.value) !== false);
+                ad = (pd_3 && ad);
+            }
+            return ad;
+        }, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](5, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["COMPOSITION_BUFFER_MODE"]]], null, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](6, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["RequiredValidator"], [], { required: [0, "required"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](7, 540672, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["MinLengthValidator"], [], { minlength: [0, "minlength"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](8, 540672, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["MaxLengthValidator"], [], { maxlength: [0, "maxlength"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](9, 540672, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["PatternValidator"], [], { pattern: [0, "pattern"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"], function (p0_0, p1_0, p2_0, p3_0) { return [p0_0, p1_0, p2_0, p3_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["PatternValidator"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"], function (p0_0) { return [p0_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](12, 671744, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControlName"], [[3, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ControlContainer"]], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"]], [8, null], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"]], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵangular_packages_forms_forms_k"]]], { name: [0, "name"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](2048, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"], null, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControlName"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](14, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"], [[4, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"]]], null, null)], function (_ck, _v) { var currVal_11 = ""; _ck(_v, 6, 0, currVal_11); var currVal_12 = "10"; _ck(_v, 7, 0, currVal_12); var currVal_13 = "11"; _ck(_v, 8, 0, currVal_13); var currVal_14 = "[0-9]*"; _ck(_v, 9, 0, currVal_14); var currVal_15 = "phone"; _ck(_v, 12, 0, currVal_15); }, function (_ck, _v) { var currVal_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 6).required ? "" : null); var currVal_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 7).minlength ? _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 7).minlength : null); var currVal_2 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 8).maxlength ? _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 8).maxlength : null); var currVal_3 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 9).pattern ? _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 9).pattern : null); var currVal_4 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassUntouched; var currVal_5 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassTouched; var currVal_6 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassPristine; var currVal_7 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassDirty; var currVal_8 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassValid; var currVal_9 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassInvalid; var currVal_10 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 14).ngClassPending; _ck(_v, 4, 1, [currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6, currVal_7, currVal_8, currVal_9, currVal_10]); });
+}
+function View_RequestSyllabusModalComponent_4(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 0, null, null, 2, null, null, null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](1, 0, null, null, 1, "ir-privacy-policy-consent", [], null, null, null, _shared_src_lib_privacy_policy_consent_privacy_policy_consent_component_ngfactory__WEBPACK_IMPORTED_MODULE_5__["View_PrivacyPolicyConsentComponent_0"], _shared_src_lib_privacy_policy_consent_privacy_policy_consent_component_ngfactory__WEBPACK_IMPORTED_MODULE_5__["RenderType_PrivacyPolicyConsentComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](2, 245760, null, 0, _shared_src_lib_privacy_policy_consent_privacy_policy_consent_component__WEBPACK_IMPORTED_MODULE_6__["PrivacyPolicyConsentComponent"], [_core_src_lib_services_geo_geo_service__WEBPACK_IMPORTED_MODULE_7__["GeoService"], _environments_src_lib_environment_token__WEBPACK_IMPORTED_MODULE_8__["IR_ENVIRONMENT"]], { parentForm: [0, "parentForm"], buttonText: [1, "buttonText"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.contactForm; var currVal_1 = _co.buttonText; _ck(_v, 2, 0, currVal_0, currVal_1); }, null); }
+function View_RequestSyllabusModalComponent_5(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 16777216, null, null, 1, null, null, null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](1, 540672, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgTemplateOutlet"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"]], { ngTemplateOutlet: [0, "ngTemplateOutlet"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](0, null, null, 0))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.thankYouTemplate; _ck(_v, 1, 0, currVal_0); }, null); }
+function View_RequestSyllabusModalComponent_6(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 0, null, null, 4, null, null, null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](1, 0, null, null, 1, "h5", [["class", "h2"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, [" Thanks for your interest! "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](3, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, ["A copy of the syllabus has also been sent to the email address that you provided."]))], null, null); }
+function View_RequestSyllabusModalComponent_0(_l) {
+    return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 0, null, null, 48, "ir-modal", [], null, [[null, "modalClose"], ["document", "keydown"]], function (_v, en, $event) {
+            var ad = true;
+            var _co = _v.component;
+            if (("document:keydown" === en)) {
+                var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 1).closeModal($event) !== false);
+                ad = (pd_0 && ad);
+            }
+            if (("modalClose" === en)) {
+                var pd_1 = (_co.onClose() !== false);
+                ad = (pd_1 && ad);
+            }
+            return ad;
+        }, _shared_src_lib_modal_modal_component_ngfactory__WEBPACK_IMPORTED_MODULE_9__["View_ModalComponent_0"], _shared_src_lib_modal_modal_component_ngfactory__WEBPACK_IMPORTED_MODULE_9__["RenderType_ModalComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](1, 114688, null, 0, _shared_src_lib_modal_modal_component__WEBPACK_IMPORTED_MODULE_10__["ModalComponent"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["PLATFORM_ID"]], { open: [0, "open"] }, { modalClose: "modalClose" }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](2, 0, null, 0, 46, "div", [["class", "notify-me-form"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](3, 0, null, null, 40, "div", [], [[8, "hidden", 0]], null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](16777216, null, null, 1, null, View_RequestSyllabusModalComponent_1)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](5, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](16777216, null, null, 1, null, View_RequestSyllabusModalComponent_2)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](7, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](8, 0, null, null, 35, "form", [["novalidate", ""]], [[2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], [[null, "submit"], [null, "reset"]], function (_v, en, $event) {
+            var ad = true;
+            var _co = _v.component;
+            if (("submit" === en)) {
+                var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 10).onSubmit($event) !== false);
+                ad = (pd_0 && ad);
+            }
+            if (("reset" === en)) {
+                var pd_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 10).onReset() !== false);
+                ad = (pd_1 && ad);
+            }
+            if (("submit" === en)) {
+                var pd_2 = (_co.onSubmitForm() !== false);
+                ad = (pd_2 && ad);
+            }
+            return ad;
+        }, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](9, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵangular_packages_forms_forms_bh"], [], null, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](10, 540672, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroupDirective"], [[8, null], [8, null]], { form: [0, "form"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](2048, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ControlContainer"], null, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroupDirective"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](12, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatusGroup"], [[4, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ControlContainer"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](13, 0, null, null, 28, "div", [["class", "input-wrapper"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](14, 0, null, null, 10, "div", [["class", "input-container"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](15, 0, null, null, 1, "label", [["class", "hidden"], ["for", "notifyMe-name"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, ["First Name"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](17, 0, null, null, 7, "input", [["formControlName", "firstName"], ["id", "notifyMe-name"], ["name", "name"], ["placeholder", "First Name*"], ["required", ""], ["type", "text"]], [[1, "required", 0], [2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], [[null, "input"], [null, "blur"], [null, "compositionstart"], [null, "compositionend"]], function (_v, en, $event) {
+            var ad = true;
+            if (("input" === en)) {
+                var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 18)._handleInput($event.target.value) !== false);
+                ad = (pd_0 && ad);
+            }
+            if (("blur" === en)) {
+                var pd_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 18).onTouched() !== false);
+                ad = (pd_1 && ad);
+            }
+            if (("compositionstart" === en)) {
+                var pd_2 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 18)._compositionStart() !== false);
+                ad = (pd_2 && ad);
+            }
+            if (("compositionend" === en)) {
+                var pd_3 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 18)._compositionEnd($event.target.value) !== false);
+                ad = (pd_3 && ad);
+            }
+            return ad;
+        }, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](18, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["COMPOSITION_BUFFER_MODE"]]], null, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](19, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["RequiredValidator"], [], { required: [0, "required"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"], function (p0_0) { return [p0_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["RequiredValidator"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"], function (p0_0) { return [p0_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](22, 671744, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControlName"], [[3, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ControlContainer"]], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"]], [8, null], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"]], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵangular_packages_forms_forms_k"]]], { name: [0, "name"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](2048, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"], null, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControlName"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](24, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"], [[4, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](25, 0, null, null, 12, "div", [["class", "input-container"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](26, 0, null, null, 1, "label", [["class", "hidden"], ["for", "notifyMe-email"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵted"](-1, null, ["Email"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](28, 0, null, null, 9, "input", [["email", ""], ["formControlName", "email"], ["id", "notifyMe-email"], ["name", "email"], ["placeholder", "Email*"], ["required", ""], ["type", "email"]], [[1, "required", 0], [1, "pattern", 0], [2, "ng-untouched", null], [2, "ng-touched", null], [2, "ng-pristine", null], [2, "ng-dirty", null], [2, "ng-valid", null], [2, "ng-invalid", null], [2, "ng-pending", null]], [[null, "input"], [null, "blur"], [null, "compositionstart"], [null, "compositionend"]], function (_v, en, $event) {
+            var ad = true;
+            if (("input" === en)) {
+                var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 29)._handleInput($event.target.value) !== false);
+                ad = (pd_0 && ad);
+            }
+            if (("blur" === en)) {
+                var pd_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 29).onTouched() !== false);
+                ad = (pd_1 && ad);
+            }
+            if (("compositionstart" === en)) {
+                var pd_2 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 29)._compositionStart() !== false);
+                ad = (pd_2 && ad);
+            }
+            if (("compositionend" === en)) {
+                var pd_3 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 29)._compositionEnd($event.target.value) !== false);
+                ad = (pd_3 && ad);
+            }
+            return ad;
+        }, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](29, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["COMPOSITION_BUFFER_MODE"]]], null, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](30, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["RequiredValidator"], [], { required: [0, "required"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](31, 540672, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["PatternValidator"], [], { pattern: [0, "pattern"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](32, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["EmailValidator"], [], { email: [0, "email"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"], function (p0_0, p1_0, p2_0) { return [p0_0, p1_0, p2_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["EmailValidator"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](1024, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"], function (p0_0) { return [p0_0]; }, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](35, 671744, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControlName"], [[3, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ControlContainer"]], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"]], [8, null], [6, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"]], [2, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵangular_packages_forms_forms_k"]]], { name: [0, "name"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵprd"](2048, null, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"], null, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControlName"]]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](37, 16384, null, 0, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"], [[4, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControl"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](16777216, null, null, 1, null, View_RequestSyllabusModalComponent_3)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](39, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](16777216, null, null, 1, null, View_RequestSyllabusModalComponent_4)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](41, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](42, 0, null, null, 1, null, null, null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](43, 0, null, null, 0, "input", [["class", "button--primary"], ["type", "submit"]], [[8, "value", 0], [8, "disabled", 0]], null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](44, 0, null, null, 4, "div", [], [[8, "hidden", 0]], null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](16777216, null, null, 1, null, View_RequestSyllabusModalComponent_5)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](46, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵand"](16777216, null, null, 1, null, View_RequestSyllabusModalComponent_6)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](48, 16384, null, 0, _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewContainerRef"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["TemplateRef"]], { ngIf: [0, "ngIf"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.open; _ck(_v, 1, 0, currVal_0); var currVal_2 = _co.headerTemplate; _ck(_v, 5, 0, currVal_2); var currVal_3 = !_co.headerTemplate; _ck(_v, 7, 0, currVal_3); var currVal_11 = _co.contactForm; _ck(_v, 10, 0, currVal_11); var currVal_20 = ""; _ck(_v, 19, 0, currVal_20); var currVal_21 = "firstName"; _ck(_v, 22, 0, currVal_21); var currVal_31 = ""; _ck(_v, 30, 0, currVal_31); var currVal_32 = _co.emailPattern; _ck(_v, 31, 0, currVal_32); var currVal_33 = ""; _ck(_v, 32, 0, currVal_33); var currVal_34 = "email"; _ck(_v, 35, 0, currVal_34); var currVal_35 = _co.requestPhone; _ck(_v, 39, 0, currVal_35); var currVal_36 = _co.renderPrivacyPolicy; _ck(_v, 41, 0, currVal_36); var currVal_40 = _co.thankYouTemplate; _ck(_v, 46, 0, currVal_40); var currVal_41 = !_co.thankYouTemplate; _ck(_v, 48, 0, currVal_41); }, function (_ck, _v) { var _co = _v.component; var currVal_1 = _co.modalSubmitted; _ck(_v, 3, 0, currVal_1); var currVal_4 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassUntouched; var currVal_5 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassTouched; var currVal_6 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassPristine; var currVal_7 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassDirty; var currVal_8 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassValid; var currVal_9 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassInvalid; var currVal_10 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 12).ngClassPending; _ck(_v, 8, 0, currVal_4, currVal_5, currVal_6, currVal_7, currVal_8, currVal_9, currVal_10); var currVal_12 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 19).required ? "" : null); var currVal_13 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassUntouched; var currVal_14 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassTouched; var currVal_15 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassPristine; var currVal_16 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassDirty; var currVal_17 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassValid; var currVal_18 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassInvalid; var currVal_19 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 24).ngClassPending; _ck(_v, 17, 0, currVal_12, currVal_13, currVal_14, currVal_15, currVal_16, currVal_17, currVal_18, currVal_19); var currVal_22 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 30).required ? "" : null); var currVal_23 = (_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 31).pattern ? _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 31).pattern : null); var currVal_24 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassUntouched; var currVal_25 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassTouched; var currVal_26 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassPristine; var currVal_27 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassDirty; var currVal_28 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassValid; var currVal_29 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassInvalid; var currVal_30 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵnov"](_v, 37).ngClassPending; _ck(_v, 28, 0, currVal_22, currVal_23, currVal_24, currVal_25, currVal_26, currVal_27, currVal_28, currVal_29, currVal_30); var currVal_37 = _co.buttonText; var currVal_38 = !_co.contactForm.valid; _ck(_v, 43, 0, currVal_37, currVal_38); var currVal_39 = !_co.modalSubmitted; _ck(_v, 44, 0, currVal_39); });
+}
+function View_RequestSyllabusModalComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵeld"](0, 0, null, null, 1, "ir-request-syllabus-modal", [], null, null, null, View_RequestSyllabusModalComponent_0, RenderType_RequestSyllabusModalComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵdid"](1, 245760, null, 0, _request_syllabus_modal_component__WEBPACK_IMPORTED_MODULE_11__["RequestSyllabusModalComponent"], [_core_src_lib_services_analytics_service__WEBPACK_IMPORTED_MODULE_12__["AnalyticsService"], _core_src_lib_services_geo_geo_service__WEBPACK_IMPORTED_MODULE_7__["GeoService"], _core_src_lib_services_signup_no_password_service__WEBPACK_IMPORTED_MODULE_13__["SignupNoPasswordService"], _core_src_lib_services_student_profile_user_account_service__WEBPACK_IMPORTED_MODULE_14__["UserAccountService"], _core_src_lib_services_authentication_service__WEBPACK_IMPORTED_MODULE_15__["AuthenticationService"], _environments_src_lib_environment_token__WEBPACK_IMPORTED_MODULE_8__["IR_ENVIRONMENT"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var RequestSyllabusModalComponentNgFactory = /*@__PURE__*/ /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵccf"]("ir-request-syllabus-modal", _request_syllabus_modal_component__WEBPACK_IMPORTED_MODULE_11__["RequestSyllabusModalComponent"], View_RequestSyllabusModalComponent_Host_0, { open: "open", headerTemplate: "headerTemplate", thankYouTemplate: "thankYouTemplate", hideThankYouTemplate: "hideThankYouTemplate", requestPhone: "requestPhone", prefillForm: "prefillForm", showPrivacyPolicy: "showPrivacyPolicy" }, { submitSent: "submitSent", modalClose: "modalClose" }, []);
+
+
+
+/***/ }),
+
+/***/ "../../libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.scss.shim.ngstyle.js":
+/*!**********************************************************************************************************************************************************!*\
+  !*** /home/circleci/iridium/libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.scss.shim.ngstyle.js ***!
+  \**********************************************************************************************************************************************************/
+/*! exports provided: styles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */
+/** PURE_IMPORTS_START  PURE_IMPORTS_END */
+/** PURE_IMPORTS_START  PURE_IMPORTS_END */
+var styles = ["html[_ngcontent-%COMP%] {\n  box-sizing: border-box; }\n\n*[_ngcontent-%COMP%], *[_ngcontent-%COMP%]::after, *[_ngcontent-%COMP%]::before {\n  box-sizing: inherit; }\n\n\n\nhtml.wf-loading[_ngcontent-%COMP%]   .tk-font[_ngcontent-%COMP%] {\n  visibility: hidden; }\n\nhtml.wf-active[_ngcontent-%COMP%]   .tk-font[_ngcontent-%COMP%] {\n  visibility: initial; }\n\n\n\n.tk-font-balboa[_ngcontent-%COMP%] {\n  font-family: balboa, 'Open Sans', sans-serif; }\n\n.tk-font-balboa-condensed[_ngcontent-%COMP%] {\n  font-family: balboa-extra-condensed, 'Open Sans', sans-serif; }\n\n@media screen and (max-width: 30rem) {\n  .page-in[_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   p.tnc[_ngcontent-%COMP%], .page-in   [_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   p.tnc[_ngcontent-%COMP%] {\n    margin-bottom: 0.5rem;\n    margin-top: 1rem; }\n  .page-in[_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   p.header-info[_ngcontent-%COMP%], .page-in   [_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   p.header-info[_ngcontent-%COMP%] {\n    margin-bottom: 1rem; }\n  .page-in[_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   .h2[_ngcontent-%COMP%], .page-in   [_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   .h2[_ngcontent-%COMP%] {\n    font-size: 1.3rem;\n    margin-bottom: 1rem; }\n  .page-in[_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   input[type='text'][_ngcontent-%COMP%], .page-in   [_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   input[type='text'][_ngcontent-%COMP%], .page-in[_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   input[type='email'][_ngcontent-%COMP%], .page-in   [_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   input[type='email'][_ngcontent-%COMP%], .page-in[_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   input[type='tel'][_ngcontent-%COMP%], .page-in   [_nghost-%COMP%]   .notify-me-form[_ngcontent-%COMP%]   input[type='tel'][_ngcontent-%COMP%] {\n    margin-bottom: 1rem;\n    height: 2.5rem; } }\n\n.notify-me-form[_ngcontent-%COMP%]   .header-info[_ngcontent-%COMP%] {\n  margin-bottom: 1rem; }\n\n.modal-header--desktop[_ngcontent-%COMP%] {\n  display: none; }\n\n@media screen and (min-width: 30rem) {\n    .modal-header--desktop[_ngcontent-%COMP%] {\n      display: block; } }\n\n.modal-header--mobile[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 1rem; }\n\n@media screen and (min-width: 30rem) {\n    .modal-header--mobile[_ngcontent-%COMP%] {\n      display: none; } }"];
+
+
+
+/***/ }),
+
+/***/ "../../libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.ts":
+/*!****************************************************************************************************************************************!*\
+  !*** /home/circleci/iridium/libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.component.ts ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: RequestSyllabusModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestSyllabusModalComponent", function() { return RequestSyllabusModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _iridium_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @iridium/core */ "../../libs/core/src/index.ts");
+/* harmony import */ var _iridium_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @iridium/shared */ "../../libs/shared/src/index.ts");
+/* harmony import */ var _iridium_shared_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @iridium/shared/utils */ "../../libs/shared/utils/src/index.ts");
+/* harmony import */ var _iridium_environments_src__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @iridium/environments/src */ "../../libs/environments/src/index.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function (t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s)
+                if (Object.prototype.hasOwnProperty.call(s, p))
+                    t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+// angular
+
+
+
+
+
+
+
+var RequestSyllabusModalComponent = /** @class */ /*@__PURE__*/ (function () {
+    function RequestSyllabusModalComponent(analytics, geoService, signupService, userAccountService, auth, environment) {
+        this.analytics = analytics;
+        this.geoService = geoService;
+        this.signupService = signupService;
+        this.userAccountService = userAccountService;
+        this.auth = auth;
+        this.environment = environment;
+        this.hideThankYouTemplate = false;
+        this.requestPhone = false;
+        this.prefillForm = false;
+        this.submitSent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.modalClose = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.modalSubmitted = false;
+        this.buttonText = 'Submit';
+        // We want to pre-render the page with the privacy policy in case it is needed
+        // for legal reasons and remove it using JS if it is not needed.
+        this.renderPrivacyPolicy = true;
+        this.emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
+    }
+    RequestSyllabusModalComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.resetForm();
+        this.showPrivacyPolicy = this.checkIfShowPrivacyPolicy();
+        this.inEUSubscription = this.geoService
+            .inEU()
+            .subscribe(function (inEU) {
+            // always show privacy policy for EU
+            _this.renderPrivacyPolicy = _this.showPrivacyPolicy || inEU;
+        });
+    };
+    RequestSyllabusModalComponent.prototype.ngOnDestroy = function () {
+        if (this.inEUSubscription) {
+            this.inEUSubscription.unsubscribe();
+        }
+    };
+    RequestSyllabusModalComponent.prototype.resetForm = function () {
+        var user = this.analytics.getUser();
+        this.contactForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"]({
+            firstName: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](user.traits['name'] || ''),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](user.traits['email'] || ''),
+            phone: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](user.traits['phone'] || null),
+            emailConsent: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null)
+        });
+        if (this.prefillForm) {
+            this.prefillUserData();
+        }
+    };
+    RequestSyllabusModalComponent.prototype.onSubmitForm = function () {
+        this.modalSubmitted = true;
+        this.submitSent.emit(this.formModel());
+        if (this.hideThankYouTemplate) {
+            this.onClose(true);
+        }
+        this.signupService.doAutoSignup(this.formModel(), {
+            source: 'Request Syllabus'
+        });
+    };
+    RequestSyllabusModalComponent.prototype.onClose = function (isModalSubmitted) {
+        if (isModalSubmitted === void 0) {
+            isModalSubmitted = false;
+        }
+        this.modalSubmitted = isModalSubmitted;
+        this.resetForm();
+        this.modalClose.emit(true);
+    };
+    RequestSyllabusModalComponent.prototype.prefillUserData = function () {
+        var _this = this;
+        if (!this.auth.isUserAuth())
+            return;
+        this.userAccountService
+            .fetchStudentData()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["take"])(1))
+            .subscribe(function (user) {
+            _this.model = __assign({}, _this.formModel(), { name: user.first_name, email: user.email_id });
+        });
+    };
+    RequestSyllabusModalComponent.prototype.formModel = function () {
+        var formControls = this.contactForm.controls;
+        return {
+            name: Object(_iridium_shared_utils__WEBPACK_IMPORTED_MODULE_5__["getIn"])(formControls, 'firstName.value'),
+            phone: Object(_iridium_shared_utils__WEBPACK_IMPORTED_MODULE_5__["getIn"])(formControls, 'phone.value'),
+            email: Object(_iridium_shared_utils__WEBPACK_IMPORTED_MODULE_5__["getIn"])(formControls, 'email.value'),
+            email_consent: Object(_iridium_shared_utils__WEBPACK_IMPORTED_MODULE_5__["getIn"])(formControls, 'emailConsent.value')
+        };
+    };
+    RequestSyllabusModalComponent.prototype.checkIfShowPrivacyPolicy = function () {
+        return (this.showPrivacyPolicy ||
+            [_iridium_shared__WEBPACK_IMPORTED_MODULE_4__["REGIONS"].eu, _iridium_shared__WEBPACK_IMPORTED_MODULE_4__["REGIONS"].us].includes(this.environment.region.toLowerCase()));
+    };
+    return RequestSyllabusModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.module.ts":
+/*!*************************************************************************************************************************************!*\
+  !*** /home/circleci/iridium/libs/routes/nanodegree-overview/src/lib/shared/request-syllabus-modal/request-syllabus-modal.module.ts ***!
+  \*************************************************************************************************************************************/
+/*! exports provided: RequestSyllabusModalModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestSyllabusModalModule", function() { return RequestSyllabusModalModule; });
+var RequestSyllabusModalModule = /** @class */ /*@__PURE__*/ (function () {
+    function RequestSyllabusModalModule() {
+    }
+    return RequestSyllabusModalModule;
+}());
+
+
+
+/***/ })
+
+}]);

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://taweihuang.hpd.io/2017/12/22/logreg101/ -->
+<html class="js" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://taweihuang.hpd.io/xmlrpc.php">
+<title>你可能不知道的邏輯迴歸 (Logistic Regression) – David's Perspective</title>
+<!-- Jetpack Site Verification Tags -->
+<meta name="google-site-verification" content="QwpCac0s_4wN6gvtdGoiogC7VwF6QIL0NTE--TxWy9s">
+<script async="" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/analytics.js.下載"></script><script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+		<script type="text/javascript">
+		var ajaxurl = 'https://taweihuang.hpd.io/wp-admin/admin-ajax.php';
+		</script>
+		<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="訂閱 David&#39;s Perspective »" href="https://taweihuang.hpd.io/feed/">
+<link rel="alternate" type="application/rss+xml" title="訂閱 David&#39;s Perspective » 迴響" href="https://taweihuang.hpd.io/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="訂閱 David&#39;s Perspective » 你可能不知道的邏輯迴歸 (Logistic Regression) 迴響" href="https://taweihuang.hpd.io/2017/12/22/logreg101/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/taweihuang.hpd.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.14"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/wp-emoji-release.min.js.下載" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="tt-easy-google-fonts-css" href="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="rebalance-fonts-css" href="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="rebalance-fontawesome-css" href="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="rebalance-style-css" href="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-logos-css" href="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/social-logos.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/jquery.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/jquery-migrate.min.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/related-posts.js.下載"></script>
+<link rel="https://api.w.org/" href="https://taweihuang.hpd.io/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://taweihuang.hpd.io/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://taweihuang.hpd.io/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="大鼻觀點一週年慶：入行三年的心酸血淚QAQ" href="https://taweihuang.hpd.io/2017/10/25/%e5%a4%a7%e9%bc%bb%e8%a7%80%e9%bb%9e%e4%b8%80%e9%80%b1%e5%b9%b4%e6%85%b6%ef%bc%9a%e5%85%a5%e8%a1%8c%e4%b8%89%e5%b9%b4%e7%9a%84%e5%bf%83%e9%85%b8%e8%a1%80%e6%b7%9aqaq/">
+<link rel="next" title="迴歸分析到底在估什麼？不同損失函數估計的性質不同" href="https://taweihuang.hpd.io/2018/02/16/qregression101/">
+<meta name="generator" content="WordPress 4.6.14">
+<link rel="canonical" href="https://taweihuang.hpd.io/2017/12/22/logreg101/">
+<link rel="shortlink" href="https://taweihuang.hpd.io/?p=3848">
+<link rel="alternate" type="application/json+oembed" href="https://taweihuang.hpd.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ftaweihuang.hpd.io%2F2017%2F12%2F22%2Flogreg101%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://taweihuang.hpd.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ftaweihuang.hpd.io%2F2017%2F12%2F22%2Flogreg101%2F&amp;format=xml">
+<link rel="apple-touch-icon" sizes="76x76" href="https://taweihuang.hpd.io/wp-content/uploads/fbrfg/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="https://taweihuang.hpd.io/wp-content/uploads/fbrfg/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://taweihuang.hpd.io/wp-content/uploads/fbrfg/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="https://taweihuang.hpd.io/wp-content/uploads/fbrfg/manifest.json">
+<link rel="mask-icon" href="https://taweihuang.hpd.io/wp-content/uploads/fbrfg/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="https://taweihuang.hpd.io/wp-content/uploads/fbrfg/favicon.ico">
+<meta name="msapplication-config" content="/wp-content/uploads/fbrfg/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="你可能不知道的邏輯迴歸 (Logistic Regression)">
+<meta property="og:url" content="https://taweihuang.hpd.io/2017/12/22/logreg101/">
+<meta property="og:description" content="邏輯迴歸通常是在學分類問題 (classification) 第一個會接觸到的模型，用來建立「二元目標變數」(…">
+<meta property="article:published_time" content="2017-12-21T17:00:18+00:00">
+<meta property="article:modified_time" content="2017-12-21T17:00:18+00:00">
+<meta property="og:site_name" content="David&#39;s Perspective">
+<meta property="og:image" content="https://taweihuang.hpd.io/wp-content/uploads/2016/09/e8a1a8e6a0bc1234.png">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="249">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:image" content="https://taweihuang.hpd.io/wp-content/uploads/2016/09/e8a1a8e6a0bc1234.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- BEGIN GADWP v4.9.6.2 Universal Tracking - https://deconf.com/google-analytics-dashboard-wordpress/ -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-87344427-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- END GADWP Universal Tracking -->
+
+
+<style id="custom-css-css">.site-title{font-family:"Alegreya Sans", sans-serif;font-weight:300}.site-description{font-family:"Alegreya Sans", sans-serif;font-size:16px;font-weight:400}.nav-menu .menu-item{font-family:"Alegreya Sans", sans-serif;font-size:16px}#infinite-handle{bottom:0;clear:both;display:table;margin-bottom:50px;position:absolute;text-align:center;width:100%}#infinite-handle span{background:transparent !important;border-radius:inherit !important;color:inherit !important;font-size:inherit !important;padding:inherit!important}#content #infinite-handle span button{background:#FFF;border:2px solid #000;color:#F35029;font-family:"Alegreya Sans", sans-serif;font-weight:600;line-height:1;padding:12px 0;width:33%}#content #infinite-handle span button:hover,#content #infinite-handle span button:active,#content #infinite-handle span button:focus{background:#000;border:2px solid #000;color:#FFF;font-family:"Alegreya Sans", sans-serif;font-weight:600;line-height:1;padding:12px 0}</style>
+<style id="tt-easy-google-font-styles" type="text/css">p { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 400; }
+h1 { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 300; }
+h2 { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 300; }
+h3 { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 300; }
+h4 { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 300; }
+h5 { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 300; }
+h6 { font-family: 'Alegreya Sans'; font-style: normal; font-weight: 300; }
+</style></head>
+
+<body class="single single-post postid-3848 single-format-standard wp-custom-logo" style="opacity: 1;">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="https://taweihuang.hpd.io/2017/12/22/logreg101/#content">Skip to content</a>
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="col-width header-wrap">
+						<div class="site-heading">
+				<div class="site-branding">
+					<a href="https://taweihuang.hpd.io/" class="custom-logo-link" rel="home" itemprop="url"><img width="79" height="80" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/cropped-11111110.png" class="custom-logo" alt="cropped-11111110.png" itemprop="logo"></a>											<p class="site-title"><a href="https://taweihuang.hpd.io/" rel="home">David's Perspective</a></p>
+									</div><!-- .site-branding -->
+							</div><!-- .site-heading -->
+		</div>
+		<div class="col-width sub-header-wrap">
+
+							<p class="site-description">Sharing my idea about business analytics, machine learning, and data science.</p>
+			
+						<nav id="site-navigation" class="main-navigation" role="navigation">
+				<button class="menu-toggle" aria-controls="header-menu" data-close-text="Close">Menu</button>
+				<div class="menu-top-menu-container"><ul class="nav-menu nav-menu-0"><li id="menu-item-3623" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3623"><a href="https://taweihuang.hpd.io/category/free-talk/">Free Talk</a></li><li id="menu-item-3622" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3622"><a href="https://taweihuang.hpd.io/category/data-science/">Data Science</a></li></ul><ul class="nav-menu nav-menu-1"><li id="menu-item-3625" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3625"><a href="https://taweihuang.hpd.io/category/statistics/">Statistics</a></li><li id="menu-item-3624" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3624"><a href="https://taweihuang.hpd.io/category/machine-learning/">Machine Learning</a></li></ul><ul></ul></div>			</nav><!-- #site-navigation -->
+			
+		</div><!-- .col-width -->
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content clear">
+		<div class="col-width">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-3848" class="post-3848 post type-post status-publish format-standard has-post-thumbnail hentry category-statistics tag-classification tag-data-mining tag-logistic-regression tag-machine-learning clear-fix ">
+
+	<header class="entry-header">
+		<h1 class="entry-title">你可能不知道的邏輯迴歸 (Logistic Regression)</h1>
+		<div class="entry-meta">
+			<span class="author vcard"><a class="url fn n" href="https://taweihuang.hpd.io/author/taweihuang/">David Huang</a></span><span class="entry-tags-date"><a href="https://taweihuang.hpd.io/2017/12/22/logreg101/" rel="bookmark"><time class="entry-date published updated" datetime="2017-12-22T01:00:18+00:00">2017-12-22</time></a></span><span class="entry-categories"><a href="https://taweihuang.hpd.io/category/statistics/" rel="tag">Statistics</a></span>		</div><!-- .entry-meta -->
+
+		
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">文章導覽</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://taweihuang.hpd.io/2017/10/25/%e5%a4%a7%e9%bc%bb%e8%a7%80%e9%bb%9e%e4%b8%80%e9%80%b1%e5%b9%b4%e6%85%b6%ef%bc%9a%e5%85%a5%e8%a1%8c%e4%b8%89%e5%b9%b4%e7%9a%84%e5%bf%83%e9%85%b8%e8%a1%80%e6%b7%9aqaq/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span></a></div><div class="nav-next"><a href="https://taweihuang.hpd.io/2018/02/16/qregression101/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span></a></div></div>
+	</nav>	</header><!-- .entry-header -->
+
+		<div class="post-hero-image clear-fix">
+		<figure class="entry-image">
+			<img width="1080" height="249" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/e8a1a8e6a0bc1234.png" class="attachment-full size-full wp-post-image" alt="%e8%a1%a8%e6%a0%bc123" srcset="https://taweihuang.hpd.io/wp-content/uploads/2016/09/e8a1a8e6a0bc1234.png 1080w, https://taweihuang.hpd.io/wp-content/uploads/2016/09/e8a1a8e6a0bc1234-300x69.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2016/09/e8a1a8e6a0bc1234-768x177.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2016/09/e8a1a8e6a0bc1234-1024x236.png 1024w" sizes="(max-width: 1080px) 100vw, 1080px">		</figure>
+	</div><!-- .post-hero-image -->
+	
+	<div class="entry-content">
+		<p>邏輯迴歸通常是在學分類問題 (classification) 第一個會接觸到的模型，用來建立「二元目標變數」(Binary Output Variable) 跟解釋變數之間的關係，模型形式如下：</p>
+<p><img class="alignnone  wp-image-3860 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.53.28.png" alt="螢幕快照 2017-12-22 上午12.53.28" width="506" height="169" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.53.28.png 1330w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.53.28-300x100.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.53.28-768x256.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.53.28-1024x342.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.53.28-720x240.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.53.28-560x187.png 560w" sizes="(max-width: 506px) 100vw, 506px"></p>
+<p>&nbsp;</p>
+<p>網路上其實已經有很多關於邏輯迴歸的教學文章了，所以在這篇文章中，我想要跟大家聊聊關於邏輯迴歸一些比較本質的想法。</p>
+<p>&nbsp;</p>
+<h3>為什麼是以機率作為建模對象？</h3>
+<p>大家應該都知道迴歸分析 &nbsp;(Regression) 是建立目標變數 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex">&nbsp;與解釋變數&nbsp;<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(1).php" alt="X" title="X" class="latex">&nbsp;間的關係，更嚴謹一點的說法是「給定一個固定的解釋變數&nbsp;<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(1).php" alt="X" title="X" class="latex">，目標變數&nbsp;<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex">&nbsp;的平均值是多少？」也就是「條件期望值&nbsp;(Conditional Expectaion)」的概念：試著以線性結構去逼近 $\mathbb{E}(Y|X)$。既然屬於迴歸的一種，為什麼邏輯迴歸是「機率」為建模對象，而不是期望值呢？</p>
+<p>&nbsp;</p>
+<p>其實，邏輯迴歸也是針對條件期望值進行建模的，我們知道邏輯迴歸裡面的目標變數 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex"> 是一個二元變數，其中 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(2).php" alt="Y=1" title="Y=1" class="latex"> 的機率是 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(3).php" alt="\mathbb{P}(Y=1)" title="\mathbb{P}(Y=1)" class="latex">，<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(4).php" alt="Y=0" title="Y=0" class="latex"> 的機率是 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(5).php" alt="\mathbb{P}(Y=0)" title="\mathbb{P}(Y=0)" class="latex">。因此可以推得條件期望值 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(6).php" alt="\mathbb{E}(Y|X) = 1 \cdot \mathbb{P}(Y=1|X)+ 0 \cdot \mathbb{P}(Y=0|X)=\mathbb{P}(Y=1|X)" title="\mathbb{E}(Y|X) = 1 \cdot \mathbb{P}(Y=1|X)+ 0 \cdot \mathbb{P}(Y=0|X)=\mathbb{P}(Y=1|X)" class="latex">。也就是說，其實邏輯迴歸還是建立目標變數&nbsp;<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex">&nbsp;的平均值與解釋變數&nbsp;<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(1).php" alt="X" title="X" class="latex">&nbsp;間的關係，只是 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex">&nbsp;的平均值剛好跟&nbsp;$latex <em>Y =&nbsp;</em>1$ 的機率是一樣的。</p>
+<p>&nbsp;</p>
+<h3>為什麼是乙狀函數 (Sigmoid Function) ？</h3>
+<p>&nbsp;</p>
+<p>以前大鼻在學邏輯迴歸 (Logistic Regression) 時，一直有一個很大的疑惑：到底為什麼會跑出來乙狀函數 (Sigmoid Function) 這個東西呢？以前課本上大概會說，因為乙狀函數是落在 (0,1) 之間，符合邏輯迴歸針對機率建模的特性，而且可以微分，但我最大的疑問是：那為什麼不選 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(7).php" alt="sin^2 x" title="sin^2 x" class="latex"> 呢？為什麼偏偏就是乙狀函數呢？（乙狀函數的形式如下圖所示。）</p>
+<p>&nbsp;</p>
+<p><img class="alignnone  wp-image-3851 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.16.47.png" alt="螢幕快照 2017-12-22 上午12.16.47" width="687" height="463" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.16.47.png 1606w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.16.47-300x202.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.16.47-768x517.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.16.47-1024x690.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.16.47-720x485.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.16.47-560x377.png 560w" sizes="(max-width: 687px) 100vw, 687px"></p>
+<p>&nbsp;</p>
+<p>假設我們現在想要分析的問題是：一個人在買早餐時會不會順便買一杯大冰奶？要不要買大冰奶的影響因素有很多，比如說：今天有重要的會議要開， 千萬不能落屎，就不買；昨天算命阿姨說喝一杯搭冰奶就可以找到女朋友（請見阿翰Po影片），那當然是要買；這個月已經沒有預算可以喝小確幸大冰奶，不買。可能的原因有三個，但我們先專注於「早餐預算」(<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(1).php" alt="X" title="X" class="latex">) 與「是不是買大冰奶」(<img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex">) 之間的關係，把他畫成以下散布圖，並建立 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(8).php" alt="Y = \beta_0 + \beta_1 X" title="Y = \beta_0 + \beta_1 X" class="latex">的迴歸模型，會發現結果非常差。</p>
+<p>&nbsp;</p>
+<p><img class="alignnone  wp-image-3853 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.28.15.png" alt="螢幕快照 2017-12-22 上午12.28.15" width="736" height="495" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.28.15.png 1754w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.28.15-300x201.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.28.15-768x516.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.28.15-1024x688.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.28.15-720x484.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.28.15-560x376.png 560w" sizes="(max-width: 736px) 100vw, 736px"></p>
+<p>&nbsp;</p>
+<p>但仔細看圖，仔細看喔，是不是好像是一個乙字呢？我們如果真的拿乙字來做建模，結果如下所示。可以發現，「早餐預算越高」購買大冰奶的機率越大，但中間有一些區段（機率上升段）剛好是只靠預算沒辦法完全捕捉的區段，這樣做是不是很符合現實情況呢？所以，真要說為什麼會選用乙狀函數？大鼻是沒有考究為什麼，但我自己說服自己的方法是，「用眼睛看」就覺得很合理 XD</p>
+<p>&nbsp;</p>
+<p><img class="alignnone  wp-image-3854 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.32.23.png" alt="螢幕快照 2017-12-22 上午12.32.23" width="718" height="477" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.32.23.png 1690w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.32.23-300x199.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.32.23-768x510.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.32.23-1024x680.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.32.23-720x478.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.32.23-560x372.png 560w" sizes="(max-width: 718px) 100vw, 718px"></p>
+<p>&nbsp;</p>
+<h3>為什麼要用最大概似法 (Maximum Likelihood Estimation)？</h3>
+<p>&nbsp;</p>
+<p>有些剛碰機器學習的人，可能只知道用 R 或 Python 可以估計出參數，但到底這個參數是怎麼估的可能沒有很清楚。在迴歸分析中，我們是使用最小平方法 (Ordinary Least Square Estimation) 估計參數，相信大家高中數學其實有學過。那為什麼邏輯迴歸不能用最小平方法呢？</p>
+<p>&nbsp;</p>
+<p>有人說，因為邏輯迴歸不是線性的，這個說法是不對的！因為我們可以把邏輯回歸的模型轉成線性的形式如下：</p>
+<p>&nbsp;</p>
+<p><img class="alignnone  wp-image-3856 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.41.33.png" alt="螢幕快照 2017-12-22 上午12.41.33" width="528" height="158" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.41.33.png 1342w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.41.33-300x90.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.41.33-768x230.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.41.33-1024x307.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.41.33-720x216.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.41.33-560x168.png 560w" sizes="(max-width: 528px) 100vw, 528px"></p>
+<p>&nbsp;</p>
+<p>主要原因很簡單，因為迴歸分析中 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex.php" alt="Y" title="Y" class="latex"> 是已經觀察到的資料，可是邏輯迴歸中 <img src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/latex(9).php" alt="P(Y=1|X)" title="P(Y=1|X)" class="latex"> 是資料裡面無法觀察到的，所以我們就沒辦法用傳統的最小平方法估計，而要採用最大概似法 (Maximum Likelihood Estimation)。至於最大概似法的原理是什麼，可以用下面這張圖很清楚的解釋。</p>
+<p>&nbsp;</p>
+<p><img class="alignnone  wp-image-3857 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.44.31.png" alt="螢幕快照 2017-12-22 上午12.44.31" width="724" height="532" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.44.31.png 2246w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.44.31-300x221.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.44.31-768x565.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.44.31-1024x753.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.44.31-720x530.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.44.31-560x412.png 560w" sizes="(max-width: 724px) 100vw, 724px"></p>
+<p>&nbsp;</p>
+<h3>除了交叉驗證 (Cross Validation) 之外，有哪些選模指標？</h3>
+<p>&nbsp;</p>
+<p>其實邏輯迴歸除了用交叉驗證比較分類準確性、AUC等等指標之外，還有一些很好用、有理論基礎的量化指標可以選取，像是 Pseudo R-Square、Information Criteria 等，常見的選模指標裡列在下表：</p>
+<p>&nbsp;</p>
+<p><img class="alignnone  wp-image-3859 aligncenter" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/螢幕快照-2017-12-22-上午12.49.46.png" alt="螢幕快照 2017-12-22 上午12.49.46" width="804" height="525" srcset="https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.49.46.png 2360w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.49.46-300x196.png 300w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.49.46-768x502.png 768w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.49.46-1024x669.png 1024w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.49.46-720x470.png 720w, https://taweihuang.hpd.io/wp-content/uploads/2017/12/螢幕快照-2017-12-22-上午12.49.46-560x366.png 560w" sizes="(max-width: 804px) 100vw, 804px"></p>
+<p>&nbsp;</p>
+<h3>小結：在學一個模型時，記得問why？</h3>
+<p>&nbsp;</p>
+<p>邏輯迴歸是一個非常經典而常見的模型，但我一直覺得大部分網路上的教材沒有把他的本質講得很清楚。其實，有些直覺但是在許多進階模型都會使用的想法，是要從最簡單的模型開始思考的。因此，下一次在學習一個常見的模型時，不妨多問問 why？當你了解為什麼要這樣設計後，很多更複雜的模型反而會變得很直覺而簡單喔！</p>
+<p>&nbsp;</p>
+<p>有關 David’s Perspective 的最新文章，都會發布在大鼻的 Facebook 粉絲專頁，如果你喜歡大鼻的文章，還請您不吝嗇地按讚或留言給我喔！</p>
+<p>大鼻觀點：<a href="https://www.facebook.com/davidperspective/">https://www.facebook.com/davidperspective/</a></p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">分享此文：</h3><div class="sd-content"><ul><li><a href="https://taweihuang.hpd.io/2017/12/22/logreg101/#" class="sharing-anchor sd-button share-more"><span>共享</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-3848" class="share-facebook sd-button share-icon" href="https://taweihuang.hpd.io/2017/12/22/logreg101/?share=facebook&amp;nb=1" target="_blank" title="按一下以分享至 Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-3848" class="share-twitter sd-button share-icon" href="https://taweihuang.hpd.io/2017/12/22/logreg101/?share=twitter&amp;nb=1" target="_blank" title="分享到 Twitter"><span>Twitter</span></a></li><li class="share-end"></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-3848" class="share-google-plus-1 sd-button share-icon" href="https://taweihuang.hpd.io/2017/12/22/logreg101/?share=google-plus-1&amp;nb=1" target="_blank" title="點擊分享到 Google+"><span>Google</span></a></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="https://taweihuang.hpd.io/2017/12/22/logreg101/?share=email&amp;nb=1" target="_blank" title="點這裡寄給朋友"><span>電子郵件</span></a></li><li class="share-end"></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon" href="https://taweihuang.hpd.io/2017/12/22/logreg101/#print" target="_blank" title="點這裡列印"><span>列印</span></a></li><li class="share-end"></li></ul></div></div></div></div></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>相關</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal jp-relatedposts-grid "><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="3728" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://taweihuang.hpd.io/2017/03/21/mlbayes/" title="機器學習中的貝氏定理：生成模型 (Generative Model) 與判別模型 (Discriminative Model)
+
+GAN (Generative Adversarial Networks) 是這幾年來很紅的議題，在…" rel="nofollow" data-origin="3848" data-position="0">機器學習中的貝氏定理：生成模型 (Generative Model) 與判別模型 (Discriminative Model)</a></span><span class="jp-relatedposts-post-date">2017-03-21</span><span class="jp-relatedposts-post-context">在「Machine Learning」中</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="433" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://taweihuang.hpd.io/2016/09/12/%e8%ae%80%e8%80%85%e6%8f%90%e5%95%8f%ef%bc%9a%e5%a4%9a%e5%85%83%e8%bf%b4%e6%ad%b8%e5%88%86%e6%9e%90%e7%9a%84%e8%ae%8a%e6%95%b8%e9%81%b8%e6%93%87/" title="讀者提問：多元迴歸分析的變數選擇
+
+多元迴歸分析 (multiple regression) 是統計學的重要突破，在「解釋」、「個體預測…" rel="nofollow" data-origin="3848" data-position="1">讀者提問：多元迴歸分析的變數選擇</a></span><span class="jp-relatedposts-post-date">2016-09-12</span><span class="jp-relatedposts-post-context">在「Statistics」中</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="3944" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://taweihuang.hpd.io/2018/05/22/2018-course-sharing-explan/" title="(2018) 資料科學線上課程總彙 - 解釋性建模篇
+
+最近有位讀者透過粉專私訊詢問： 讀了一篇你寫的資料科學三個面向，覺得自己在資料科學領域對 ‘解釋’ …" rel="nofollow" data-origin="3848" data-position="2">(2018) 資料科學線上課程總彙 - 解釋性建模篇</a></span><span class="jp-relatedposts-post-date">2018-05-22</span><span class="jp-relatedposts-post-context">在「Data Science」中</span></p></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<div class="entry-meta">
+			<span class="entry-tags"><a href="https://taweihuang.hpd.io/tag/classification/" rel="tag">Classification</a>, <a href="https://taweihuang.hpd.io/tag/data-mining/" rel="tag">Data Mining</a>, <a href="https://taweihuang.hpd.io/tag/logistic-regression/" rel="tag">Logistic Regression</a>, <a href="https://taweihuang.hpd.io/tag/machine-learning/" rel="tag">Machine Learning</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+</article><!-- #post-## -->
+
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">文章導覽</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://taweihuang.hpd.io/2017/10/25/%e5%a4%a7%e9%bc%bb%e8%a7%80%e9%bb%9e%e4%b8%80%e9%80%b1%e5%b9%b4%e6%85%b6%ef%bc%9a%e5%85%a5%e8%a1%8c%e4%b8%89%e5%b9%b4%e7%9a%84%e5%bf%83%e9%85%b8%e8%a1%80%e6%b7%9aqaq/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="meta-nav-title">大鼻觀點一週年慶：入行三年的心酸血淚QAQ</span></a></div><div class="nav-next"><a href="https://taweihuang.hpd.io/2018/02/16/qregression101/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="meta-nav-title">迴歸分析到底在估什麼？不同損失函數估計的性質不同</span> </a></div></div>
+	</nav>	<div class="author-meta clear-fix">
+		<div class="author-box">
+			<div class="author-information">
+				<div class="author-avatar">
+					<img alt="" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/59959899375290ea0bdcd2857d9f7858.jpeg" srcset="https://secure.gravatar.com/avatar/59959899375290ea0bdcd2857d9f7858?s=222&amp;d=mm&amp;r=g 2x" class="avatar avatar-111 photo" height="111" width="111">				</div><!-- #author-avatar -->
+				<h3>About David Huang</h3>
+				<div class="author-description">
+					外商科技公司資深資料科學家，前外商公司分析顧問，國立臺灣大學統計碩士，喜愛運用資料科學解決複雜的商業問題，改善商業決策的品質。過去的專案經歷包括：客戶分群、消費者終生價值預測、市場實驗學習與測試、新產品上市測試、推薦系統、使用者觀看行為預測、聊天機器人機器學習開發、文字探勘與產品分析、企業儀表板建立等。				</div>
+			</div><!-- #author-description -->
+		</div>
+	</div><!-- #author-meta-->
+
+			
+<div id="comments" class="comments-area clear-fix">
+
+	
+			<h2 class="comments-title">
+			2 Comments		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-726" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-726" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/8d40e610b2a4bd6ea7229afff3722c78.png" srcset="https://secure.gravatar.com/avatar/8d40e610b2a4bd6ea7229afff3722c78?s=222&amp;d=mm&amp;r=g 2x" class="avatar avatar-111 photo" height="111" width="111">						<b class="fn">陳奕廷</b> <span class="says">說：</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://taweihuang.hpd.io/2017/12/22/logreg101/#comment-726">
+							<time datetime="2018-08-22T15:21:46+00:00">
+								2018-08-22 at 15:21:46							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>哈囉，最近參加一個比賽，主要是藉由一些產品上senser過去的歷史資料來預測產品品質，有想到用邏輯迴歸，可是用的時候發現他是會將好的機率及不好的機率列出來，並不是輸出品質，想問一下邏輯迴歸只能當作解決二分類的問題嗎？謝謝</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://taweihuang.hpd.io/2017/12/22/logreg101/?replytocom=726#respond" onclick="return addComment.moveForm( &quot;div-comment-726&quot;, &quot;726&quot;, &quot;respond&quot;, &quot;3848&quot; )" aria-label="回覆 陳奕廷">回覆</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-746" class="comment byuser comment-author-taweihuang bypostauthor odd alt depth-2">
+			<article id="div-comment-746" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/59959899375290ea0bdcd2857d9f7858.jpeg" srcset="https://secure.gravatar.com/avatar/59959899375290ea0bdcd2857d9f7858?s=222&amp;d=mm&amp;r=g 2x" class="avatar avatar-111 photo" height="111" width="111">						<b class="fn"><a href="https://taweihuang.hpd.io/" rel="external nofollow" class="url">David Huang</a></b> <span class="says">說：</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://taweihuang.hpd.io/2017/12/22/logreg101/#comment-746">
+							<time datetime="2018-09-10T23:59:16+00:00">
+								2018-09-10 at 23:59:16							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>邏輯迴歸也有 multi-class 的版本，可以 google 看看喔～資料很多！</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://taweihuang.hpd.io/2017/12/22/logreg101/?replytocom=746#respond" onclick="return addComment.moveForm( &quot;div-comment-746&quot;, &quot;746&quot;, &quot;respond&quot;, &quot;3848&quot; )" aria-label="回覆 David Huang">回覆</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">發表迴響 <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://taweihuang.hpd.io/2017/12/22/logreg101/#respond" style="display:none;">取消回覆</a></small></h3>				<form action="https://taweihuang.hpd.io/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+					<p class="comment-notes"><span id="email-notes">你的電子郵件位址並不會被公開。</span> 必要欄位標記為 <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">迴響</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">名稱 <span class="required">*</span></label> <input placeholder="ex: jane doe" id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">電子郵件 <span class="required">*</span></label> <input type="email" placeholder="ex: janedoe@gmail.com" id="email" name="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">個人網站</label> <input placeholder="ex: http://janedoe.wordpress.com" id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Submit"> <input type="hidden" name="comment_post_ID" value="3848" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="4e865fb483"></p><p style="display: none;"></p>				<input type="hidden" id="ak_js" name="ak_js" value="1566402628587"></form>
+					</div><!-- #respond -->
+		
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+			<footer id="colophon" class="site-footer" role="contentinfo">
+				<div class="site-info">
+					<a href="https://wordpress.org/">Proudly powered by WordPress</a>
+					<br>
+					Theme: Rebalance by <a href="http://automattic.com/" rel="designer">Automattic</a>.				</div><!-- .site-info -->
+			</footer><!-- #colophon -->
+
+		</div><!-- .col-width -->
+	</div><!-- #content -->
+
+</div><!-- #page -->
+
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/taweihuang.hpd.io\/2017\/12\/22\/logreg101\/":3848};
+	</script>
+	
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/devicepx-jetpack.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/columnlist.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var screenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/navigation.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/imagesloaded.min.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/masonry.min.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/scripts.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/skip-link-focus-fix.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/comment-reply.min.js.下載"></script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/wp-embed.min.js.下載"></script>
+<script async="async" type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/form.js.下載"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/sharing.js.下載"></script>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-google-plus-1', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+</script>
+
+
+
+<!-- Dynamic page generated in 0.285 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2019-08-21 18:33:40 -->
+
+<!-- Compression = gzip --><div id="sharing_email" style="display: none;">
+		<form action="https://taweihuang.hpd.io/2017/12/22/logreg101/" method="post">
+			<label for="target_email">傳送到電子郵件地址</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">你的姓名</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">你的電子郵件地址</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off" title="此欄位僅用於驗證，請勿進行變更">
+			<script>jQuery( document ).ready( function(){ document.getElementById('jetpack-source_f_name').value = '' });</script>
+			
+			<img style="float: right; display: none" class="loading" src="./你可能不知道的邏輯迴歸 (Logistic Regression) – David&#39;s Perspective_files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="寄送電子郵件" class="sharing_send">
+			<a rel="nofollow" href="https://taweihuang.hpd.io/2017/12/22/logreg101/#cancel" class="sharing_cancel">取消</a>
+
+			<div class="errors errors-1" style="display: none;">
+				文章未送出─請檢查你的電子郵件地址！			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				電子郵件地址檢查失敗，請再試一次			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				抱歉，你的網誌無法透過電子郵件分享			</div>
+		</form>
+	</div></body></html>

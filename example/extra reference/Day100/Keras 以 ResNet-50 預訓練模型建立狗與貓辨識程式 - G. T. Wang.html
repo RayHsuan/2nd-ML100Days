@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<!-- saved from url=(0114)https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/ -->
+<html class="js" lang="zh-TW"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<title>Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang</title>
+<script src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/sdk.js.下載" async="" crossorigin="anonymous"></script><script id="facebook-jssdk" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/sdk.js(1).下載"></script><script async="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/async-ads.js.下載"></script><script type="text/javascript" async="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/recaptcha__zh_cn.js.下載"></script><script type="text/javascript" async="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/f.txt"></script><script async="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/analytics.js.下載"></script><script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+
+<!-- This site is optimized with the Yoast SEO plugin v11.8 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang">
+<meta property="og:description" content="這裡示範在 Keras 架構下以 ResNet-50 預訓練模型為基礎，建立可用來辨識狗與貓的 AI 程式。  …">
+<meta property="og:url" content="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/">
+<meta property="og:site_name" content="G. T. Wang">
+<meta property="article:publisher" content="https://www.facebook.com/G-T-Wang-489529864441673/">
+<meta property="article:tag" content="Keras">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="機器學習">
+<meta property="article:section" content="程式設計">
+<meta property="article:published_time" content="2018-09-18T03:20:29+00:00">
+<meta property="og:image" content="https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01.jpg">
+<meta property="og:image:secure_url" content="https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--main">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://blog.gtwang.org/#website","url":"https://blog.gtwang.org/","name":"G. T. Wang","potentialAction":{"@type":"SearchAction","target":"https://blog.gtwang.org/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#primaryimage","url":"https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01.jpg","width":"1920","height":"1080"},{"@type":"WebPage","@id":"https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#webpage","url":"https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/","inLanguage":"zh-TW","name":"Keras \u4ee5 ResNet-50 \u9810\u8a13\u7df4\u6a21\u578b\u5efa\u7acb\u72d7\u8207\u8c93\u8fa8\u8b58\u7a0b\u5f0f - G. T. Wang","isPartOf":{"@id":"https://blog.gtwang.org/#website"},"primaryImageOfPage":{"@id":"https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#primaryimage"},"datePublished":"2018-09-18T03:20:29+00:00","dateModified":"2018-09-18T03:20:29+00:00","author":{"@id":"https://blog.gtwang.org/#/schema/person/d4a4e0c9476341629b705acaf3893df4"}},{"@type":["Person"],"@id":"https://blog.gtwang.org/#/schema/person/d4a4e0c9476341629b705acaf3893df4","name":"G. T. Wang","image":{"@type":"ImageObject","@id":"https://blog.gtwang.org/#authorlogo","url":"https://secure.gravatar.com/avatar/695aa3a56c129b4303b67f2700d3c474?s=96&d=mm&r=g","caption":"G. T. Wang"},"description":"\u500b\u4eba\u4f7f\u7528 Linux \u7d93\u9a57\u9577\u9054\u5341\u9918\u5e74\uff0c\u6a02\u65bc\u5206\u4eab\u5404\u7a2e\u81ea\u7531\u8edf\u9ad4\u6280\u8853\u8207\u5be6\u4f5c\u6587\u7ae0\u3002","sameAs":[]}]}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="amphtml" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/amp/"><meta name="generator" content="AMP for WP 0.9.98.4"><link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="訂閱《G. T. Wang》» 資訊提供" href="https://blog.gtwang.org/feed/">
+<link rel="alternate" type="application/rss+xml" title="訂閱《G. T. Wang》» 留言的資訊提供" href="https://blog.gtwang.org/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="訂閱《G. T. Wang 》»〈Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式〉留言的資訊提供" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.gtwang.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.2.2"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/wp-emoji-release.min.js.下載" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="rowling_fontawesome-css" href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="rowling_style_fa-css" href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/style.min(1).css" type="text/css" media="all">
+<script type="text/javascript" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/jquery.js.下載"></script>
+<script type="text/javascript" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/jquery-migrate.min.js.下載"></script>
+<script type="text/javascript" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/picturefill.min.js.下載"></script>
+<link rel="https://api.w.org/" href="https://blog.gtwang.org/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.gtwang.org/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blog.gtwang.org/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.2.2">
+<link rel="shortlink" href="https://blog.gtwang.org/?p=42968">
+<link rel="alternate" type="application/json+oembed" href="https://blog.gtwang.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.gtwang.org%2Fprogramming%2Fkeras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://blog.gtwang.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.gtwang.org%2Fprogramming%2Fkeras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system%2F&amp;format=xml">
+<!-- Customizer CSS --> 
+<style type="text/css">
+
+
+
+
+
+
+
+
+
+</style> 
+<!--/Customizer CSS-->
+      
+<!-- Begin: Adsense -->
+<script async="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/f(1).txt"></script>
+<!-- End: Adsense -->
+
+<!-- Begin: A/B Testing -->
+<script type="text/javascript">
+/* js.cookie */
+!function(e){if("function"==typeof define&&define.amd)define(e);else if("object"==typeof exports)module.exports=e();else{var n=window.Cookies,o=window.Cookies=e();o.noConflict=function(){return window.Cookies=n,o}}}(function(){function e(){for(var e=0,n={};e<arguments.length;e++){var o=arguments[e];for(var t in o)n[t]=o[t]}return n}function n(o){function t(n,i,r){var c;if("undefined"!=typeof document){if(arguments.length>1){if(r=e({path:"/"},t.defaults,r),"number"==typeof r.expires){var s=new Date;s.setMilliseconds(s.getMilliseconds()+864e5*r.expires),r.expires=s}try{c=JSON.stringify(i),/^[\{\[]/.test(c)&&(i=c)}catch(a){}return i=o.write?o.write(i,n):encodeURIComponent(String(i)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent),n=encodeURIComponent(String(n)),n=n.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent),n=n.replace(/[\(\)]/g,escape),document.cookie=[n,"=",i,r.expires&&"; expires="+r.expires.toUTCString(),r.path&&"; path="+r.path,r.domain&&"; domain="+r.domain,r.secure?"; secure":""].join("")}n||(c={});for(var p=document.cookie?document.cookie.split("; "):[],d=/(%[0-9A-Z]{2})+/g,f=0;f<p.length;f++){var u=p[f].split("="),l=u[0].replace(d,decodeURIComponent),m=u.slice(1).join("=");'"'===m.charAt(0)&&(m=m.slice(1,-1));try{if(m=o.read?o.read(m,l):o(m,l)||m.replace(d,decodeURIComponent),this.json)try{m=JSON.parse(m)}catch(a){}if(n===l){c=m;break}n||(c[l]=m)}catch(a){}}return c}}return t.set=t,t.get=function(e){return t(e)},t.getJSON=function(){return t.apply({json:!0},[].slice.call(arguments))},t.defaults={},t.remove=function(n,o){t(n,"",e(o,{expires:-1}))},t.withConverter=n,t}return n(function(){})});
+
+function initABTesting() {
+  var ab = {};
+  ab.channel = Cookies.get('abtesting.channel', { domain: 'blog.gtwang.org' });
+
+  if (typeof ab.channel === "undefined") {
+    var random_number = Math.random();
+    if (random_number < .5){
+      ab.channel = 'a';
+    } else {
+      ab.channel = 'b';
+    }
+    Cookies.set('abtesting.channel', ab.channel, { domain: 'blog.gtwang.org', expires: 7 });
+  }
+
+/*
+GTWang Blog 測試 A: 3586196931
+GTWang Blog 測試 B: 5062930138
+GTWang Blog 測試 C: 4729996133
+*/
+
+  switch(ab.channel) {
+  case 'a':
+    ab.adsenseChannel = '3586196931';
+    break;
+  case 'b':
+    ab.adsenseChannel = '5062930138';
+	  /* jQuery("<style>.post-content a {color:#111;text-decoration:underline;}</style>").appendTo("head"); */
+    break;
+  }
+  return ab;
+}
+var ABTesting = initABTesting();
+</script>
+<!-- End: A/B Testing -->
+
+<!-- Begin: Google DFP --><!--
+<script type='text/javascript'>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function() {
+    var gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    var useSSL = 'https:' == document.location.protocol;
+    gads.src = (useSSL ? 'https:' : 'http:') +
+      '//www.googletagservices.com/tag/js/gpt.js';
+    var node = document.getElementsByTagName('script')[0];
+    node.parentNode.insertBefore(gads, node);
+  })();
+</script>
+
+<script type='text/javascript'>
+googletag.cmd.push(function() {
+  /*
+  var mapping1 = googletag.sizeMapping().
+      addSize([0, 0], [320, 50]).
+	  addSize([280, 250], [250, 250]).
+      addSize([340, 200], [300, 250]).  // Tablet
+      addSize([1050, 200], [336, 280]). // Desktop
+	  build();
+
+  var mapping3 = googletag.sizeMapping().
+      addSize([0, 0], []).
+      addSize([728, 200], [160, 600]).
+      build();
+
+  var mapping2 = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([836, 200], [336, 280]). // Tablet
+    addSize([1220, 200], [728, 90]). // Desktop
+    build();
+*/
+  var mapping4 = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([850, 200], [468, 60]).
+    addSize([960, 200], [728, 90]).
+    addSize([1230, 200], [970, 90]).
+    build();
+/*
+  var mapping5 = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([850, 200], [728, 90]).
+    addSize([1070, 200], [970, 90]).
+    build();
+
+  googletag.defineSlot('/54009424/gtwang-post-bottom-1', [336, 280], 'div-gpt-ad-1432250578318-0').
+    defineSizeMapping(mapping1).
+	addService(googletag.pubads());
+	
+
+  googletag.defineSlot('/54009424/gtwang-bottom-1', [[336, 280], [728, 90]], 'div-gpt-ad-1432250578318-1').
+    defineSizeMapping(mapping2).
+    addService(googletag.pubads());
+
+    googletag.defineSlot('/54009424/gtwang-post-sidebar-1', [160, 600], 'div-gpt-ad-1432250578318-2').
+    defineSizeMapping(mapping3).
+    addService(googletag.pubads());
+
+    googletag.defineSlot('/54009424/gtwang-homepage-1', [336, 280], 'div-gpt-ad-1432250578318-3').
+    addService(googletag.pubads());
+
+    googletag.defineSlot('/54009424/gtwang-post-bottom-2', [336, 280], 'div-gpt-ad-1432250578318-4').
+    defineSizeMapping(mapping1).
+    addService(googletag.pubads());
+*/
+  googletag.defineSlot('/54009424/gtwang-top-1', [[728, 90], [234, 60], [468, 60], [970, 90]], 'div-gpt-ad-1432250578318-5').
+    defineSizeMapping(mapping4).
+    addService(googletag.pubads());
+/*
+  googletag.defineSlot('/54009424/gtwang-bottom-2', [[468, 60], [970, 90], [728, 90]], 'div-gpt-ad-1432250578318-6').
+    defineSizeMapping(mapping5).
+    addService(googletag.pubads());
+*/
+  googletag.pubads().enableSingleRequest();
+  googletag.pubads().collapseEmptyDivs();
+  
+  // For A/B Testing
+  googletag.pubads().setTargeting('ab_testing', ABTesting.channel);
+  
+  googletag.enableServices();
+});
+</script>-->
+<!-- End: Google DFP -->
+<!-- Begin: Google 網頁層級廣告 -->
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-7794009487786811",
+  enable_page_level_ads: true
+});
+</script>
+<!-- End: Google 網頁層級廣告 -->
+<!-- End: Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-50330039-2', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End: Google Analytics -->
+
+<!-- Begin: theme-color in Chrome -->
+<!--<meta name="theme-color" content="#3498df">-->
+<meta name="theme-color" content="#2880BF">
+<!-- End: theme-color in Chrome -->
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="https://blog.gtwang.org/favicon.ico" sizes="16x16">
+<link rel="icon" href="https://blog.gtwang.org/gtwang-logo-16x16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="https://blog.gtwang.org/gtwang-logo-48x48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="https://blog.gtwang.org/gtwang-logo-64x64.png" type="image/png" sizes="64x64">
+<link rel="icon" href="https://blog.gtwang.org/gtwang-logo-96x96.png" type="image/png" sizes="96x96">
+<link rel="icon" href="https://blog.gtwang.org/gtwang-logo-128x128.png" type="image/png" sizes="128x128">
+<link rel="icon" href="https://blog.gtwang.org/gtwang-logo-192x192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" sizes="57x57" href="https://blog.gtwang.org/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://blog.gtwang.org/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://blog.gtwang.org/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://blog.gtwang.org/apple-touch-icon-152x152.png">
+<!-- Begin: Smooth Jazz Ad -->
+<link href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/css" rel="stylesheet" type="text/css">
+<!-- End: Smooth Jazz Ad -->
+	<script src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/cse_element__zh_tw.js.下載" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/default+zh_TW.css"><link type="text/css" rel="stylesheet" href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/default.css"><style type="text/css">.gsc-control-cse{font-family:arial, sans-serif}.gsc-control-cse .gsc-table-result{font-family:arial, sans-serif}.gsc-refinementsGradient{background:linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0))}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-webkit-user-select:none;white-space:nowrap}.gsst_e{vertical-align:middle;opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em;-webkit-appearance:button}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gssb_a{padding:0 9px}.gsib_a{padding:5px 9px 4px 9px}.gscb_a{line-height:27px}.gssb_e{border:0}.gssb_l{margin:5px 0}input.gsc-input::-webkit-input-placeholder{font-size:14px}input.gsc-input:-moz-placeholder{font-size:14px}input.gsc-input::-moz-placeholder{font-size:14px}input.gsc-input:-ms-input-placeholder{font-size:14px}input.gsc-input:focus::-webkit-input-placeholder{color:transparent}input.gsc-input:focus:-moz-placeholder{color:transparent}input.gsc-input:focus::-moz-placeholder{color:transparent}input.gsc-input:focus:-ms-input-placeholder{color:transparent}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:15px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:19px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:13px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:13px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:17px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style></head>
+	
+	<body class="post-template-default single single-post postid-42968 single-format-standard has-featured-image">
+
+				
+			<div class="top-nav">
+				
+				<div class="section-inner">
+					
+					<ul class="secondary-menu">
+						
+						<li id="menu-item-5704" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5704"><a href="http://blogger.gtwang.org/">Blogger 舊站</a></li>
+<li id="menu-item-6167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6167"><a href="https://blog.gtwang.org/about/">關於</a></li>
+															
+					</ul> <!-- /secondary-menu -->
+				
+					<ul class="social-menu">
+						
+						<li id="menu-item-5251" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5251"><a href="https://www.facebook.com/GTWang.org/"><span class="screen-reader-text">Facebook</span></a></li>
+<li id="menu-item-6669" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6669"><a href="https://www.flickr.com/photos/gtwang/"><span class="screen-reader-text">Flickr</span></a></li>
+						
+					</ul> <!-- /social-menu -->
+				
+				<div class="clear"></div>
+				
+				</div> <!-- /section-inner -->
+				
+			</div> <!-- /top-nav -->
+			
+				
+		<div class="search-container">
+			
+			<div class="section-inner">
+			
+							
+			</div> <!-- /section-inner -->
+			
+		</div> <!-- /search-container -->
+		
+		<div class="header-wrapper">
+		
+			<div class="header">
+					
+				<div class="section-inner">
+
+									
+				        <a class="blog-logo" href="https://blog.gtwang.org/" title="G. T. Wang — 分享 GNU/Linux 與 Open Source 技術、教學文件、程式設計技巧、統計研究與生活點滴記錄" rel="home">
+				        	<img src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/gtwang-logo-90x90.png" alt="G. T. Wang">
+				        </a>
+				
+					<!-- Begin: Adsense -->
+<div class="top-adsense-banner">
+
+<!-- GTWang Blog 置頂大橫幅回應式 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="1154407736" data-ad-format="horizontal"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+
+</div>
+<!-- End: Adsense -->
+					<div class="nav-toggle">
+						
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div>
+						
+					</div> <!-- /nav-toggle -->
+				
+				</div> <!-- /section-inner -->
+				
+			</div> <!-- /header -->
+			
+			<div class="navigation">
+				
+				<div class="section-inner">
+					
+					<ul class="primary-menu">
+						
+						<li id="menu-item-16654" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16654"><a href="https://blog.gtwang.org/category/iot/">物聯網</a></li>
+<li id="menu-item-5604" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5604"><a href="https://blog.gtwang.org/web-building/">網站架設</a></li>
+<li id="menu-item-11789" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11789"><a href="https://blog.gtwang.org/programming/">程式設計</a></li>
+<li id="menu-item-5192" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5192"><a href="https://blog.gtwang.org/statistics/">統計</a></li>
+<li id="menu-item-10410" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10410"><a href="https://blog.gtwang.org/tag/vegetarian/">素食</a></li>
+<li id="menu-item-13001" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13001"><a href="https://blog.gtwang.org/tag/sale/">特價優惠</a></li>
+<li id="menu-item-32396" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32396"><a href="https://blog.gtwang.org/religion/">宗教</a></li>
+															
+					</ul>
+					
+					<div class="clear"></div>
+					
+				</div>
+				
+			</div> <!-- /navigation -->
+				
+			<ul class="mobile-menu" style="display: none;">
+				
+				<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16654"><a href="https://blog.gtwang.org/category/iot/">物聯網</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5604"><a href="https://blog.gtwang.org/web-building/">網站架設</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11789"><a href="https://blog.gtwang.org/programming/">程式設計</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5192"><a href="https://blog.gtwang.org/statistics/">統計</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10410"><a href="https://blog.gtwang.org/tag/vegetarian/">素食</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13001"><a href="https://blog.gtwang.org/tag/sale/">特價優惠</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32396"><a href="https://blog.gtwang.org/religion/">宗教</a></li>
+				
+			</ul> <!-- /mobile-menu -->
+				
+		</div> <!-- /header-wrapper -->
+
+<div class="wrapper section-inner">
+	
+	<div class="content">
+												        
+				
+			<div id="post-42968" class="single post-42968 post type-post status-publish format-standard has-post-thumbnail hentry category-programming tag-keras tag-python tag-machine-learning">
+
+				<div class="post-header">
+										
+											<!--<p class="post-categories"><a href="https://blog.gtwang.org/category/programming/" rel="category tag">程式設計</a></p>-->
+										
+											
+					    <h1 class="post-title entry-title"><a href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/" title="Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式">Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式</a></h1>
+					    
+										
+					<div class="post-meta">
+						<!--<span class="resp">Posted</span> <span class="post-meta-author">by <a href="https://blog.gtwang.org/author/admin/">G. T. Wang</a></span> on --><span class="post-meta-date date updated">2018/09/18</span> 													<span class="post-comments">
+								<a href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comments"><span class="fa fw fa-comment"></span>3<span class="resp"> Comments</span></a>							</span>
+											</div> <!-- /post-meta -->
+					
+				</div> <!-- /post-header -->
+
+						
+					<div class="post-image">
+					
+						<a title="Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/">	
+							
+							<img width="816" height="459" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01-816x459.jpg" class="attachment-post-image size-post-image wp-post-image" alt="" srcset="https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01-816x459.jpg 816w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01-300x169.jpg 300w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01-1024x576.jpg 1024w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01-816x459@2x.jpg 1632w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180917-01-300x169@2x.jpg 600w" sizes="(max-width: 816px) 100vw, 816px">							
+						</a>
+						
+												
+					</div> <!-- /post-image -->
+						
+							  
+				<div class="clear"></div>
+				
+				<!-- Begin: Sidebar Adsense -->
+				<div class="clear"></div>
+					
+<div class="related-posts">
+<!-- GTWang Blog 文章左側 160x600 -->
+<ins class="adsbygoogle left-sidebar-adsense" data-ad-client="ca-pub-7794009487786811" data-ad-slot="3721790935"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+
+</div> <!-- /related-posts -->
+				<!-- End: Sidebar Adsense -->
+				
+				<div class="post-inner">
+					
+						
+						<div class="post-content">
+
+<!-- Begin: AdSense -->
+<!--<div class="post-top-adsense">
+</div>-->
+<!-- End: AdSense -->
+
+							<p>這裡示範在 Keras 架構下以 ResNet-50 預訓練模型為基礎，建立可用來辨識狗與貓的 AI 程式。</p>
+<p>在 <a href="https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">Keras 的部落格</a>中示範了使用 VGG16 模型建立狗與貓的辨識程式，準確率大約為 94%，而這裡則是改用 ResNet50 模型為基礎，並將輸入影像尺寸提高為 224×224，加上大量的 data augmentation，結果可讓辨識的準確率達到 99%。<br>
+</p><div>
+<!-- GTWang Blog 文章中間連結200x90 -->
+<ins class="adsbygoogle" style="display:inline-block;width:200px;height:90px" data-ad-client="ca-pub-7794009487786811" data-ad-slot="7983235733"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+</div><br>
+本篇文章所使用的 Keras 是 TensorFlow 1.8.0 所內建的版本，不同版本可能會有一些差異。<p></p>
+<h2>準備資料</h2>
+<p>從 <a href="https://www.kaggle.com/c/dogs-vs-cats/">Kaggle 的網站</a>上下載 <code>train.zip</code> 壓縮檔，然後解壓縮：</p>
+<pre><span class="Comment"># 解壓縮 train.zip</span>
+unzip train.zip</pre>
+<p>建立好目錄結構：</p>
+<pre><span class="Comment"># 建立目錄結構</span>
+mkdir <span class="Special">-p</span> sample/train/cats
+mkdir <span class="Special">-p</span> sample/train/dogs
+mkdir <span class="Special">-p</span> sample/valid/cats
+mkdir <span class="Special">-p</span> sample/valid/dogs</pre>
+<p>選擇貓與狗各前 1000 張照片作為訓練資料集，另各取 400 張作為測試資料集：</p>
+<pre><span class="Comment"># 複製圖片</span>
+<span class="Statement">cd</span> train
+cp cat.?.jpg cat.??.jpg cat.???.jpg ../sample/train/cats/
+cp dog.?.jpg dog.??.jpg dog.???.jpg ../sample/train/dogs/
+cp cat.<span class="Constant">1</span><span class="Statement">[</span>0-3<span class="Statement">]</span>??.jpg ../sample/valid/cats/
+cp dog.<span class="Constant">1</span><span class="Statement">[</span>0-3<span class="Statement">]</span>??.jpg ../sample/valid/dogs/</pre>
+<div style="margin: 40px 0;"><!-- GTWang 文章 inline -->
+<ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-format="fluid" data-ad-layout="in-article" data-ad-client="ca-pub-7794009487786811" data-ad-slot="7302780695"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div><h2>建立與訓練模型</h2>
+<p>以下是以 ResNet-50 預訓練模型為基礎，建立與訓練狗與貓辨識模型的程式碼：</p>
+<pre><span class="PreProc">from</span> tensorflow.python.keras <span class="PreProc">import</span> backend <span class="Statement">as</span> K
+<span class="PreProc">from</span> tensorflow.python.keras.models <span class="PreProc">import</span> Model
+<span class="PreProc">from</span> tensorflow.python.keras.layers <span class="PreProc">import</span> Flatten, Dense, Dropout
+<span class="PreProc">from</span> tensorflow.python.keras.applications.resnet50 <span class="PreProc">import</span> ResNet50
+<span class="PreProc">from</span> tensorflow.python.keras.optimizers <span class="PreProc">import</span> Adam
+<span class="PreProc">from</span> tensorflow.python.keras.preprocessing.image <span class="PreProc">import</span> ImageDataGenerator
+
+<span class="Comment"># 資料路徑</span>
+DATASET_PATH  = <span class="Constant">'</span><span class="Constant">sample</span><span class="Constant">'</span>
+
+<span class="Comment"># 影像大小</span>
+IMAGE_SIZE = (<span class="Constant">224</span>, <span class="Constant">224</span>)
+
+<span class="Comment"># 影像類別數</span>
+NUM_CLASSES = <span class="Constant">2</span>
+
+<span class="Comment"># 若 GPU 記憶體不足，可調降 batch size 或凍結更多層網路</span>
+BATCH_SIZE = <span class="Constant">8</span>
+
+<span class="Comment"># 凍結網路層數</span>
+FREEZE_LAYERS = <span class="Constant">2</span>
+
+<span class="Comment"># Epoch 數</span>
+NUM_EPOCHS = <span class="Constant">20</span>
+
+<span class="Comment"># 模型輸出儲存的檔案</span>
+WEIGHTS_FINAL = <span class="Constant">'</span><span class="Constant">model-resnet50-final.h5</span><span class="Constant">'</span>
+
+<span class="Comment"># 透過 data augmentation 產生訓練與驗證用的影像資料</span>
+train_datagen = ImageDataGenerator(rotation_range=<span class="Constant">40</span>,
+                                   width_shift_range=<span class="Constant">0.2</span>,
+                                   height_shift_range=<span class="Constant">0.2</span>,
+                                   shear_range=<span class="Constant">0.2</span>,
+                                   zoom_range=<span class="Constant">0.2</span>,
+                                   channel_shift_range=<span class="Constant">10</span>,
+                                   horizontal_flip=<span class="Identifier">True</span>,
+                                   fill_mode=<span class="Constant">'</span><span class="Constant">nearest</span><span class="Constant">'</span>)
+train_batches = train_datagen.flow_from_directory(DATASET_PATH + <span class="Constant">'</span><span class="Constant">/train</span><span class="Constant">'</span>,
+                                                  target_size=IMAGE_SIZE,
+                                                  interpolation=<span class="Constant">'</span><span class="Constant">bicubic</span><span class="Constant">'</span>,
+                                                  class_mode=<span class="Constant">'</span><span class="Constant">categorical</span><span class="Constant">'</span>,
+                                                  shuffle=<span class="Identifier">True</span>,
+                                                  batch_size=BATCH_SIZE)
+
+valid_datagen = ImageDataGenerator()
+valid_batches = valid_datagen.flow_from_directory(DATASET_PATH + <span class="Constant">'</span><span class="Constant">/valid</span><span class="Constant">'</span>,
+                                                  target_size=IMAGE_SIZE,
+                                                  interpolation=<span class="Constant">'</span><span class="Constant">bicubic</span><span class="Constant">'</span>,
+                                                  class_mode=<span class="Constant">'</span><span class="Constant">categorical</span><span class="Constant">'</span>,
+                                                  shuffle=<span class="Identifier">False</span>,
+                                                  batch_size=BATCH_SIZE)
+
+<span class="Comment"># 輸出各類別的索引值</span>
+<span class="Statement">for</span> cls, idx <span class="Statement">in</span> train_batches.class_indices.items():
+    <span class="Identifier">print</span>(<span class="Constant">'</span><span class="Constant">Class #{} = {}</span><span class="Constant">'</span>.format(idx, cls))
+
+<span class="Comment"># 以訓練好的 ResNet50 為基礎來建立模型，</span>
+<span class="Comment"># 捨棄 ResNet50 頂層的 fully connected layers</span>
+net = ResNet50(include_top=<span class="Identifier">False</span>, weights=<span class="Constant">'</span><span class="Constant">imagenet</span><span class="Constant">'</span>, input_tensor=<span class="Identifier">None</span>,
+               input_shape=(IMAGE_SIZE[<span class="Constant">0</span>],IMAGE_SIZE[<span class="Constant">1</span>],<span class="Constant">3</span>))
+x = net.output
+x = Flatten()(x)
+
+<span class="Comment"># 增加 DropOut layer</span>
+x = Dropout(<span class="Constant">0.5</span>)(x)
+
+<span class="Comment"># 增加 Dense layer，以 softmax 產生個類別的機率值</span>
+output_layer = Dense(NUM_CLASSES, activation=<span class="Constant">'</span><span class="Constant">softmax</span><span class="Constant">'</span>, name=<span class="Constant">'</span><span class="Constant">softmax</span><span class="Constant">'</span>)(x)
+
+<span class="Comment"># 設定凍結與要進行訓練的網路層</span>
+net_final = Model(inputs=net.input, outputs=output_layer)
+<span class="Statement">for</span> layer <span class="Statement">in</span> net_final.layers[:FREEZE_LAYERS]:
+    layer.trainable = <span class="Identifier">False</span>
+<span class="Statement">for</span> layer <span class="Statement">in</span> net_final.layers[FREEZE_LAYERS:]:
+    layer.trainable = <span class="Identifier">True</span>
+
+<span class="Comment"># 使用 Adam optimizer，以較低的 learning rate 進行 fine-tuning</span>
+net_final.compile(optimizer=Adam(lr=<span class="Constant">1e-5</span>),
+                  loss=<span class="Constant">'</span><span class="Constant">categorical_crossentropy</span><span class="Constant">'</span>, metrics=[<span class="Constant">'</span><span class="Constant">accuracy</span><span class="Constant">'</span>])
+
+<span class="Comment"># 輸出整個網路結構</span>
+<span class="Identifier">print</span>(net_final.summary())
+
+<span class="Comment"># 訓練模型</span>
+net_final.fit_generator(train_batches,
+                        steps_per_epoch = train_batches.samples // BATCH_SIZE,
+                        validation_data = valid_batches,
+                        validation_steps = valid_batches.samples // BATCH_SIZE,
+                        epochs = NUM_EPOCHS)
+
+<span class="Comment"># 儲存訓練好的模型</span>
+net_final.save(WEIGHTS_FINAL)</pre>
+<p>將這段 Python 程式碼儲存為 <code>train_resnet50.py</code>，然後執行它即可進行模型的訓練：</p>
+<pre>python3 train_resnet50.py</pre>
+<p><a href="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180918-01.png"><img class="alignnone size-full wp-image-43613" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180918-01.png" alt="" width="916" height="512" srcset="https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180918-01.png 916w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180918-01-300x168.png 300w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180918-01-816x456.png 816w, https://blog.gtwang.org/wp-content/uploads/2018/09/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system-20180918-01-300x168@2x.png 600w" sizes="(max-width: 916px) 100vw, 916px"></a></p>
+<p>模型訓練完成之後，就會儲存於 <code>model-resnet50-final.h5</code> 這個檔案中。</p>
+<div style="margin: 20px 0;"><!-- GTWang Blog 文章中間連結200x90(2) -->
+<ins class="adsbygoogle" style="display:inline-block;width:200px;height:90px" data-ad-client="ca-pub-7794009487786811" data-ad-slot="5795783333"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div><h2>辨識狗與貓</h2>
+<p>將模型訓練好之後，就可以使用以下的 Python 指令稿打造自己的狗與貓辨識程式了：</p>
+<pre><span class="PreProc">from</span> tensorflow.python.keras <span class="PreProc">import</span> backend <span class="Statement">as</span> K
+<span class="PreProc">from</span> tensorflow.python.keras.models <span class="PreProc">import</span> load_model
+<span class="PreProc">from</span> tensorflow.python.keras.preprocessing <span class="PreProc">import</span> image
+<span class="PreProc">import</span> sys
+<span class="PreProc">import</span> numpy <span class="Statement">as</span> np
+
+<span class="Comment"># 從參數讀取圖檔路徑</span>
+files = sys.argv[<span class="Constant">1</span>:]
+
+<span class="Comment"># 載入訓練好的模型</span>
+net = load_model(<span class="Constant">'</span><span class="Constant">model-resnet50-final.h5</span><span class="Constant">'</span>)
+
+cls_list = [<span class="Constant">'</span><span class="Constant">cats</span><span class="Constant">'</span>, <span class="Constant">'</span><span class="Constant">dogs</span><span class="Constant">'</span>]
+
+<span class="Comment"># 辨識每一張圖</span>
+<span class="Statement">for</span> f <span class="Statement">in</span> files:
+    img = image.load_img(f, target_size=(<span class="Constant">224</span>, <span class="Constant">224</span>))
+    <span class="Statement">if</span> img <span class="Statement">is</span> <span class="Identifier">None</span>:
+        <span class="Statement">continue</span>
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis = <span class="Constant">0</span>)
+    pred = net.predict(x)[<span class="Constant">0</span>]
+    top_inds = pred.argsort()[::-<span class="Constant">1</span>][:<span class="Constant">5</span>]
+    <span class="Identifier">print</span>(f)
+    <span class="Statement">for</span> i <span class="Statement">in</span> top_inds:
+        <span class="Identifier">print</span>(<span class="Constant">'</span><span class="Constant">    {:.3f}  {}</span><span class="Constant">'</span>.format(pred[i], cls_list[i]))</pre>
+<p>將這段 Python 程式碼儲存為 <code>predict_resnet50.py</code>，然後就可以拿來辨識圖片了。我們可以直接使用 Kaggle 所提供的圖片進行測試：</p>
+<pre><span class="Comment"># 辨識狗與貓</span>
+python3 predict_resnet50.py train/dog.1000<span class="Statement">[</span>0-2<span class="Statement">]</span>.jpg train/cat.1000<span class="Statement">[</span>0-2<span class="Statement">]</span>.jpg</pre>
+<pre class="output">train/dog.10000.jpg
+    1.000  dogs
+    0.000  cats
+train/dog.10001.jpg
+    1.000  dogs
+    0.000  cats
+train/dog.10002.jpg
+    1.000  dogs
+    0.000  cats
+train/cat.10000.jpg
+    0.998  cats
+    0.002  dogs
+train/cat.10001.jpg
+    1.000  cats
+    0.000  dogs
+train/cat.10002.jpg
+    1.000  cats
+    0.000  dogs</pre>
+<p>也可以拿自己的圖片放進去進行辨識：</p>
+<div id="attachment_43618" style="width: 626px" class="wp-caption alignnone"><a href="https://blog.gtwang.org/wp-content/uploads/2018/09/pug-20180918-01.jpg"><img aria-describedby="caption-attachment-43618" class="wp-image-43618 size-large" title="小狗圖片" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/pug-20180918-01-1024x683.jpg" alt="" width="616" height="411" srcset="https://blog.gtwang.org/wp-content/uploads/2018/09/pug-20180918-01-1024x683.jpg 1024w, https://blog.gtwang.org/wp-content/uploads/2018/09/pug-20180918-01-300x200.jpg 300w, https://blog.gtwang.org/wp-content/uploads/2018/09/pug-20180918-01-816x544.jpg 816w, https://blog.gtwang.org/wp-content/uploads/2018/09/pug-20180918-01-300x200@2x.jpg 600w, https://blog.gtwang.org/wp-content/uploads/2018/09/pug-20180918-01-816x544@2x.jpg 1632w" sizes="(max-width: 616px) 100vw, 616px"></a><p id="caption-attachment-43618" class="wp-caption-text">小狗圖片</p></div>
+<pre><span class="Comment"># 辨識自己的圖片</span>
+python3 predict_resnet50.py pug-20180918-01.jpg</pre>
+<pre class="output">pug-20180918-01.jpg
+    0.999  dogs
+    0.001  cats</pre>
+<p>參考資料：<a href="https://jkjung-avt.github.io/keras-tutorial/">JK Jung’s blog</a></p>
+							
+							
+<!-- Begin: AdSense -->
+<p style="margin-top: 30px">
+<!-- GTWang Blog 文章置底連結 -->
+<ins class="adsbygoogle" style="display:inline-block;width:200px;height:90px" data-ad-client="ca-pub-7794009487786811" data-ad-slot="9284477339"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+</p>
+<!-- End: AdSense -->
+<!-- Begin: AdSense -->
+<div style="text-align: center;margin-top: 40px;">
+
+<!-- GTWang Blog 文章置底回應式 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="1934225336" data-ad-format="rectangle"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+    params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+<!-- GTWang 文章置底內置廣告1 -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-format="fluid"
+     data-ad-layout="in-article"
+     data-ad-client="ca-pub-7794009487786811"
+     data-ad-slot="5913525449"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+</div>
+<!-- End: AdSense -->
+						  
+						</div>
+					
+					
+					<div class="post-bottom-meta">
+
+<!-- Begin: Social Media -->
+<div style="margin-bottom: 20px;">
+<!-- Begin: facebook -->
+<div class="fb-like fb_iframe_widget" data-layout="button_count" data-share="true" data-href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=338766312900008&amp;container_width=617&amp;href=https%3A%2F%2Fblog.gtwang.org%2Fprogramming%2Fkeras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system%2F&amp;layout=button_count&amp;locale=zh_TW&amp;sdk=joey&amp;share=true"><span style="vertical-align: bottom; width: 99px; height: 20px;"><iframe name="f3178ee17c41d5c" width="1000px" height="1000px" title="fb:like Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/like.html" style="border: none; visibility: visible; width: 99px; height: 20px;" class="" data-origwidth="1000px" data-origheight="1000px"></iframe></span></div>
+<!-- End: facebook -->
+</div>
+<!-- End: Social Media -->
+
+													<div class="post-categories">
+								<i class="fa fa-folder-open item-icon"></i>
+								<a href="https://blog.gtwang.org/category/programming/" rel="category tag">程式設計</a>							</div>
+											
+											
+							<div class="post-tags">
+
+								<i class="fa fa-tags item-icon"></i>
+							
+								<a href="https://blog.gtwang.org/tag/keras/" rel="tag">Keras</a><a href="https://blog.gtwang.org/tag/python/" rel="tag">Python</a><a href="https://blog.gtwang.org/tag/machine-learning/" rel="tag">機器學習</a>							
+							</div>
+					
+											</div>
+					
+					<div class="post-author vcard author">
+						
+						<a class="avatar" href="https://blog.gtwang.org/author/admin/">
+														
+							<img alt="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/695aa3a56c129b4303b67f2700d3c474.png" srcset="https://secure.gravatar.com/avatar/695aa3a56c129b4303b67f2700d3c474?s=200&amp;d=mm&amp;r=g 2x" class="avatar avatar-100 photo" height="100" width="100">							
+						</a>
+						
+						<h4 class="title"><a href="https://blog.gtwang.org/author/admin/">G. T. Wang</a></h4>
+						
+						<p class="description">個人使用 Linux 經驗長達十餘年，樂於分享各種自由軟體技術與實作文章。</p>
+
+					</div> <!-- /post-author -->
+
+<!-- Begin: Google DFP -->
+<!--<div style="text-align: center;margin-top: 40px;">-->
+<!-- /54009424/gtwang-post-bottom-2 -->
+<!--<div id='div-gpt-ad-1432250578318-4'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1432250578318-4'); });
+</script>
+</div>
+</div>-->
+<!-- End: Google DFP -->
+
+					<!-- Begin: Google 相符內容 -->
+<div class="google-related-post">
+<!-- GTWang Blog 相符內容回應式 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="5084874535" data-ad-format="autorelaxed"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+</div>
+<!-- End: Google 相符內容 -->
+<!-- Begin: Google AdSense -->
+<!--<div style="text-align:center;margin-top:40px;">-->
+<!-- GTWang Blog 文章置底回應式（二） -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7794009487786811"
+     data-ad-slot="1387954139"
+     data-ad-format="rectangle"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+  params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script>
+</div>
+-->  
+<!-- End: Google AdSense -->
+
+<!-- Begin: Facebook Comments -->
+<!--<div class="facebook-comments">
+<div class="fb-comments" data-href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/" data-numposts="5"></div>
+</div>-->
+<!-- End: Facebook Comments -->
+
+				</div> <!-- /post-inner -->
+				
+				<div class="clear"></div>
+				
+			</div> <!-- /post -->
+	  	  
+			
+
+	<div class="comments-container">
+	
+		<div class="comments-inner">
+		
+			<a name="comments"></a>
+			
+			<div class="comments-title-container">
+			
+				<h3 class="comments-title">
+				
+					<span class="fa fw fa-comment"></span>3 Comments					
+				</h3>
+				
+								
+					<p class="comments-title-link">
+						
+						<a href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#respond">Add Comment →</a>
+						
+					</p>
+				
+								
+				<div class="clear"></div>
+			
+			</div>
+		
+			<div class="comments">
+		
+				<ol class="commentlist">
+				    	<li class="comment even thread-even depth-1" id="li-comment-69166">
+	
+		<div id="comment-69166" class="comment">
+			
+			<img alt="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/6b19c92f9f003ccee0cf89da7d06f334.png" srcset="https://secure.gravatar.com/avatar/6b19c92f9f003ccee0cf89da7d06f334?s=320&amp;d=mm&amp;r=g 2x" class="avatar avatar-160 photo" height="160" width="160">			
+						
+			<div class="comment-inner">
+			
+				<div class="comment-header">
+											
+					<h4>台中阿任</h4>
+				
+				</div> <!-- /comment-header -->
+				
+				<div class="comment-content post-content">
+			
+					<p>感謝大大不吝分享<br>
+最近在嘗試使用 kaggle 的<br>
+<a href="https://www.kaggle.com/c/humpback-whale-identification/" rel="nofollow">https://www.kaggle.com/c/humpback-whale-identification/</a></p>
+<p>對於kaggle有些問題<br>
+1.kaggle排名是看CSV…但是別人的結果CSV很容易取得，貼上去一下就衝到一半以上了…這是不是怪怪的? 還是我搞錯了什麼?</p>
+<p>2.kaggle有蠻多人分享自己的 kernels…有些從頭跑到尾的notebook我看得懂.但是例如:<br>
+<a href="https://www.kaggle.com/ateplyuk/resnext50-sz448-resnext50-sz224-lb-0-684" rel="nofollow">https://www.kaggle.com/ateplyuk/resnext50-sz448-resnext50-sz224-lb-0-684</a><br>
+我就看不懂他到底怎麼分層與訓練<br>
+要如何實作別人的kernels呢?</p>
+<p>3.在鯨魚判斷這題目，是不是用CNN VGG16就不好呢? 聽我的老師說相當有難度</p>
+<p>感謝大大解答!!!</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-meta">
+					
+					<div class="fleft">
+						<div class="fa fw fa-clock-o"></div><a class="comment-date-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comment-69166" title="2018/12/26 at 下午 11:47">2018/12/26</a>
+											</div>
+					
+											
+						<div class="fright"><div class="fa fw fa-reply"></div><a rel="nofollow" class="comment-reply-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comment-69166" data-commentid="69166" data-postid="42968" data-belowelement="comment-69166" data-respondelement="respond" aria-label="回覆給「台中阿任」">Reply</a></div>					
+										
+					<div class="clear"></div>
+					
+				</div> <!-- /comment-meta -->
+								
+			</div> <!-- /comment-inner -->
+										
+		</div><!-- /comment-## -->
+				
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-69180">
+	
+		<div id="comment-69180" class="comment">
+			
+			<img alt="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/6b19c92f9f003ccee0cf89da7d06f334.png" srcset="https://secure.gravatar.com/avatar/6b19c92f9f003ccee0cf89da7d06f334?s=320&amp;d=mm&amp;r=g 2x" class="avatar avatar-160 photo" height="160" width="160">			
+						
+			<div class="comment-inner">
+			
+				<div class="comment-header">
+											
+					<h4>台中阿任</h4>
+				
+				</div> <!-- /comment-header -->
+				
+				<div class="comment-content post-content">
+			
+					<p>大大好! 不好意思 我遇到一個問題<br>
+就是我看您的程式的時候<br>
+不知道 label 設定在哪邊<br>
+就我的認知<br>
+label 對應都是設定在 CSV 中<br>
+但是我都沒看到有讀取CSV的地方<br>
+不知道大大可否解答!</p>
+<p>我是機器學習的新手<br>
+感謝大大!</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-meta">
+					
+					<div class="fleft">
+						<div class="fa fw fa-clock-o"></div><a class="comment-date-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comment-69180" title="2018/12/27 at 下午 10:12">2018/12/27</a>
+											</div>
+					
+											
+						<div class="fright"><div class="fa fw fa-reply"></div><a rel="nofollow" class="comment-reply-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comment-69180" data-commentid="69180" data-postid="42968" data-belowelement="comment-69180" data-respondelement="respond" aria-label="回覆給「台中阿任」">Reply</a></div>					
+										
+					<div class="clear"></div>
+					
+				</div> <!-- /comment-meta -->
+								
+			</div> <!-- /comment-inner -->
+										
+		</div><!-- /comment-## -->
+				
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-82178">
+	
+		<div id="comment-82178" class="comment">
+			
+			<img alt="" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/7d3127a0af2815e4238aa1b52ef0ea97.png" srcset="https://secure.gravatar.com/avatar/7d3127a0af2815e4238aa1b52ef0ea97?s=320&amp;d=mm&amp;r=g 2x" class="avatar avatar-160 photo" height="160" width="160">			
+						
+			<div class="comment-inner">
+			
+				<div class="comment-header">
+											
+					<h4>Ed90595</h4>
+				
+				</div> <!-- /comment-header -->
+				
+				<div class="comment-content post-content">
+			
+					<p>大大您好!我也是機器學習的新手，近幾天按照大大步驟做確實有做出結果，非常感謝!!!<br>
+但不知道怎麼使用這行:<br>
+python3 predict_resnet50.py train/dog.1000[0-2].jpg train/cat.1000[0-2].jpg<br>
+來一次做 dog/cat.10000~10002.jpg 的作業。<br>
+我的環境使用Anaconda去跑，底下python版本為3.6.8。<br>
+沒辦法使用python3這個指令，而是使用: python predict_resnet50.py train/dog.10000.jpg 一次跑一張圖OK。<br>
+但如果要如大大一次使用多個照片的語法那樣下去跑會跑出:<br>
+FileNotFoundError: [Errno 2] No such file or directory: ‘train/dog.1000[0-2].jpg’<br>
+這個錯誤QQ 拜託大大求解了~~~</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-meta">
+					
+					<div class="fleft">
+						<div class="fa fw fa-clock-o"></div><a class="comment-date-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comment-82178" title="2019/05/14 at 上午 7:28">2019/05/14</a>
+											</div>
+					
+											
+						<div class="fright"><div class="fa fw fa-reply"></div><a rel="nofollow" class="comment-reply-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#comment-82178" data-commentid="82178" data-postid="42968" data-belowelement="comment-82178" data-respondelement="respond" aria-label="回覆給「Ed90595」">Reply</a></div>					
+										
+					<div class="clear"></div>
+					
+				</div> <!-- /comment-meta -->
+								
+			</div> <!-- /comment-inner -->
+										
+		</div><!-- /comment-## -->
+				
+	</li><!-- #comment-## -->
+				</ol>
+				
+										
+								
+			</div> <!-- /comments -->
+			
+		</div> <!-- /comments-inner -->
+		
+	</div> <!-- /comments-container -->
+	
+
+
+<div class="respond-container">	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title"><span class="fa fw fa-pencil"></span>Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/#respond" style="display:none;">取消回覆</a></small></h3>			<form action="https://blog.gtwang.org/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<p class="comment-form-comment">
+			<label for="comment">Comment<span class="required">*</span></label>
+			<textarea id="comment" name="comment" cols="45" rows="6" required=""></textarea>
+		</p><p class="comment-form-author">
+				<label for="author">Name<span class="required">*</span></label> 
+				<input id="author" name="author" type="text" value="" size="30">
+			</p>
+<p class="comment-form-email">
+				<label for="email">Email<span class="required">*</span></label> 
+				<input id="email" name="email" type="text" value="" size="30">
+			</p>
+<p class="comment-form-url">
+				<label for="url">Website</label>
+				<input id="url" name="url" type="text" value="" size="30">
+			</p>
+<span class="cerber-form-marker"></span><div class="g-recaptcha" data-sitekey="6LcLKgMTAAAAACHjx-hM9ftkrHCPE-uJ07K6Vr6j" data-callback="form_button_enabler" id="cerber-recaptcha"><div style="width: 304px; height: 78px;"><div><iframe src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/anchor.html" width="304" height="78" role="presentation" name="a-gjgdcdxzvuzl" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div></div><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="發佈留言" disabled="" style="opacity: 0.5;"> <input type="hidden" name="comment_post_ID" value="42968" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>			</form>
+			</div><!-- #respond -->
+	</div> <!-- /respond-container -->										                        
+	   	    
+	
+	</div> <!-- /content -->
+	
+	<div class="sidebar">
+
+	<div class="widget_text widget widget_custom_html"><div class="widget_text widget-content"><div class="textwidget custom-html-widget"><!-- GTWang Blog 側邊置頂 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="1761210530" data-ad-format="rectangle"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+params: { google_ad_channel: ABTesting.adsenseChannel }
+});
+</script></div></div><div class="clear"></div></div><div class="widget_text widget widget_custom_html"><div class="widget_text widget-content"><h3 class="widget-title">搜尋</h3><div class="textwidget custom-html-widget"><script>
+  (function() {
+    var cx = '010683406150495012642:8mmxwclhw68';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="___gcse_0"><div class="gsc-control-searchbox-only gsc-control-searchbox-only-zh-TW" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8"><table cellspacing="0" cellpadding="0" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box" id="gsc-iw-id1"><table cellspacing="0" cellpadding="0" id="gs_id50" class="gstl_50 gsc-input" style="width: 100%; padding: 0px;"><tbody><tr><td id="gs_tti50" class="gsib_a"><input autocomplete="off" type="text" size="10" class="gsc-input" name="search" title="搜尋" id="gsc-i-id1" placeholder="自訂搜尋" dir="ltr" spellcheck="false" style="width: 100%; padding: 0px; border: none; margin: 0px; height: auto; background: url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) left center no-repeat rgb(255, 255, 255); text-indent: 48px; outline: none;"></td><td class="gsib_b"><div class="gsst_b" id="gs_st50" dir="ltr"><a class="gsst_a" href="javascript:void(0)" style="display: none;" title="清除搜尋框" role="button"><span class="gscb_a" id="gs_cb50" aria-hidden="true">×</span></a></div></td></tr></tbody></table></div></td><td class="gsc-search-button"><button class="gsc-search-button gsc-search-button-v2"><svg width="13" height="13" viewBox="0 0 13 13"><title>搜尋</title><path d="m4.8495 7.8226c0.82666 0 1.5262-0.29146 2.0985-0.87438 0.57232-0.58292 0.86378-1.2877 0.87438-2.1144 0.010599-0.82666-0.28086-1.5262-0.87438-2.0985-0.59352-0.57232-1.293-0.86378-2.0985-0.87438-0.8055-0.010599-1.5103 0.28086-2.1144 0.87438-0.60414 0.59352-0.8956 1.293-0.87438 2.0985 0.021197 0.8055 0.31266 1.5103 0.87438 2.1144 0.56172 0.60414 1.2665 0.8956 2.1144 0.87438zm4.4695 0.2115 3.681 3.6819-1.259 1.284-3.6817-3.7 0.0019784-0.69479-0.090043-0.098846c-0.87973 0.76087-1.92 1.1413-3.1207 1.1413-1.3553 0-2.5025-0.46363-3.4417-1.3909s-1.4088-2.0686-1.4088-3.4239c0-1.3553 0.4696-2.4966 1.4088-3.4239 0.9392-0.92727 2.0864-1.3969 3.4417-1.4088 1.3553-0.011889 2.4906 0.45771 3.406 1.4088 0.9154 0.95107 1.379 2.0924 1.3909 3.4239 0 1.2126-0.38043 2.2588-1.1413 3.1385l0.098834 0.090049z"></path></svg></button></td><td class="gsc-clear-button"><div class="gsc-clear-button" title="清除結果">&nbsp;</div></td></tr></tbody></table></form></div></div></div></div><div class="clear"></div></div><div class="widget widget_links"><div class="widget-content"><h3 class="widget-title">推薦</h3>
+	<ul class="xoxo blogroll">
+<li><a href="https://blog.gtwang.org/recommends/coursera/">Coursera 線上教學課程</a></li>
+<li><a href="https://blog.gtwang.org/recommends/udemy/">Udemy 線上教學課程</a></li>
+
+	</ul>
+</div><div class="clear"></div></div>
+<div class="widget_text widget widget_custom_html"><div class="widget_text widget-content"><div class="textwidget custom-html-widget"><!-- GTWang Blog 側邊連結回應式 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="2064605305" data-ad-format="link"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div><div class="clear"></div></div><div class="widget widget_tag_cloud"><div class="widget-content"><h3 class="widget-title">分類</h3><div class="tagcloud"><a href="https://blog.gtwang.org/category/iot/arduino/" class="tag-cloud-link tag-link-14 tag-link-position-1" style="font-size: 11.082568807339pt;" aria-label="Arduino (5 個項目)">Arduino<span class="tag-link-count"> (5)</span></a>
+<a href="https://blog.gtwang.org/category/iot/beaglebone-black/" class="tag-cloud-link tag-link-37 tag-link-position-2" style="font-size: 8pt;" aria-label="BeagleBone Black (1 個項目)">BeagleBone Black<span class="tag-link-count"> (1)</span></a>
+<a href="https://blog.gtwang.org/category/diy/" class="tag-cloud-link tag-link-28 tag-link-position-3" style="font-size: 15.385321100917pt;" aria-label="DIY (27 個項目)">DIY<span class="tag-link-count"> (27)</span></a>
+<a href="https://blog.gtwang.org/category/linux/" class="tag-cloud-link tag-link-25 tag-link-position-4" style="font-size: 22pt;" aria-label="Linux (300 個項目)">Linux<span class="tag-link-count"> (300)</span></a>
+<a href="https://blog.gtwang.org/category/mac-os-x/" class="tag-cloud-link tag-link-54 tag-link-position-5" style="font-size: 15.834862385321pt;" aria-label="Mac OS X (32 個項目)">Mac OS X<span class="tag-link-count"> (32)</span></a>
+<a href="https://blog.gtwang.org/category/octave/" class="tag-cloud-link tag-link-113 tag-link-position-6" style="font-size: 13.779816513761pt;" aria-label="Octave (15 個項目)">Octave<span class="tag-link-count"> (15)</span></a>
+<a href="https://blog.gtwang.org/category/perl/" class="tag-cloud-link tag-link-119 tag-link-position-7" style="font-size: 13.201834862385pt;" aria-label="Perl (12 個項目)">Perl<span class="tag-link-count"> (12)</span></a>
+<a href="https://blog.gtwang.org/category/r/" class="tag-cloud-link tag-link-146 tag-link-position-8" style="font-size: 16.862385321101pt;" aria-label="R (47 個項目)">R<span class="tag-link-count"> (47)</span></a>
+<a href="https://blog.gtwang.org/category/windows/" class="tag-cloud-link tag-link-29 tag-link-position-9" style="font-size: 18.853211009174pt;" aria-label="Windows (97 個項目)">Windows<span class="tag-link-count"> (97)</span></a>
+<a href="https://blog.gtwang.org/category/wordpress/" class="tag-cloud-link tag-link-27 tag-link-position-10" style="font-size: 13.97247706422pt;" aria-label="WordPress (16 個項目)">WordPress<span class="tag-link-count"> (16)</span></a>
+<a href="https://blog.gtwang.org/category/personal/" class="tag-cloud-link tag-link-934 tag-link-position-11" style="font-size: 13.779816513761pt;" aria-label="個人 (15 個項目)">個人<span class="tag-link-count"> (15)</span></a>
+<a href="https://blog.gtwang.org/category/free/" class="tag-cloud-link tag-link-132 tag-link-position-12" style="font-size: 16.091743119266pt;" aria-label="免費 (35 個項目)">免費<span class="tag-link-count"> (35)</span></a>
+<a href="https://blog.gtwang.org/category/children/" class="tag-cloud-link tag-link-24 tag-link-position-13" style="font-size: 14.550458715596pt;" aria-label="兒童 (20 個項目)">兒童<span class="tag-link-count"> (20)</span></a>
+<a href="https://blog.gtwang.org/category/useful-tools/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 18.467889908257pt;" aria-label="實用工具 (84 個項目)">實用工具<span class="tag-link-count"> (84)</span></a>
+<a href="https://blog.gtwang.org/category/mobile/" class="tag-cloud-link tag-link-67 tag-link-position-15" style="font-size: 13.45871559633pt;" aria-label="手機 (13 個項目)">手機<span class="tag-link-count"> (13)</span></a>
+<a href="https://blog.gtwang.org/category/tips/" class="tag-cloud-link tag-link-47 tag-link-position-16" style="font-size: 16.733944954128pt;" aria-label="技巧 (45 個項目)">技巧<span class="tag-link-count"> (45)</span></a>
+<a href="https://blog.gtwang.org/category/funny/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 18.917431192661pt;" aria-label="有趣 (99 個項目)">有趣<span class="tag-link-count"> (99)</span></a>
+<a href="https://blog.gtwang.org/category/iot/raspberry-pi/" class="tag-cloud-link tag-link-4 tag-link-position-18" style="font-size: 17.311926605505pt;" aria-label="樹莓派 (55 個項目)">樹莓派<span class="tag-link-count"> (55)</span></a>
+<a href="https://blog.gtwang.org/category/iot/" class="tag-cloud-link tag-link-3 tag-link-position-19" style="font-size: 17.247706422018pt;" aria-label="物聯網 (54 個項目)">物聯網<span class="tag-link-count"> (54)</span></a>
+<a href="https://blog.gtwang.org/category/metaphysics/" class="tag-cloud-link tag-link-940 tag-link-position-20" style="font-size: 13.009174311927pt;" aria-label="玄學 (11 個項目)">玄學<span class="tag-link-count"> (11)</span></a>
+<a href="https://blog.gtwang.org/category/life/" class="tag-cloud-link tag-link-81 tag-link-position-21" style="font-size: 20.844036697248pt;" aria-label="生活 (197 個項目)">生活<span class="tag-link-count"> (197)</span></a>
+<a href="https://blog.gtwang.org/category/programming/" class="tag-cloud-link tag-link-8 tag-link-position-22" style="font-size: 19.816513761468pt;" aria-label="程式設計 (136 個項目)">程式設計<span class="tag-link-count"> (136)</span></a>
+<a href="https://blog.gtwang.org/category/statistics/" class="tag-cloud-link tag-link-94 tag-link-position-23" style="font-size: 12.174311926606pt;" aria-label="統計學 (8 個項目)">統計學<span class="tag-link-count"> (8)</span></a>
+<a href="https://blog.gtwang.org/category/web-hosting/" class="tag-cloud-link tag-link-106 tag-link-position-24" style="font-size: 16.091743119266pt;" aria-label="網頁空間 (35 個項目)">網頁空間<span class="tag-link-count"> (35)</span></a>
+<a href="https://blog.gtwang.org/category/web-development/" class="tag-cloud-link tag-link-51 tag-link-position-25" style="font-size: 19.559633027523pt;" aria-label="網頁開發 (126 個項目)">網頁開發<span class="tag-link-count"> (126)</span></a>
+<a href="https://blog.gtwang.org/category/virtualization/" class="tag-cloud-link tag-link-74 tag-link-position-26" style="font-size: 11.853211009174pt;" aria-label="虛擬化 (7 個項目)">虛擬化<span class="tag-link-count"> (7)</span></a>
+<a href="https://blog.gtwang.org/category/agriculture/" class="tag-cloud-link tag-link-956 tag-link-position-27" style="font-size: 16.477064220183pt;" aria-label="農業 (41 個項目)">農業<span class="tag-link-count"> (41)</span></a>
+<a href="https://blog.gtwang.org/category/game/" class="tag-cloud-link tag-link-79 tag-link-position-28" style="font-size: 12.174311926606pt;" aria-label="遊戲 (8 個項目)">遊戲<span class="tag-link-count"> (8)</span></a>
+<a href="https://blog.gtwang.org/category/unboxing/" class="tag-cloud-link tag-link-12 tag-link-position-29" style="font-size: 19.174311926606pt;" aria-label="開箱 (109 個項目)">開箱<span class="tag-link-count"> (109)</span></a>
+<a href="https://blog.gtwang.org/category/cloud/" class="tag-cloud-link tag-link-925 tag-link-position-30" style="font-size: 10.56880733945pt;" aria-label="雲端 (4 個項目)">雲端<span class="tag-link-count"> (4)</span></a></div>
+</div><div class="clear"></div></div><div class="widget widget_links"><div class="widget-content"><h3 class="widget-title">宗教</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://jeise.pixnet.net/blog" title="佛教文章分享">如何戒邪淫、遠離婚外情</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLAeF261RAYdwmS8b9iavWJJPubpn9U1_a">戒淫寶典：《壽康寶鑑》白話有聲書</a></li>
+
+	</ul>
+</div><div class="clear"></div></div>
+<div class="widget widget_links"><div class="widget-content"><h3 class="widget-title">公益</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.worldvision.org.tw/">台灣世界展望會</a></li>
+<li><a href="http://www.17885.com.tw/">智邦公益網</a></li>
+<li><a href="https://www.igiving.org.tw/">igiving 公益網</a></li>
+<li><a href="http://www.rice4u.org.tw/">社團法人新竹縣愛心物資集發協會</a></li>
+<li><a href="http://www.ccf.org.tw/">家扶基金會</a></li>
+
+	</ul>
+</div><div class="clear"></div></div>
+<div class="widget_text widget widget_custom_html"><div class="widget_text widget-content"><div class="textwidget custom-html-widget"><!-- GTWang Blog 側邊下方回應式 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="6698819038" data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div><div class="clear"></div></div>
+</div>	
+	<div class="clear"></div>
+	
+</div> <!-- /wrapper -->
+		
+<div class="credits">
+
+<!--<div class="gtwang-footer">-->
+<!-- Begin: DFP -->
+<!-- /54009424/gtwang-bottom-2 -->
+<!--<div id='div-gpt-ad-1432250578318-6'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1432250578318-6'); });
+</script>
+</div>-->
+<!-- End: DFP -->
+<!--</div>--> <!-- /gtwang-footer -->  
+
+<!-- Begin: AdSense -->
+<style>
+.gtwang-bottom-hbar { width: 320px; height: 100px; margin: auto; }
+@media(min-width: 500px) { .gtwang-bottom-hbar { width: 468px; height: 60px; } }
+@media(min-width: 800px) { .gtwang-bottom-hbar { width: 728px; height: 90px; } }
+@media(min-width: 1000px) { .gtwang-bottom-hbar { width: 970px; height: 250px; } }
+</style>
+<div style="text-align: center; width: 100%; background-color: #33363B;">
+<!-- GTWang Blog 置底大橫幅 -->
+<ins class="adsbygoogle gtwang-bottom-hbar" style="display:block" data-ad-client="ca-pub-7794009487786811" data-ad-slot="2899883335"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<!-- End: AdSense -->  
+
+	<div class="section-inner">
+		
+		<!--<a href="#" class="to-the-top" title="To the top"><div class="fa fw fa-arrow-up"></div></a>-->
+		
+		<p class="copyright">© 2019 <a href="https://blog.gtwang.org/" title="G. T. Wang — 分享 GNU/Linux 與 Open Source 技術、教學文件、程式設計技巧、統計研究與生活點滴記錄" rel="home">G. T. Wang</a></p>
+		
+	</div>
+
+</div> <!-- /credits -->
+
+<!-- Begin: Smooth Jazz Ad -->
+<!--
+<a href="http://jazz.gtwang.org/" onClick="ga('send', 'event', 'Ads', 'Click', 'Footer Ad');"><div id="smooth-jazz-ad" style="
+    height: 300px;
+    background: url(https://blog.gtwang.org/wp-content/uploads/2016/08/smooth-jazz-ad-fire-background-1.jpg) no-repeat center center fixed;
+    background-size: cover;
+"><h1 style="
+    color: #fff;
+    font-size: 4rem;
+    font-family: 'Pacifico', cursive;
+    font-weight: normal;
+    padding: 50px;
+    line-height: 1.5;
+">Smooth Jazz<sup id="beta-tag" style="
+    font-size: 20px;
+    background-color: #A00;
+    font-family: Agenda-Light, Agenda Light, Agenda, Arial Narrow, sans-serif;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-left: 15px;
+  ">beta</sup></h1></div></a>
+-->
+<!-- End: Smooth Jazz Ad -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var eafl_public = {"home_url":"https:\/\/blog.gtwang.org\/","ajax_url":"https:\/\/blog.gtwang.org\/wp-admin\/admin-ajax.php","nonce":"aaafbd4888"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/public.js.下載"></script>
+<script type="text/javascript" defer="defer" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/flexslider.min.js.下載"></script>
+<script type="text/javascript" defer="defer" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/doubletaptogo.js.下載"></script>
+<script type="text/javascript" defer="defer" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/global.min.js.下載"></script>
+<script type="text/javascript" defer="defer" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/comment-reply.min.js.下載"></script>
+<script type="text/javascript" async="async" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/wp-embed.min.js.下載"></script>
+	<script type="text/javascript">
+
+        jQuery(document).ready(function ($) {
+
+            var recaptcha_ok = false;
+            var the_recaptcha_widget = $("#cerber-recaptcha");
+            var is_recaptcha_visible = ($(the_recaptcha_widget).data('size') !== 'invisible');
+
+            var the_form = $(the_recaptcha_widget).closest("form");
+            var the_button = $(the_form).find('input[type="submit"]');
+            if (!the_button.length) {
+                the_button = $(the_form).find(':button');
+            }
+
+            // visible
+            if (the_button.length && is_recaptcha_visible) {
+                the_button.prop("disabled", true);
+                the_button.css("opacity", 0.5);
+            }
+
+            window.form_button_enabler = function () {
+                if (!the_button.length) return;
+                the_button.prop("disabled", false);
+                the_button.css( "opacity", 1 );
+            };
+
+            // invisible
+            if (!is_recaptcha_visible) {
+                $(the_button).click(function (event) {
+                    if (recaptcha_ok) return;
+                    event.preventDefault();
+                    grecaptcha.execute();
+                });
+            }
+
+            window.now_submit_the_form = function () {
+                recaptcha_ok = true;
+                $(the_button).click(); // this is only way to submit a form that contains "submit" inputs
+            };
+        });
+	</script>
+	<script src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/api.js.下載" async="" defer=""></script>
+	
+<!-- Begin: Facebook -->
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div><div><iframe name="fb_xdm_frame_https" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/xd_arbiter.html" style="border: none;"></iframe></div></div></div>
+<!-- End: Facebook -->
+<!-- Begin: Defer JavaScript -->
+<script type="text/javascript">
+function downloadJSAtOnload() {
+var element = document.createElement("script");
+element.src = "https://blog.gtwang.org/wp-content/themes/rowling/js/defer.js";
+document.body.appendChild(element);
+}
+if (window.addEventListener)
+window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+<!-- End: Defer JavaScript -->
+
+
+<!-- *´¨)
+     ¸.•´¸.•*´¨) ¸.•*¨)
+     (¸.•´ (¸.•` ¤ Comet Cache is Fully Functional ¤ ´¨) -->
+
+<!-- Cache File Version Salt:       n/a -->
+
+<!-- Cache File URL:                https://blog.gtwang.org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system/ -->
+<!-- Cache File Path:               /cache/comet-cache/cache/https/blog-gtwang-org/programming/keras-resnet-50-pre-trained-model-build-dogs-cats-image-classification-system.html -->
+
+<!-- Cache File Generated Via:      HTTP request -->
+<!-- Cache File Generated On:       Aug 18th, 2019 @ 5:00 pm UTC -->
+<!-- Cache File Generated In:       0.60352 seconds -->
+
+<!-- Cache File Expires On:         Aug 25th, 2019 @ 5:00 pm UTC -->
+<!-- Cache File Auto-Rebuild On:    Aug 25th, 2019 @ 5:00 pm UTC -->
+
+<!-- Loaded via Cache On:    Aug 20th, 2019 @ 1:06 pm UTC -->
+<!-- Loaded via Cache In:    0.01762 seconds --><table cellspacing="0" cellpadding="0" class="gstl_50 gssb_c" style="width: 231px; display: none; top: 474px; position: absolute; left: 1248px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha 验证" src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/bframe.html" name="c-gjgdcdxzvuzl" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div><script src="./Keras 以 ResNet-50 預訓練模型建立狗與貓辨識程式 - G. T. Wang_files/defer.js.下載"></script></body></html>

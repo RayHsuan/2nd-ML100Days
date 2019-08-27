@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<!-- saved from url=(0024)https://keras.io/losses/ -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="http://keras.io/losses/">
+  <link rel="shortcut icon" href="https://keras.io/img/favicon.ico">
+  <title>Losses - Keras Documentation</title>
+  <link href="./Losses - Keras Documentation_files/css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="./Losses - Keras Documentation_files/theme.css" type="text/css">
+  <link rel="stylesheet" href="./Losses - Keras Documentation_files/theme_extra.css" type="text/css">
+  <link rel="stylesheet" href="./Losses - Keras Documentation_files/github.min.css">
+  
+  <script async="" src="./Losses - Keras Documentation_files/analytics.js.下載"></script><script>
+    // Current page data
+    var mkdocs_page_name = "Losses";
+    var mkdocs_page_input_path = "losses.md";
+    var mkdocs_page_url = "/losses/";
+  </script>
+  
+  <script src="./Losses - Keras Documentation_files/jquery-2.1.1.min.js.下載" defer=""></script>
+  <script src="./Losses - Keras Documentation_files/modernizr-2.8.3.min.js.下載" defer=""></script>
+  <script src="./Losses - Keras Documentation_files/highlight.min.js.下載"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61785484-1', 'keras.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <a href="https://keras.io/losses/">
+        <div class="keras-logo">
+          <img src="./Losses - Keras Documentation_files/keras-logo-small.jpg" class="keras-logo-img">
+          Keras Documentation
+        </div>
+      </a>
+
+      <div class="wy-side-nav-search">
+        <div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://keras.io/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here">
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/why-use-keras/">Why use Keras</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/getting-started/sequential-model-guide/">Guide to the Sequential model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/getting-started/functional-api-guide/">Guide to the Functional API</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/getting-started/faq/">FAQ</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Models</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/models/about-keras-models/">About Keras models</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/models/sequential/">Sequential</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/models/model/">Model (functional API)</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Layers</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/about-keras-layers/">About Keras layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/core/">Core Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/convolutional/">Convolutional Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/pooling/">Pooling Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/local/">Locally-connected Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/recurrent/">Recurrent Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/embeddings/">Embedding Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/merge/">Merge Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/advanced-activations/">Advanced Activations Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/normalization/">Normalization Layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/noise/">Noise layers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/wrappers/">Layer wrappers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/layers/writing-your-own-keras-layers/">Writing your own Keras layers</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Preprocessing</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/preprocessing/sequence/">Sequence Preprocessing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/preprocessing/text/">Text Preprocessing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/preprocessing/image/">Image Preprocessing</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="https://keras.io/losses/"><span class="toctree-expand"></span>Losses</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/metrics/">Metrics</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/optimizers/">Optimizers</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/activations/">Activations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/callbacks/">Callbacks</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/datasets/">Datasets</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/applications/">Applications</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/backend/">Backend</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/initializers/">Initializers</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/regularizers/">Regularizers</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/constraints/">Constraints</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/visualization/">Visualization</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/scikit-learn-api/">Scikit-learn API</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/utils/">Utils</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/contributing/">Contributing</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Examples</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/addition_rnn/">Addition RNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/babi_rnn/">Baby RNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/babi_memnn/">Baby MemNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_cnn/">CIFAR-10 CNN</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_cnn_capsule/">CIFAR-10 CNN-Capsule</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_cnn_tfaugment2d/">CIFAR-10 CNN with augmentation (TF)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/cifar10_resnet/">CIFAR-10 ResNet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="https://keras.io/examples/conv_filter_visualization/">Convolution filter visualization</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="https://keras.io/">Keras Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="https://keras.io/">Docs</a> »</li>
+    
+      
+    
+    <li>Losses</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/keras-team/keras/tree/master/docs" class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="usage-of-loss-functions">Usage of loss functions</h2>
+<p>A loss function (or objective function, or optimization score function) is one of the two parameters required to compile a model:</p>
+<pre><code class="python hljs">model.compile(loss=<span class="hljs-string">'mean_squared_error'</span>, optimizer=<span class="hljs-string">'sgd'</span>)
+</code></pre>
+
+<pre><code class="python hljs"><span class="hljs-keyword">from</span> keras <span class="hljs-keyword">import</span> losses
+
+model.compile(loss=losses.mean_squared_error, optimizer=<span class="hljs-string">'sgd'</span>)
+</code></pre>
+
+<p>You can either pass the name of an existing loss function, or pass a TensorFlow/Theano symbolic function that returns a scalar for each data-point and takes the following two arguments:</p>
+<ul>
+<li><strong>y_true</strong>: True labels. TensorFlow/Theano tensor.</li>
+<li><strong>y_pred</strong>: Predictions. TensorFlow/Theano tensor of the same shape as y_true.</li>
+</ul>
+<p>The actual optimized objective is the mean of the output array across all datapoints.</p>
+<p>For a few examples of such functions, check out the <a href="https://github.com/keras-team/keras/blob/master/keras/losses.py">losses source</a>.</p>
+<h2 id="available-loss-functions">Available loss functions</h2>
+<h3 id="mean_squared_error">mean_squared_error</h3>
+<pre><code class="python hljs">keras.losses.mean_squared_error(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="mean_absolute_error">mean_absolute_error</h3>
+<pre><code class="python hljs">keras.losses.mean_absolute_error(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="mean_absolute_percentage_error">mean_absolute_percentage_error</h3>
+<pre><code class="python hljs">keras.losses.mean_absolute_percentage_error(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="mean_squared_logarithmic_error">mean_squared_logarithmic_error</h3>
+<pre><code class="python hljs">keras.losses.mean_squared_logarithmic_error(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="squared_hinge">squared_hinge</h3>
+<pre><code class="python hljs">keras.losses.squared_hinge(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="hinge">hinge</h3>
+<pre><code class="python hljs">keras.losses.hinge(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="categorical_hinge">categorical_hinge</h3>
+<pre><code class="python hljs">keras.losses.categorical_hinge(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="logcosh">logcosh</h3>
+<pre><code class="python hljs">keras.losses.logcosh(y_true, y_pred)
+</code></pre>
+
+<p>Logarithm of the hyperbolic cosine of the prediction error.</p>
+<p><code>log(cosh(x))</code> is approximately equal to <code>(x ** 2) / 2</code> for small <code>x</code> and
+to <code>abs(x) - log(2)</code> for large <code>x</code>. This means that 'logcosh' works mostly
+like the mean squared error, but will not be so strongly affected by the
+occasional wildly incorrect prediction.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>y_true</strong>: tensor of true targets.</li>
+<li><strong>y_pred</strong>: tensor of predicted targets.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>Tensor with one scalar loss entry per sample.</p>
+<hr>
+<h3 id="categorical_crossentropy">categorical_crossentropy</h3>
+<pre><code class="python hljs">keras.losses.categorical_crossentropy(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="sparse_categorical_crossentropy">sparse_categorical_crossentropy</h3>
+<pre><code class="python hljs">keras.losses.sparse_categorical_crossentropy(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="binary_crossentropy">binary_crossentropy</h3>
+<pre><code class="python hljs">keras.losses.binary_crossentropy(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="kullback_leibler_divergence">kullback_leibler_divergence</h3>
+<pre><code class="python hljs">keras.losses.kullback_leibler_divergence(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="poisson">poisson</h3>
+<pre><code class="python hljs">keras.losses.poisson(y_true, y_pred)
+</code></pre>
+
+<hr>
+<h3 id="cosine_proximity">cosine_proximity</h3>
+<pre><code class="python hljs">keras.losses.cosine_proximity(y_true, y_pred)
+</code></pre>
+
+<hr>
+<p><strong>Note</strong>: when using the <code>categorical_crossentropy</code> loss, your targets should be in categorical format (e.g. if you have 10 classes, the target for each sample should be a 10-dimensional vector that is all-zeros except for a 1 at the index corresponding to the class of the sample). In order to convert <em>integer targets</em> into <em>categorical targets</em>, you can use the Keras utility <code>to_categorical</code>:</p>
+<pre><code class="python hljs"><span class="hljs-keyword">from</span> keras.utils <span class="hljs-keyword">import</span> to_categorical
+
+categorical_labels = to_categorical(int_labels, num_classes=<span class="hljs-keyword">None</span>)
+</code></pre>
+
+<p>When using the <code>sparse_categorical_crossentropy</code> loss, your targets should be <em>integer targets</em>.
+If you have categorical targets, you should use <code>categorical_crossentropy</code>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="https://keras.io/metrics/" class="btn btn-neutral float-right" title="Metrics">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="https://keras.io/preprocessing/image/" class="btn btn-neutral" title="Image Preprocessing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="http://github.com/keras-team/keras/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="https://keras.io/preprocessing/image/" style="color: #fcfcfc;">« Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="https://keras.io/metrics/" style="color: #fcfcfc">Next »</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="./Losses - Keras Documentation_files/theme.js.下載" defer=""></script>
+      <script src="./Losses - Keras Documentation_files/main.js.下載" defer=""></script>
+    <script type="text/javascript" defer="">
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+
+
+</body></html>
